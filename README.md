@@ -1,31 +1,16 @@
-# guias-de-rails-espanol
+# Guias de Rails en Español \(Rails 5.0\)
 
-\*\*linea de prueba
+Estas son las guías Rails 5.0. Estas guías están diseñadas para que tengas una productividad inmediata con Rails, y para ayudar a entender como encajan las piezas. 
 
-esta es la segunda linea de prueba, **estoy editando desde gitbook **a continuacion una linea de codigo
+Estas Guias son la traducción de la documentación oficial de Rails, y no tiene ninguna interpretación, modificación o explicación adicional y subjetiva realizada por el traductor.
 
-´´´\# This may consume too much memory if the table is big.
+### Porque realizo este trabajo?
 
-User.all.each do \|user\| NewsMailer.weekly\(user\).deliver\_now end
+Mi nombre es Daniel Morales, este es mi perfil de [GitHub](https://github.com/danielmoralesp), soy apasionado de Rails, y quice tener esta documentación traducida para mi, y de paso la publico para que todos los Hispanohablantes puedan aprovecharse de este material. 
 
-´´´_\*_
-
-`<%= puts 34 %>` esta es la linea de codigo uno
-
-`# This may consume too much memory if the table is big.  
-User.all.each do |user|  
-  NewsMailer.weekly(user).deliver_now  
-end`
+Si deseas hacer alguna corrección o aporte, puedes hacer un fork al [repo principal](https://github.com/danielmoralesp/guias-de-rails-espanol) y solicitar un pull-request, apreciaré dicha ayuda!
 
 
-
-
-
-```
- **[info] For info**
-
- Use this for infomation messages.
-```
 
 
 
