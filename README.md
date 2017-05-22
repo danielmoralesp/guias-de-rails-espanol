@@ -6,9 +6,15 @@
 
 esta es la segunda linea de prueba, **estoy editando desde gitbook **a continuacion una linea de codigo
 
-´´´\# This may consume too much memory if the table is big. 
+´´´\# This may consume too much memory if the table is big.
 
 User.all.each do \|user\| NewsMailer.weekly\(user\).deliver\_now end
 
-´´
+´´´***
 
+`<%= puts 34 %>` esta es la linea de codigo uno
+
+``` # This may consume too much memory if the table is big.
+User.all.each do |user|
+  NewsMailer.weekly(user).deliver_now
+end ```
