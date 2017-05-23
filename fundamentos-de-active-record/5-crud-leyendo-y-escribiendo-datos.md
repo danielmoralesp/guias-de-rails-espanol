@@ -48,7 +48,7 @@ users = User.where(name: 'David', occupation: 'Code Artist').order('created_at D
 
 Puedes aprender más acerca de consultar un modelo Active Record en la guía Interface de Consultas Active Record.
 
-### 5.3 Update 
+### 5.3 Update
 
 Una vez que un objeto Active Record ha sido recuperado, sus atributos pueden ser modificados y volver a ser guardados en la base de datos.
 
@@ -69,7 +69,7 @@ Esta es la forma más poderosa de actualizar varios atributos a la vez. Si, por 
 
 `User.update_all "max_login_attempts = 3, must_change_password = 'true'"`
 
-### 5.4 Delete 
+### 5.4 Delete
 
 Asimismo, una vez que se recupera el objeto Active Record también puede ser destruído, lo cual lo borrará de la base de datos.
 
