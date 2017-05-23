@@ -14,4 +14,5 @@
 * [Migraciones en Active Record](migraciones-en-active-record.md)
   * [1- Resumen de las Migraciones](migraciones-en-active-record/1-resumen-de-las-migraciones.md)
   * [2- Creando una Migración](migraciones-en-active-record/2-creando-una-migracion.md)
+  * [3- Escribiendo una Migración](migraciones-en-active-record/3-escribiendo-una-migracion.md)
 
