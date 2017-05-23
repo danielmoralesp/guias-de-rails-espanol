@@ -11,4 +11,7 @@
   * [6- Validaciones](fundamentos-de-active-record/6-validaciones.md)
   * [7- Callbacks](fundamentos-de-active-record/7-callbacks.md)
   * [8- Migraciones](fundamentos-de-active-record/8-migraciones.md)
+* [Migraciones en Active Record](migraciones-en-active-record.md)
+  * [1- Resumen de las Migraciones](migraciones-en-active-record/1-resumen-de-las-migraciones.md)
+  * [2- Creando una Migración](migraciones-en-active-record/2-creando-una-migracion.md)
 
