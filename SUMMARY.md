@@ -2,7 +2,7 @@
 
 * [Introduction](README.md)
 * [Empezar](capitulo-uno.md)
-* [Fundamentos de Active Record](fundamentos-de-active-record.md)
+* [I- Fundamentos de Active Record](fundamentos-de-active-record.md)
   * [1- ¿Que es Active Record?](fundamentos-de-active-record/1-que-es-active-record.md)
   * [2- Convención sobre Configuración en Active Record](fundamentos-de-active-record/convencion-sobre-configuracion-en-active-record.md)
   * [3- Creando Modelos Active Record](fundamentos-de-active-record/3-creando-modelos-active-record.md)
@@ -11,8 +11,10 @@
   * [6- Validaciones](fundamentos-de-active-record/6-validaciones.md)
   * [7- Callbacks](fundamentos-de-active-record/7-callbacks.md)
   * [8- Migraciones](fundamentos-de-active-record/8-migraciones.md)
-* [Migraciones en Active Record](migraciones-en-active-record.md)
+* [II- Migraciones en Active Record](migraciones-en-active-record.md)
   * [1- Resumen de las Migraciones](migraciones-en-active-record/1-resumen-de-las-migraciones.md)
   * [2- Creando una Migración](migraciones-en-active-record/2-creando-una-migracion.md)
   * [3- Escribiendo una Migración](migraciones-en-active-record/3-escribiendo-una-migracion.md)
+  * [4- Ejecutando Migraciones](migraciones-en-active-record/4-ejecutando-migraciones.md)
+  * [5- Cambiando las Migraciones Existentes](migraciones-en-active-record/5-cambiando-las-migraciones-existentes.md)
 
