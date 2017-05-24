@@ -23,4 +23,10 @@
 * [III- Validaciones en Active Record](iii-validaciones-en-active-record.md)
   * [1- Resumen de las Validaciones](iii-validaciones-en-active-record/1-resumen-de-las-validaciones.md)
   * [2- Helpers de Validación](iii-validaciones-en-active-record/2-helpers-de-validacion.md)
+  * [3- Opciones Comunes de Validación](iii-validaciones-en-active-record/3-opciones-comunes-de-validacion.md)
+  * [4- Validaciones Estrictas](iii-validaciones-en-active-record/4-validaciones-estrictas.md)
+  * [5- Validaciones Condicionales](iii-validaciones-en-active-record/5-validaciones-condicionales.md)
+  * [6- Realización de validaciones personalizadas](iii-validaciones-en-active-record/6-realizacion-de-validaciones-personalizadas.md)
+  * [7- Trabajar con errores de validación](iii-validaciones-en-active-record/7-trabajar-con-errores-de-validacion.md)
+  * [8- Visualización de errores de validación en vistas](iii-validaciones-en-active-record/8-visualizacion-de-errores-de-validacion-en-vistas.md)
 
