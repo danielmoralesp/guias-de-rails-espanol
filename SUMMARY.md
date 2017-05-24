@@ -29,4 +29,11 @@
   * [6- Realización de validaciones personalizadas](iii-validaciones-en-active-record/6-realizacion-de-validaciones-personalizadas.md)
   * [7- Trabajar con errores de validación](iii-validaciones-en-active-record/7-trabajar-con-errores-de-validacion.md)
   * [8- Visualización de errores de validación en vistas](iii-validaciones-en-active-record/8-visualizacion-de-errores-de-validacion-en-vistas.md)
+* [IV- Callbacks en Active Record](iv-callbacks-en-active-record.md)
+  * [1- El Ciclo de Vida del Objeto](iv-callbacks-en-active-record/1-el-ciclo-de-vida-del-objeto.md)
+  * [2- Un vistazo a los Callbacks](iv-callbacks-en-active-record/2-un-vistazo-a-los-callbacks.md)
+  * [3- Callbacks Disponibles](iv-callbacks-en-active-record/3-callbacks-disponibles.md)
+  * [4- Ejecutando Callbacks](iv-callbacks-en-active-record/4-ejecutando-callbacks.md)
+  * [5- Saltando Callbacks](iv-callbacks-en-active-record/5-saltando-callbacks.md)
+  * [6- Parando la Ejecución](iv-callbacks-en-active-record/6-parando-la-ejecucion.md)
 
