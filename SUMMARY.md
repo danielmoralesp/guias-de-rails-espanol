@@ -36,4 +36,8 @@
   * [4- Ejecutando Callbacks](iv-callbacks-en-active-record/4-ejecutando-callbacks.md)
   * [5- Saltando Callbacks](iv-callbacks-en-active-record/5-saltando-callbacks.md)
   * [6- Parando la Ejecución](iv-callbacks-en-active-record/6-parando-la-ejecucion.md)
+  * [7- Callbacks Relacionados](iv-callbacks-en-active-record/7-callbacks-relacionados.md)
+  * [8- Callbacks Condicionales](iv-callbacks-en-active-record/8-callbacks-condicionales.md)
+  * [9- Clases Callbacks](iv-callbacks-en-active-record/9-clases-calbacks.md)
+  * [10- Callbacks de Transacciones](iv-callbacks-en-active-record/10-callbacks-de-transacciones.md)
 
