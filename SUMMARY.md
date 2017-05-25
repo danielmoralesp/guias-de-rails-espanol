@@ -40,4 +40,8 @@
   * [8- Callbacks Condicionales](iv-callbacks-en-active-record/8-callbacks-condicionales.md)
   * [9- Clases Callbacks](iv-callbacks-en-active-record/9-clases-calbacks.md)
   * [10- Callbacks de Transacciones](iv-callbacks-en-active-record/10-callbacks-de-transacciones.md)
+* [V- Asociaciones en Active Record](v-asociaciones-en-active-record.md)
+  * [1- ¿Por qué asociaciones?](v-asociaciones-en-active-record/1-por-que-asociaciones.md)
+  * [2- Tipos de Asociaciones](v-asociaciones-en-active-record/2-tipos-de-asociaciones.md)
+  * [3- Consejos, Trucos y Advertencias](v-asociaciones-en-active-record/3-consejos-trucos-y-advertencias.md)
 
