@@ -48,4 +48,5 @@
     * [4.1 Referencia de la asociación belongs\_to ](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/41-referencia-de-la-asociacion-belongsto.md)
     * [4.2 Referencia de la asociación has\_one](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/42-referencia-de-la-asociacion-hasone.md)
     * [4.3 Referencia de la asociación has\_many](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/43-referencia-de-la-asociacion-hasmany.md)
+    * [4.4 Referencia de la asociación has\_and\_belongs\_to\_many](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/44-referencia-de-la-asociacion-hasand-belongs-to-many.md)
 
