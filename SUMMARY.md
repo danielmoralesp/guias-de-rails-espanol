@@ -49,4 +49,7 @@
     * [4.2 Referencia de la asociación has\_one](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/42-referencia-de-la-asociacion-hasone.md)
     * [4.3 Referencia de la asociación has\_many](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/43-referencia-de-la-asociacion-hasmany.md)
     * [4.4 Referencia de la asociación has\_and\_belongs\_to\_many](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/44-referencia-de-la-asociacion-hasand-belongs-to-many.md)
+    * [4.5 Callbacks de la asociación](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/45-callbacks-de-la-asociacion.md)
+    * [4.6 Extensiones de la asociación](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/46-extensiones-de-la-asociacion.md)
+  * [5- Herencia de tabla única](v-asociaciones-en-active-record/5-herencia-de-tabla-unica.md)
 
