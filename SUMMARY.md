@@ -44,4 +44,7 @@
   * [1- ¿Por qué asociaciones?](v-asociaciones-en-active-record/1-por-que-asociaciones.md)
   * [2- Tipos de Asociaciones](v-asociaciones-en-active-record/2-tipos-de-asociaciones.md)
   * [3- Consejos, Trucos y Advertencias](v-asociaciones-en-active-record/3-consejos-trucos-y-advertencias.md)
+  * [4- Referencia detallada de la asociación](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion.md)
+    * [4.1 Referencia de la asociación belongs\_to ](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/41-referencia-de-la-asociacion-belongsto.md)
+    * [4.2 Referencia de la asociación has\_one](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/42-referencia-de-la-asociacion-hasone.md)
 
