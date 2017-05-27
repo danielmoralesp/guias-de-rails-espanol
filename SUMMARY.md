@@ -52,4 +52,6 @@
     * [4.5 Callbacks de la asociación](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/45-callbacks-de-la-asociacion.md)
     * [4.6 Extensiones de la asociación](v-asociaciones-en-active-record/4-referencia-detallada-de-la-asociacion/46-extensiones-de-la-asociacion.md)
   * [5- Herencia de tabla única](v-asociaciones-en-active-record/5-herencia-de-tabla-unica.md)
+* [VI- Interfaz de Consulta de Active Record](vi-interfaz-de-consulta-de-active-record.md)
+  * [1- Recuperación de objetos desde la base de datos](vi-interfaz-de-consulta-de-active-record/1-recuperacion-de-objetos-desde-la-base-de-datos.md)
 
