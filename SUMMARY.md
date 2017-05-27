@@ -54,5 +54,5 @@
   * [5- Herencia de tabla única](v-asociaciones-en-active-record/5-herencia-de-tabla-unica.md)
 * [VI- Interfaz de Consulta de Active Record](vi-interfaz-de-consulta-de-active-record.md)
   * [1- Recuperación de objetos desde la base de datos](vi-interfaz-de-consulta-de-active-record/1-recuperacion-de-objetos-desde-la-base-de-datos.md)
-  * 2- Condiciones
+  * [2- Condiciones](vi-interfaz-de-consulta-de-active-record/2-condiciones.md)
 
