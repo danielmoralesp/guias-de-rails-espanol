@@ -62,4 +62,6 @@
   * [7- Having](vi-interfaz-de-consulta-de-active-record/7-having.md)
   * [8- Sobre-escribiendo condiciones](vi-interfaz-de-consulta-de-active-record/8-sobre-escribiendo-condiciones.md)
   * [9- Relación NULL](vi-interfaz-de-consulta-de-active-record/9-relacion-null.md)
+  * [10- Objetos de sólo lectura](vi-interfaz-de-consulta-de-active-record/10-objetos-de-solo-lectura.md)
+  * [11- Bloqueo de registros para actualización](vi-interfaz-de-consulta-de-active-record/11-bloqueo-de-registros-para-actualizacion.md)
 
