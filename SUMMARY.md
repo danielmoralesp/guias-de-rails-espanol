@@ -58,4 +58,8 @@
   * [3- Ordenando](vi-interfaz-de-consulta-de-active-record/3-ordenando.md)
   * [4- Seleccionando campos específicos](vi-interfaz-de-consulta-de-active-record/4-seleccionando-campos-especificos.md)
   * [5- Límite y desplazamiento](vi-interfaz-de-consulta-de-active-record/5-limite-y-desplazamiento.md)
+  * [6- Grupos](vi-interfaz-de-consulta-de-active-record/6-grupos.md)
+  * [7- Having](vi-interfaz-de-consulta-de-active-record/7-having.md)
+  * [8- Sobre-escribiendo condiciones](vi-interfaz-de-consulta-de-active-record/8-sobre-escribiendo-condiciones.md)
+  * [9- Relación NULL](vi-interfaz-de-consulta-de-active-record/9-relacion-null.md)
 
