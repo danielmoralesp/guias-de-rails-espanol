@@ -55,4 +55,7 @@
 * [VI- Interfaz de Consulta de Active Record](vi-interfaz-de-consulta-de-active-record.md)
   * [1- Recuperación de objetos desde la base de datos](vi-interfaz-de-consulta-de-active-record/1-recuperacion-de-objetos-desde-la-base-de-datos.md)
   * [2- Condiciones](vi-interfaz-de-consulta-de-active-record/2-condiciones.md)
+  * [3- Ordenando](vi-interfaz-de-consulta-de-active-record/3-ordenando.md)
+  * [4- Seleccionando campos específicos](vi-interfaz-de-consulta-de-active-record/4-seleccionando-campos-especificos.md)
+  * [5- Límite y desplazamiento](vi-interfaz-de-consulta-de-active-record/5-limite-y-desplazamiento.md)
 
