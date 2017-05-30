@@ -67,4 +67,6 @@
   * [12- Unir tablas](vi-interfaz-de-consulta-de-active-record/12-unir-tablas.md)
   * [13- Asociaciones de carga impaciente](vi-interfaz-de-consulta-de-active-record/13-asociaciones-de-carga-impaciente.md)
   * [14- Ambitos](vi-interfaz-de-consulta-de-active-record/14-ambitos.md)
+  * [15-  Buscadores dinámicos](vi-interfaz-de-consulta-de-active-record/15-buscadores-din-amicos.md)
+  * [16- Enums](vi-interfaz-de-consulta-de-active-record/16-enums.md)
 
