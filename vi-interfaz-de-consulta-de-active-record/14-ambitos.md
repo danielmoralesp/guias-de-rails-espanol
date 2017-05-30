@@ -42,8 +42,6 @@ category = Category.first
 category.articles.published # => [Artículos publicados pertenecientes a esta categoría]
 ```
 
-
-
 ### 14.1 Pasando argumentos
 
 Su `scope` puede tomar argumentos:
@@ -76,8 +74,6 @@ El uso de un método de clase es la forma preferida de aceptar argumentos para �
 category.articles.created_before(time)
 ```
 
-
-
 ### 14.2 Uso de condicionales
 
 Su `scope` puede utilizar condicionales:
@@ -99,8 +95,6 @@ end
 ```
 
 Sin embargo, hay una advertencia importante: Un `scope` siempre devolverá un objeto `ActiveRecord::Relation`, incluso si el condicional se evalúa como `false`, mientras que un método de clase devolverá `nil`. Esto puede causar `NoMethodError` al encadenar métodos de clase con condicionales, si cualquiera de los condicionales devuelve `false`.
-
-
 
 ### 14.3 Aplicación de un ámbito predeterminado
 
@@ -130,18 +124,14 @@ end
 
 > El default\_scope también se aplica durante la creación/construcción de un registro. No se aplica durante la actualización de un registro. P.ej.:
 
-
-
 ```ruby
 class Client < ApplicationRecord
   default_scope { where(active: true) }
 end
- 
+
 Client.new          # => #<Client id: nil, active: true>
 Client.unscoped.new # => #<Client id: nil, active: nil>
 ```
-
-
 
 ### 14.4 Fusión de los ámbitos
 
@@ -152,12 +142,73 @@ class User < ApplicationRecord
   scope :active, -> { where state: 'active' }
   scope :inactive, -> { where state: 'inactive' }
 end
- 
+
 User.active.inactive
 # SELECT "users".* FROM "users" WHERE "users"."state" = 'active' AND "users"."state" = 'inactive'
 ```
 
+Podemos mezclar y combinar el `scope` y las condiciones `where` y el sql final tendrá todas las condiciones unidas con `AND`.
 
+```ruby
+User.active.where(state: 'finished')
+# SELECT "users".* FROM "users" WHERE "users"."state" = 'active' AND "users"."state" = 'finished'
+```
+
+Si queremos que la última cláusula `where` gane entonces se puede usar `Relation#merge`
+
+```ruby
+User.active.merge(User.inactive)
+# SELECT "users".* FROM "users" WHERE "users"."state" = 'inactive'
+```
+
+Una advertencia importante es que `default_scope` se agregará en el `scope` y en las condiciones `where`.
+
+```ruby
+class User < ApplicationRecord
+  default_scope { where state: 'pending' }
+  scope :active, -> { where state: 'active' }
+  scope :inactive, -> { where state: 'inactive' }
+end
+ 
+User.all
+# SELECT "users".* FROM "users" WHERE "users"."state" = 'pending'
+ 
+User.active
+# SELECT "users".* FROM "users" WHERE "users"."state" = 'pending' AND "users"."state" = 'active'
+ 
+User.where(state: 'inactive')
+# SELECT "users".* FROM "users" WHERE "users"."state" = 'pending' AND "users"."state" = 'inactive'
+```
+
+Como se puede ver arriba, el `default_scope` se está fusionando tanto en el `scope` como en las condiciones.
+
+
+
+### 14.5 Eliminación de todo el ámbito
+
+Si queremos eliminar el `scope` por cualquier razón, podemos usar el método `unscoped`. Esto es especialmente útil si se especifica un `default_scope` en el modelo y no se debe aplicar para esta consulta en particular.
+
+```ruby
+Client.unscoped.load
+```
+
+Este método elimina todo el ámbito y realizará una consulta normal en la tabla.
+
+```ruby
+Client.unscoped.all
+# SELECT "clients".* FROM "clients"
+ 
+Client.where(published: false).unscoped.all
+# SELECT "clients".* FROM "clients"
+```
+
+`unscoped` también puede aceptar un bloque.
+
+```ruby
+Client.unscoped {
+  Client.created_before(Time.zone.now)
+}
+```
 
 
 
