@@ -65,5 +65,5 @@
   * [10- Objetos de sólo lectura](vi-interfaz-de-consulta-de-active-record/10-objetos-de-solo-lectura.md)
   * [11- Bloqueo de registros para actualización](vi-interfaz-de-consulta-de-active-record/11-bloqueo-de-registros-para-actualizacion.md)
   * [12- Unir tablas](vi-interfaz-de-consulta-de-active-record/12-unir-tablas.md)
-  * 13- Asociaciones de carga impaciente
+  * [13- Asociaciones de carga impaciente](vi-interfaz-de-consulta-de-active-record/13-asociaciones-de-carga-impaciente.md)
 
