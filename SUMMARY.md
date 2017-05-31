@@ -69,4 +69,6 @@
   * [14- Ambitos](vi-interfaz-de-consulta-de-active-record/14-ambitos.md)
   * [15-  Buscadores dinámicos](vi-interfaz-de-consulta-de-active-record/15-buscadores-din-amicos.md)
   * [16- Enums](vi-interfaz-de-consulta-de-active-record/16-enums.md)
+  * [17- Comprensión del método Chaining](vi-interfaz-de-consulta-de-active-record/17-comprension-del-metodo-chaining.md)
+  * [18- Buscar o construir un nuevo objeto](vi-interfaz-de-consulta-de-active-record/18-buscar-o-construir-un-nuevo-objeto.md)
 
