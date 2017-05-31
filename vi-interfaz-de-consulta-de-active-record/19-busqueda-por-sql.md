@@ -15,8 +15,6 @@ Client.find_by_sql("SELECT * FROM clients
 
 `find_by_sql` proporciona una forma sencilla de realizar llamadas personalizadas a la base de datos y recuperar objetos instanciados.
 
-
-
 ### 19.1 select\_all
 
 `find_by_sql` tiene un pariente cercano llamado `connection#select_all`. `select_all` recuperará objetos de la base de datos usando `SQL` personalizado como `find_by_sql` pero no los instanciará. En su lugar, obtendrá una matriz de hashes donde cada hash indica un registro.
@@ -29,8 +27,6 @@ Client.connection.select_all("SELECT first_name, created_at FROM clients WHERE i
 # ]
 ```
 
-
-
 ### 19.2 pluck
 
 `pluck` se puede utilizar para consultar columnas múltiples o individuales de la tabla subyacente de un modelo. Acepta una lista de nombres de columna como argumento y devuelve una matriz de valores de las columnas especificadas con el tipo de datos correspondiente.
@@ -39,11 +35,11 @@ Client.connection.select_all("SELECT first_name, created_at FROM clients WHERE i
 Client.where(active: true).pluck(:id)
 # SELECT id FROM clients WHERE active = 1
 # => [1, 2, 3]
- 
+
 Client.distinct.pluck(:role)
 # SELECT DISTINCT role FROM clients
 # => ['admin', 'member', 'guest']
- 
+
 Client.pluck(:id, :name)
 # SELECT clients.id, clients.name FROM clients
 # => [[1, 'David'], [2, 'Jeremy'], [3, 'Jose']]
@@ -75,10 +71,10 @@ class Client < ApplicationRecord
     "I am #{super}"
   end
 end
- 
+
 Client.select(:name).map &:name
 # => ["I am David", "I am Jeremy", "I am Jose"]
- 
+
 Client.pluck(:name)
 # => ["David", "Jeremy", "Jose"]
 ```
@@ -88,12 +84,10 @@ Además, a diferencia de `select` y otros ámbitos de Relación, `pluck` desenca
 ```ruby
 Client.pluck(:name).limit(1)
 # => NoMethodError: undefined method `limit' for #<Array:0x007ff34d3ad6d8>
- 
+
 Client.limit(1).pluck(:name)
 # => ["David"]
 ```
-
-
 
 ### 19.3 ids
 
@@ -108,14 +102,10 @@ Person.ids
 class Person < ApplicationRecord
   self.primary_key = "person_id"
 end
- 
+
 Person.ids
 # SELECT person_id FROM people
 ```
-
-
-
-
 
 
 
