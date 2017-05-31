@@ -2,8 +2,6 @@
 
 Es común que necesite encontrar un registro o crearlo si no existe. Puede hacerlo con los métodos `find_or_create_by` o con `find_or_create_by!` .
 
-
-
 ### 18.1 find\_or\_create\_by
 
 El método `find_or_create_by` comprueba si existe un registro con los atributos especificados. Si no lo hace, entonces se llama a `create`. Veamos un ejemplo.
@@ -46,8 +44,6 @@ end
 
 El bloque sólo se ejecutará si se está creando el cliente. La segunda vez que ejecutamos este código, el bloque será ignorado.
 
-
-
 ### 18.2 find\_or\_create\_by!
 
 También puede utilizar `find_or_create_by!` Para generar una excepción si el nuevo registro no es válido. Las validaciones no están cubiertas en esta guía, pero supongamos por un momento que las agregamos temporalmente
@@ -63,8 +59,6 @@ Client.find_or_create_by!(first_name: 'Andy')
 # => ActiveRecord::RecordInvalid: Validation failed: Orders count can't be blank
 ```
 
-
-
 ### 18.3 find\_or\_initialize\_by
 
 El método `find_or_initialize_by` funcionará igual que `find_or_create_by` pero llamará `new` en lugar de `create`. Esto significa que se creará una nueva instancia del modelo en la memoria pero no se guardará en la base de datos. Continuando con el ejemplo `find_or_create_by`, ahora queremos que el nombre del cliente sea 'Nick':
@@ -72,13 +66,30 @@ El método `find_or_initialize_by` funcionará igual que `find_or_create_by` per
 ```ruby
 nick = Client.find_or_initialize_by(first_name: 'Nick')
 # => #<Client id: nil, first_name: "Nick", orders_count: 0, locked: true, created_at: "2011-08-30 06:09:27", updated_at: "2011-08-30 06:09:27">
- 
+
 nick.persisted?
 # => false
- 
+
 nick.new_record?
 # => true
 ```
+
+Dado que el objeto todavía no está almacenado en la base de datos, el `SQL` generado se ve así:
+
+```ruby
+SELECT * FROM clients WHERE (clients.first_name = 'Nick') LIMIT 1
+```
+
+Cuando desee guardarlo en la base de datos, solo tiene que guardar:
+
+```ruby
+nick.save
+# => true
+```
+
+
+
+
 
 
 
