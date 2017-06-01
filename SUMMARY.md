@@ -72,4 +72,5 @@
   * [17- Comprensión del método Chaining](vi-interfaz-de-consulta-de-active-record/17-comprension-del-metodo-chaining.md)
   * [18- Buscar o construir un nuevo objeto](vi-interfaz-de-consulta-de-active-record/18-buscar-o-construir-un-nuevo-objeto.md)
   * [19- Búsqueda por SQL](vi-interfaz-de-consulta-de-active-record/19-busqueda-por-sql.md)
+  * [20- Existencia de Objetos](vi-interfaz-de-consulta-de-active-record/20-existencia-de-objetos.md)
 
