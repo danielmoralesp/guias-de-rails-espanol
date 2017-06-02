@@ -75,4 +75,6 @@
   * [20- Existencia de Objetos](vi-interfaz-de-consulta-de-active-record/20-existencia-de-objetos.md)
   * [21- Cálculos](vi-interfaz-de-consulta-de-active-record/21-calculos.md)
   * [22- Ejecutando EXPLAIN](vi-interfaz-de-consulta-de-active-record/22-ejecutando-explain.md)
+* [VII- Conceptos básicos de Active Model](vii-conceptos-basicos-de-active-model.md)
+  * [1- Introducción](vii-conceptos-basicos-de-active-model/1-introduccion.md)
 
