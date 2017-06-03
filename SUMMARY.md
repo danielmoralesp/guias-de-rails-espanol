@@ -77,4 +77,5 @@
   * [22- Ejecutando EXPLAIN](vi-interfaz-de-consulta-de-active-record/22-ejecutando-explain.md)
 * [VII- Conceptos básicos de Active Model](vii-conceptos-basicos-de-active-model.md)
   * [1- Introducción](vii-conceptos-basicos-de-active-model/1-introduccion.md)
+* [VIII- Conceptos básicos de Action View](viii-conceptos-basicos-de-action-view.md)
 
