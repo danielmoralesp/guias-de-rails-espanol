@@ -78,4 +78,7 @@
 * [VII- Conceptos básicos de Active Model](vii-conceptos-basicos-de-active-model.md)
   * [1- Introducción](vii-conceptos-basicos-de-active-model/1-introduccion.md)
 * [VIII- Conceptos básicos de Action View](viii-conceptos-basicos-de-action-view.md)
+  * [1- ¿Qué es Action View?](viii-conceptos-basicos-de-action-view/1-que-es-action-view.md)
+  * [2- Uso de Action View con Rails](viii-conceptos-basicos-de-action-view/2-uso-de-action-view-con-rails.md)
+  * [3- Templates, Partials y Layouts](viii-conceptos-basicos-de-action-view/3-templates-partials-y-layouts.md)
 
