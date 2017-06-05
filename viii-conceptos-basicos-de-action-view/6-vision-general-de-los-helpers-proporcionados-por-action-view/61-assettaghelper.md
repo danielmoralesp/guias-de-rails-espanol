@@ -9,8 +9,6 @@ config.action_controller.asset_host = "assets.example.com"
 image_tag("rails.png") # => <img src="http://assets.example.com/images/rails.png" alt="Rails" />
 ```
 
-
-
 ### 6.1.1 auto\_discovery\_link\_tag
 
 Devuelve una etiqueta de link que los navegadores y los lectores de feeds pueden usar para detectar automáticamente un feed `RSS` o `Atom`.
@@ -19,8 +17,6 @@ Devuelve una etiqueta de link que los navegadores y los lectores de feeds pueden
 auto_discovery_link_tag(:rss, "http://www.example.com/feed.rss", { title: "RSS Feed" }) # =>
   <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="http://www.example.com/feed.rss" />
 ```
-
-
 
 ### 6.1.2 image\_path
 
@@ -36,8 +32,6 @@ Un fingerprint \(huella digital\) se agregará al nombre de archivo si `config.a
 image_path("edit.png") # => /assets/edit-2d1a2db63fc738690021fedb5a65b68e.png
 ```
 
-
-
 ### 6.1.3 image\_url
 
 Calcula la URL de un recurso de imagen en el directorio `app/assets/images.` Esto llamará a `image_path` internamente y se fusionará con su host actual o con su host de assets.
@@ -45,16 +39,6 @@ Calcula la URL de un recurso de imagen en el directorio `app/assets/images.` Est
 ```ruby
 image_url("edit.png") # => http://www.example.com/assets/edit.png
 ```
-
-
-
-
-
-
-
-
-
-
 
 
 
