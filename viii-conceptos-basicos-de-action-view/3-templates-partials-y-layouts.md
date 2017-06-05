@@ -129,8 +129,6 @@ Consulte la documentación de Jbuilder para obtener más ejemplos e información
 
 De forma predeterminada, Rails compilará cada plantilla en un método para procesarla. Al modificar una plantilla, Rails comprobará la hora de modificación del archivo y la recompilará en modo de desarrollo.
 
-
-
 ### 3.2 Partials
 
 Las plantillas parciales, usualmente llamadas "partials", son otro dispositivo para romper el proceso de renderizado en bloques más manejables. Con partials, puede extraer fragmentos de código de sus plantillas para separar archivos y también reutilizarlos a través de sus plantillas.
@@ -151,17 +149,15 @@ Esto convertirá un archivo denominado `_menu.html.erb` en ese punto dentro de l
 
 Ese código extraerá el parcial de `app/views/shared/_menu.html.erb`
 
-
-
 #### 3.2.2 Uso de Partials para simplificar las vistas
 
 Una forma de usar partials es tratarlos como el equivalente de subrutinas; Una forma de mover los detalles de una vista para que pueda captar lo que está pasando más fácilmente. Por ejemplo, puede tener una vista que tenga este aspecto:
 
 ```ruby
 <%= render "shared/ad_banner" %>
- 
+
 <h1>Products</h1>
- 
+
 <p>Here are a few of our fine products:</p>
 <% @products.each do |product| %>
   <%= render partial: "product", locals: { product: product } %>
@@ -200,19 +196,73 @@ Dentro del partial `_product` obtendremos `@product` en la variable local `produ
 <%= render partial: "product", locals: { product: @product } %>
 ```
 
+La opción de `object` se puede utilizar para especificar directamente qué objeto se procesa en el partial; Útil cuando el objeto de la plantilla está en otro lugar \(por ejemplo, en una variable de instancia diferente o en una variable local\).
+
+Por ejemplo, en lugar de:
+
+```ruby
+<%= render partial: "product", locals: { product: @item } %>
+```
+
+haríamos:
+
+```ruby
+<%= render partial: "product", object: @item %>
+```
+
+Con la opción `as` podemos especificar un nombre diferente para dicha variable local. Por ejemplo, si queremos que sea un elemento en lugar del producto haríamos:
+
+```ruby
+<%= render partial: "product", object: @item, as: "item" %>
+```
+
+que es equivalente a:
+
+```ruby
+<%= render partial: "product", locals: { item: @item } %>
+```
+
+#### 3.2.5 Renderizado de colecciones
+
+Es muy común que una plantilla necesite iterar sobre una colección y renderizar una sub-plantilla para cada uno de los elementos. Este patrón se ha implementado como un único método que acepta una matriz y hace una parcial para cada uno de los elementos de la matriz.
+
+Así que este ejemplo para renderizar todos los productos:
+
+```ruby
+<% @products.each do |product| %>
+  <%= render partial: "product", locals: { product: product } %>
+<% end %>
+```
+
+Puede ser reescrito en una sola línea:
+
+```ruby
+<%= render partial: "product", collection: @products %>
+```
+
+Cuando un parcial es llamado con una colección, las instancias individuales del parcial tienen acceso al miembro de la colección que se está procesando a través de una variable llamada después del parcial. En este caso, el parcial es `_product`, y dentro de él puede hacer referencia al producto para obtener el miembro de colección que se está procesando.
+
+Puede utilizar una sintaxis abreviada para procesar las colecciones. Suponiendo que `@products` es una colección de instancias de `product`, simplemente puede escribir lo siguiente para producir el mismo resultado:
+
+```ruby
+<%= render @products %>
+```
+
+Rails determina el nombre del parcial a utilizar, mirando el nombre del modelo en la colección, `Product` en este caso. De hecho, puede incluso hacer una colección compuesta de instancias de diferentes modelos utilizando este shorthand, y Rails elegirá el parcial adecuado para cada miembro de la colección.
+
+#### 3.2.6 Spacer Templates
+
+También puede especificar un segundo parcial que se renderizará entre instancias del parcial principal mediante la opción: `spacer_template`:
+
+```ruby
+<%= render partial: @products, spacer_template: "product_ruler" %>
+```
+
+Rails hará que el partial `_product_ruler` \(sin datos pasados a ella\) entre a cada par de parciales `_product` .
 
 
 
+### 3.3 Layouts
 
-
-
-
-
-
-
-
-
-
-
-
+Los layouts pueden usarse para renderizar una plantilla de vista común alrededor de los resultados de las acciones del controlador de Rails. Normalmente, una aplicación de Rails tendrá un par de layouts que las páginas renderizarán internamente. Por ejemplo, un sitio puede tener un layout para un usuario conectado y otro para el lado de marketing o ventas del sitio. El layout de usuario registrado puede incluir navegación de nivel superior que debe estar presente en muchas acciones del controlador. El layout de ventas de una aplicación SaaS puede incluir navegación de nivel superior para cosas como "Precios" y "Contactar con nosotros". Es de esperar que cada layout tenga una apariencia diferente.
 
