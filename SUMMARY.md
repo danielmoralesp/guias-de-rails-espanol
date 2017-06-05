@@ -82,4 +82,5 @@
   * [2- Uso de Action View con Rails](viii-conceptos-basicos-de-action-view/2-uso-de-action-view-con-rails.md)
   * [3- Templates, Partials y Layouts](viii-conceptos-basicos-de-action-view/3-templates-partials-y-layouts.md)
   * [4- Partial Layouts](viii-conceptos-basicos-de-action-view/4-partial-layouts.md)
+  * [5- Rutas de las Vistas](viii-conceptos-basicos-de-action-view/5-rutas-de-las-vistas.md)
 
