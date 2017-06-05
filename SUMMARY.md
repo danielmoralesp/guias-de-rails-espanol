@@ -81,4 +81,5 @@
   * [1- ¿Qué es Action View?](viii-conceptos-basicos-de-action-view/1-que-es-action-view.md)
   * [2- Uso de Action View con Rails](viii-conceptos-basicos-de-action-view/2-uso-de-action-view-con-rails.md)
   * [3- Templates, Partials y Layouts](viii-conceptos-basicos-de-action-view/3-templates-partials-y-layouts.md)
+  * [4- Partial Layouts](viii-conceptos-basicos-de-action-view/4-partial-layouts.md)
 
