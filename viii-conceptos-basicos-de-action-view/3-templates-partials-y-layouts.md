@@ -80,7 +80,7 @@ xml.rss("version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/") do
     xml.description "Basecamp: Recent items"
     xml.language "en-us"
     xml.ttl "40"
- 
+
     for item in @recent_items
       xml.item do
         xml.title(item_title(item))
@@ -128,6 +128,87 @@ Consulte la documentación de Jbuilder para obtener más ejemplos e información
 #### 3.1.4 Caché de plantillas
 
 De forma predeterminada, Rails compilará cada plantilla en un método para procesarla. Al modificar una plantilla, Rails comprobará la hora de modificación del archivo y la recompilará en modo de desarrollo.
+
+
+
+### 3.2 Partials
+
+Las plantillas parciales, usualmente llamadas "partials", son otro dispositivo para romper el proceso de renderizado en bloques más manejables. Con partials, puede extraer fragmentos de código de sus plantillas para separar archivos y también reutilizarlos a través de sus plantillas.
+
+#### 3.2.1 Nombrando partials
+
+Para renderizar un parcial como parte de una vista, utilice el método `render` dentro de la vista:
+
+```ruby
+<%= render "menu" %>
+```
+
+Esto convertirá un archivo denominado `_menu.html.erb` en ese punto dentro de la vista que se está procesando. Tenga en cuenta el carácter de subrayado principal: los partials se nombran con un carácter de subrayado principal para distinguirlos de las vistas regulares, aunque se consulten sin el subrayado. Esto es válido incluso cuando está extrayendo una parte de otra carpeta:
+
+```ruby
+<%= render "shared/menu" %>
+```
+
+Ese código extraerá el parcial de `app/views/shared/_menu.html.erb`
+
+
+
+#### 3.2.2 Uso de Partials para simplificar las vistas
+
+Una forma de usar partials es tratarlos como el equivalente de subrutinas; Una forma de mover los detalles de una vista para que pueda captar lo que está pasando más fácilmente. Por ejemplo, puede tener una vista que tenga este aspecto:
+
+```ruby
+<%= render "shared/ad_banner" %>
+ 
+<h1>Products</h1>
+ 
+<p>Here are a few of our fine products:</p>
+<% @products.each do |product| %>
+  <%= render partial: "product", locals: { product: product } %>
+<% end %>
+
+<%= render "shared/footer" %>
+```
+
+En este caso, los partials `_ad_banner.html.erb` y `_footer.html.erb` pueden contener contenido que se comparte entre muchas páginas de la aplicación. No necesita ver los detalles de estas secciones cuando se está concentrando en una página en particular.
+
+#### 3.2.3 render sin opciones de partials ni locals
+
+En el ejemplo anterior, `render` toma 2 opciones: `partial` y `locals`. Pero si estas son las únicas opciones que desea pasar, puede omitir el uso de estas opciones. Por ejemplo, en lugar de:
+
+```ruby
+<%= render partial: "product", locals: { product: @product } %>
+```
+
+También puede hacer:
+
+```ruby
+<%= render "product", product: @product %>
+```
+
+#### 3.2.4 Las opciones as y object
+
+De forma predeterminada `ActionView::Partials::PartialRenderer` tiene su objeto en una variable local con el mismo nombre que la plantilla. Por lo tanto, dado:
+
+```ruby
+<%= render partial: "product" %>
+```
+
+Dentro del partial `_product` obtendremos `@product` en la variable local `product`, como si hubiéramos escrito:
+
+```ruby
+<%= render partial: "product", locals: { product: @product } %>
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
