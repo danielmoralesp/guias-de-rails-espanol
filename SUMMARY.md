@@ -83,4 +83,6 @@
   * [3- Templates, Partials y Layouts](viii-conceptos-basicos-de-action-view/3-templates-partials-y-layouts.md)
   * [4- Partial Layouts](viii-conceptos-basicos-de-action-view/4-partial-layouts.md)
   * [5- Rutas de las Vistas](viii-conceptos-basicos-de-action-view/5-rutas-de-las-vistas.md)
+  * [6- Visión general de los helpers proporcionados por Action View](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view.md)
+    * [6.1 AssetTagHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/61-assettaghelper.md)
 
