@@ -90,4 +90,6 @@
     * [6.4 CacheHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/64-cachehelper.md)
     * [6.5 CaptureHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/65-capturehelper.md)
     * [6.6 DateHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/66-datehelper.md)
+    * [6.7 DebugHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/67-debughelper.md)
+    * [6.8 FormHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/68-formhelper.md)
 
