@@ -28,13 +28,10 @@ El `HTML` generado para esto sería:
 El objeto `params` creado cuando se envía este formulario se vería así:
 
 ```ruby
-
 { "action" => "create", "controller" => "people", "person" => { "first_name" => "William", "last_name" => "Smith" } }
 ```
 
 El hash de parámetros tiene un valor de anidado de persona, por lo que se puede acceder con `params[:person]` en el controlador.
-
-
 
 ### 6.8.1 check\_box
 
@@ -47,8 +44,6 @@ check_box("article", "validated")
 #    <input name="article[validated]" type="hidden" value="0" />
 ```
 
-
-
 ### 6.8.2 fields\_for
 
 Crea un scope alrededor de un objeto de modelo específico como `form_for`, pero no crea las etiquetas de formulario por sí mismo. Esto hace que `fields_for` sea adecuado para especificar objetos de modelo adicionales en el mismo form:
@@ -57,7 +52,7 @@ Crea un scope alrededor de un objeto de modelo específico como `form_for`, pero
 <%= form_for @person, url: { action: "update" } do |person_form| %>
   First name: <%= person_form.text_field :first_name %>
   Last name : <%= person_form.text_field :last_name %>
- 
+
   <%= fields_for @person.permission do |permission_fields| %>
     Admin?  : <%= permission_fields.check_box :admin %>
   <% end %>
@@ -66,13 +61,122 @@ Crea un scope alrededor de un objeto de modelo específico como `form_for`, pero
 
 
 
+### 6.8.3 file\_field
+
+Devuelve una etiqueta de entrada de carga de archivo adaptada para acceder a un atributo especificado.
+
+```ruby
+file_field(:user, :avatar)
+# => <input type="file" id="user_avatar" name="user[avatar]" />
+```
 
 
 
+### 6.8.4 form\_for
+
+Crea un formulario y un scope alrededor de un objeto de modelo específico que se utiliza como base para preguntar los valores de los campos.
+
+```ruby
+<%= form_for @article do |f| %>
+  <%= f.label :title, 'Title' %>:
+  <%= f.text_field :title %><br>
+  <%= f.label :body, 'Body' %>:
+  <%= f.text_area :body %><br>
+<% end %>
+```
+
+### 
+
+### 6.8.5 hidden\_field
+
+Devuelve una etiqueta de entrada oculta adaptada para acceder a un atributo especificado.
+
+```ruby
+hidden_field(:user, :token)
+# => <input type="hidden" id="user_token" name="user[token]" value="#{@user.token}" />
+```
 
 
 
+### 6.8.6 label
 
+Devuelve una etiqueta `label` adaptada para etiquetar un campo de entrada para un atributo especificado.
+
+```ruby
+label(:article, :title)
+# => <label for="article_title">Title</label>
+```
+
+
+
+### 6.8.7 password\_field
+
+Devuelve una etiqueta de entrada del tipo "contraseña" adaptada para acceder a un atributo especificado.
+
+```ruby
+password_field(:login, :pass)
+# => <input type="text" id="login_pass" name="login[pass]" value="#{@login.pass}" />
+```
+
+
+
+### 6.8.8 radio\_button
+
+Devuelve una etiqueta de radio button para acceder a un atributo especificado.
+
+```ruby
+# Digamos que @article.category devuelve "Rails":
+radio_button("article", "category", "rails")
+radio_button("article", "category", "java")
+# => <input type="radio" id="article_category_rails" name="article[category]" value="rails" checked="checked" />
+#    <input type="radio" id="article_category_java" name="article[category]" value="java" />
+```
+
+
+
+### 6.8.9 text\_area
+
+Devuelve un conjunto de etiquetas de apertura y cierre de `textarea` adaptadas para acceder a un atributo especificado.
+
+```ruby
+text_area(:comment, :text, size: "20x30")
+# => <textarea cols="20" rows="30" id="comment_text" name="comment[text]">
+#      #{@comment.text}
+#    </textarea>
+```
+
+
+
+### 6.8.10 text\_field
+
+Devuelve una etiqueta de entrada del tipo "texto" adaptada para acceder a un atributo especificado.
+
+```ruby
+text_field(:article, :title)
+# => <input type="text" id="article_title" name="article[title]" value="#{@article.title}" />
+```
+
+
+
+### 6.8.11 email\_field
+
+Devuelve una etiqueta de entrada del tipo "correo electrónico" adaptada para acceder a un atributo especificado.
+
+```ruby
+email_field(:user, :email)
+# => <input type="email" id="user_email" name="user[email]" value="#{@user.email}" />
+```
+
+
+
+### 6.8.12 url\_field
+
+Devuelve una etiqueta de entrada del tipo "url" adaptada para acceder a un atributo especificado.
+
+```ruby
+url_field(:user, :url)
+# => <input type="url" id="user_url" name="user[url]" value="#{@user.url}" />
+```
 
 
 
