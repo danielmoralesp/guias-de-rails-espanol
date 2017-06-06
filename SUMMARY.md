@@ -87,4 +87,7 @@
     * [6.1 AssetTagHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/61-assettaghelper.md)
     * [6.2 AtomFeedHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/62-atomfeedhelper.md)
     * [6.3 BenchmarkHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/63-benchmarkhelper.md)
+    * [6.4 CacheHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/64-cachehelper.md)
+    * [6.5 CaptureHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/65-capturehelper.md)
+    * [6.6 DateHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/66-datehelper.md)
 
