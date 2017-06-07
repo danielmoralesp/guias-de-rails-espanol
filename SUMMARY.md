@@ -98,4 +98,5 @@
     * [6.12 NumberHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/612-numberhelper.md)
     * [6.13 SanitizeHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/613-sanitizehelper.md)
     * [6.14 CsrfHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/614-csrfhelper.md)
+  * [7- Vistas con Locale](viii-conceptos-basicos-de-action-view/7-localizacion-de-las-vistas.md)
 
