@@ -93,4 +93,5 @@
     * [6.7 DebugHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/67-debughelper.md)
     * [6.8 FormHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/68-formhelper.md)
     * [6.9 FormOptionsHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/69-formoptionshelper.md)
+    * [6.10 FormTagHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/610-formtaghelper.md)
 
