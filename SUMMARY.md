@@ -95,4 +95,6 @@
     * [6.9 FormOptionsHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/69-formoptionshelper.md)
     * [6.10 FormTagHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/610-formtaghelper.md)
     * [6.11 JavaScriptHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/611-javascripthelper.md)
+    * [6.12 NumberHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/612-numberhelper.md)
+    * [6.13 SanitizeHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/613-sanitizehelper.md)
 
