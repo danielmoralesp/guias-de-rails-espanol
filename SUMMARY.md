@@ -99,4 +99,7 @@
     * [6.13 SanitizeHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/613-sanitizehelper.md)
     * [6.14 CsrfHelper](viii-conceptos-basicos-de-action-view/6-vision-general-de-los-helpers-proporcionados-por-action-view/614-csrfhelper.md)
   * [7- Vistas con Locale](viii-conceptos-basicos-de-action-view/7-localizacion-de-las-vistas.md)
+* [IX- Layouts y Rendering en Rails](ix-layouts-y-rendering-en-rails.md)
+  * [1- Descripción General: Cómo encajan las piezas](ix-layouts-y-rendering-en-rails/1-descripcion-general-como-encajan-las-piezas.md)
+  * [2- Creación de respuestas](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas.md)
 
