@@ -102,4 +102,5 @@
 * [IX- Layouts y Rendering en Rails](ix-layouts-y-rendering-en-rails.md)
   * [1- Descripción General: Cómo encajan las piezas](ix-layouts-y-rendering-en-rails/1-descripcion-general-como-encajan-las-piezas.md)
   * [2- Creación de respuestas](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas.md)
+    * [2.1 Rendering por defecto: Convención sobre configuración en Action](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas/21-rendering-por-defecto-convencion-sobre-configuracion-en-action.md)
 
