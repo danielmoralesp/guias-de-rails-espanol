@@ -288,11 +288,80 @@ Rails entiende los códigos numéricos de estado y los símbolos correspondiente
 
 
 
+> Si intenta procesar el contenido junto con un código de estado sin contenido \(100-199, 204, 205 o 304\), se eliminará de la respuesta.
 
 
 
+#### 2.2.12.5 La opción :formats
+
+Rails utiliza el formato especificado en la solicitud \(o `:html `de forma predeterminada\). Puede cambiar esto pasando la opción `:formats` con un símbolo o un array:
+
+```ruby
+render formats: :xml
+render formats: [:json, :xml]
+```
+
+Si no existe una plantilla con el formato especificado, se genera un error `ActionView::MissingTemplate`.
 
 
+
+### 2.2.13 Búsqueda de layouts
+
+Para encontrar el layout actual, Rails primero busca un archivo en `app/views/layouts` con el mismo nombre de base que el controlador. Por ejemplo, las acciones de renderización de la clase `PhotosController` usarán `app/views/layouts/photos.html.erb` \(o `app/views/layouts/photos.builder`\). Si no existe un layout específico para el controlador, rails utilizará `app/views/layouts/application.html.erb` o `app/views/layouts/application.builder`. Si no existe un diseño `.erb`, rails utilizará un diseño `.builder` si existe. Rails también proporciona varias maneras de asignar con mayor precisión layouts específicos a controladores y acciones individuales.
+
+#### 2.2.13.1 Especificación de layouts para controladores
+
+Puede reemplazar las convenciones de layout predeterminadas en sus controladores mediante la declaración de un layout. Por ejemplo:
+
+```ruby
+class ProductsController < ApplicationController
+  layout "inventory"
+  #...
+end
+```
+
+Con esta declaración, todas las vistas generadas por el `ProductsController` utilizarán `app/views/layouts/inventory.html.erb` como su layout.
+
+Para asignar un layout específico para toda la aplicación, utilice una declaración de layout en su clase `ApplicationController`:
+
+```ruby
+class ApplicationController < ActionController::Base
+  layout "main"
+  #...
+end
+```
+
+Con esta declaración, todas las vistas de toda la aplicación utilizarán `app/views/layouts/main.html.erb` para su layout.
+
+#### 2.2.13.2 Elección de layouts en tiempo de ejecución
+
+Puede utilizar un símbolo para aplazar la elección del layout hasta que se procese una solicitud:
+
+```ruby
+class ProductsController < ApplicationController
+  layout :products_layout
+ 
+  def show
+    @product = Product.find(params[:id])
+  end
+ 
+  private
+    def products_layout
+      @current_user.special? ? "special" : "products"
+    end
+ 
+end
+```
+
+Ahora, si el usuario actual es un usuario especial, verá un layout especial cuando acceda a un producto.
+
+Incluso puede utilizar un método inline, como un `Proc`, para determinar el layout. Por ejemplo, si pasa un objeto `Proc`, al bloque que le da el `Proc` se le dará la instancia del controlador, por lo que el layout se puede determinar sobre la base de la solicitud actual:
+
+```ruby
+class ProductsController < ApplicationController
+  layout Proc.new { |controller| controller.request.xhr? ? "popup" : "application" }
+end
+```
 
 
 
