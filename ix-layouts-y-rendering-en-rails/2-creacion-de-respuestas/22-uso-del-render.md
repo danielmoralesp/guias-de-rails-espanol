@@ -131,8 +131,6 @@ render html: "<strong>Not Found</strong>".html_safe
 >
 > Cuando se utiliza la opción `:html`, las entidades HTML se escaparán si la cadena no está marcada como `HTML` seguro mediante el uso del método `html_safe`.
 
-
-
 ### 2.2.8 Renderización de JSON
 
 `JSON` es un formato de datos JavaScript utilizado por muchas bibliotecas de `Ajax`. Rails tiene soporte incorporado para convertir objetos a `JSON` y hacer que `JSON` regrese al navegador:
@@ -143,9 +141,7 @@ render json: @product
 
 > No es necesario llamar al método `to_json` en el objeto que desea procesar. Si utiliza la opción `:json`, el `render` llamará automáticamente a `to_json` por usted.
 
-
-
-###  2.2.9 Rendering XML
+### 2.2.9 Rendering XML
 
 Rails también tiene soporte incorporado para convertir objetos a `XML` y devolver ese `XML` a quien lo llama:
 
@@ -154,8 +150,6 @@ render xml: @product
 ```
 
 > No es necesario llamar a `to_xml` en el objeto que desea procesar. Si utiliza la opción `:xml`, `render` le llamará automáticamente a `to_xml` por usted.
-
-
 
 ### 2.2.10 Renderizado de Vanilla JavaScript
 
@@ -167,8 +161,6 @@ render js: "alert('Hello Rails');"
 
 Esto enviará la cadena suministrada al navegador con un MIME de typo `text/javascript`.
 
-
-
 ### 2.2.11 Renderización de un body sin procesar
 
 Puede enviar un contenido sin formato de nuevo al navegador, sin establecer ningún tipo de contenido, utilizando la opción `:body` para renderizar:
@@ -178,12 +170,8 @@ render body: "raw"
 ```
 
 > Esta opción sólo debe utilizarse si no le preocupa el tipo de contenido de la respuesta. Usar `:plain` o `:html` podría ser más apropiado para la mayor parte del tiempo.
-
+>
 > A menos que se sobre-escriba, la respuesta devuelta de esta opción de `render` será `text/html`, ya que es el tipo de contenido predeterminado de la respuesta de Action Dispatch.
-
-
-
-
 
 ### 2.2.12 Opciones para el renderizado
 
@@ -264,23 +252,41 @@ Rails entiende los códigos numéricos de estado y los símbolos correspondiente
 | Client Error | 400 | :bad\_request |
 |  | 401 | :unauthorized |
 |  | 402 | :payment\_required |
-|  | 403 | : |
-|  | 404 | : |
-|  | 405 | : |
-|  | 406 | : |
-|  | 407 | : |
-|  | 408 | : |
-|  | 409 | : |
-|  | 410 | : |
-|  | 411 | : |
-|  | 412 | : |
-|  | 413 | : |
-|  | 414 | : |
-|  | 415 | : |
-|  | 416 | : |
-|  | 417 | : |
-|  |  |  |
-|  |  |  |
+|  | 403 | :forbidden |
+|  | 404 | :not\_found |
+|  | 405 | :method\_not\_allowed |
+|  | 406 | :not\_acceptable |
+|  | 407 | :proxy\_authentication\_required |
+|  | 408 | :request\_timeout |
+|  | 409 | :conflict |
+|  | 410 | :gone |
+|  | 411 | :length\_required |
+|  | 412 | :precondition\_failed |
+|  | 413 | :payload\_too\_large |
+|  | 414 | :uri\_too\_long |
+|  | 415 | :unsupported\_media\_type |
+|  | 416 | :range\_not\_satisfiable |
+|  | 417 | :expectation\_failed |
+|  | 422 | :unprocessable\_entity |
+|  | 423 | :locked |
+|  | 424 | :failed\_dependency |
+|  | 426 | :upgrade\_required |
+|  | 428 | :precondition\_required |
+|  | 429 | :too\_many\_requests |
+|  | 431 | :request\_header\_fields\_too\_large |
+| Server Error | 500 | :internal\_server\_error |
+|  | 501 | :not\_implemented |
+|  | 502 | :bad\_gateway |
+|  | 503 | :service\_unavailable |
+|  | 504 | :gateway\_timeout |
+|  | 505 | :http\_version\_not\_supported |
+|  | 506 | :variant\_also\_negotiates |
+|  | 507 | :insufficient\_storage |
+|  | 508 | :loop\_detected |
+|  | 510 | :not\_extended |
+|  | 511 | :network\_authentication\_required |
+
+
 
 
 
