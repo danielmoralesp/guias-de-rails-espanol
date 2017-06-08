@@ -4,8 +4,6 @@ En la mayoría de los casos, el método `ActionController::Base#render` hace el 
 
 Si desea ver los resultados exactos de una llamada a `render` sin necesidad de inspeccionarla en un navegador, puede llamar a `render_to_string`. Este método toma exactamente las mismas opciones que `render`, pero devuelve una cadena en lugar de enviar una respuesta al navegador.
 
-
-
 ### 2.2.1 Visualización de una acción
 
 Si desea representar la vista que corresponde a una plantilla diferente dentro del mismo controlador, puede utilizar `render` con el nombre de la vista:
@@ -36,8 +34,6 @@ def update
 end
 ```
 
-
-
 ### 2.2.2 Procesamiento de un template de una acción desde otro controlador
 
 ¿Qué sucede si desea procesar una plantilla desde un controlador completamente distinto del que contiene el código de acción? También puede hacer eso con `render`, que acepta la ruta completa \(relativa a `app/views`\) de la plantilla a renderizar. Por ejemplo, si ejecuta código en un `AdminProductsController` que vive en `app/controllers/admin`, puede renderizar los resultados de una acción a una plantilla en `app/views/products` de esta manera:
@@ -52,8 +48,6 @@ Rails sabe que esta vista pertenece a un controlador diferente debido all carác
 render template: "products/show"
 ```
 
-
-
 ### 2.2.3 Procesamiento de un archivo arbitrario
 
 El método `render` también puede utilizar una vista que está totalmente fuera de la aplicación:
@@ -62,17 +56,13 @@ El método `render` también puede utilizar una vista que está totalmente fuera
 render file: "/u/apps/warehouse_app/current/app/views/products/show"
 ```
 
-
-
 La opción :file toma una ruta absoluta del sistema de archivos. Por supuesto, necesita tener derechos sobre la vista que está utilizando para procesar el contenido.
 
 > El uso de la opción :file en combinación con la entrada de los usuarios puede dar lugar a problemas de seguridad ya que un atacante podría utilizar esta acción para acceder a archivos sensibles a la seguridad en su sistema de archivos.
-
+>
 > De forma predeterminada, el archivo se procesa utilizando el layout actual.
-
+>
 > Si está ejecutando Rails en Microsoft Windows, debería utilizar la opción :file para procesar un archivo, ya que los nombres de archivo de Windows no tienen el mismo formato que los nombres de archivo Unix.
-
-
 
 ### 2.2.4 Envolviéndolo
 
@@ -119,17 +109,31 @@ render inline: "xml.p {'Horrid coding practice!'}", type: :builder
 
 
 
+### 2.2.6 Renderizado de texto
+
+Puede enviar texto plano \(sin markups\) - de nuevo al navegador usando la opción `:plain` para renderizar:
+
+```ruby
+render plain: "OK"
+```
+
+> Renderizar texto plano es muy útil cuando respondes a un Ajax o a web services request que esperan algo distinto del `HTML` apropiado.
+
+De forma predeterminada, si utiliza la opción `:plain`, el texto se procesa sin utilizar el layout actual. Si desea que Rails coloque el texto en el layout actual, debe agregar la opción layout `:true` y usar la extensión `.txt.erb` para el archivo de diseño.
 
 
 
+### 2.2.7 Renderización de HTML
 
+Puede enviar una cadena `HTML` de vuelta al navegador mediante la opción `:html` para renderizar:
 
+```ruby
+render html: "<strong>Not Found</strong>".html_safe
+```
 
-
-
-
-
-
+> Esto es útil cuando estás procesando un pequeño fragmento de código `HTML`. Sin embargo, es posible que desee considerar moverlo a un archivo template si el marcado es complejo.
+>
+> Cuando se utiliza la opción `:html`, las entidades HTML se escaparán si la cadena no está marcada como `HTML` seguro mediante el uso del método `html_safe`.
 
 
 
