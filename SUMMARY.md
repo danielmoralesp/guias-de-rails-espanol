@@ -105,5 +105,5 @@
     * [2.1 Rendering por defecto: Convención sobre configuración en Action](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas/21-rendering-por-defecto-convencion-sobre-configuracion-en-action.md)
     * [2.2 Uso del render](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas/22-uso-del-render.md)
     * [2.3 Uso de redirect\_to](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas/23-uso-de-redirectto.md)
-    * 2.4 Uso de los headers para crear respuestas Header-Only
+    * [2.4 Uso de los headers para crear respuestas Header-Only](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas/24-uso-de-los-headers-para-crear-respuestas-header-only.md)
 
