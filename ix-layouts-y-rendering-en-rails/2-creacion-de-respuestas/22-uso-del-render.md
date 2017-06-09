@@ -286,15 +286,11 @@ Rails entiende los códigos numéricos de estado y los símbolos correspondiente
 |  | 510 | :not\_extended |
 |  | 511 | :network\_authentication\_required |
 
-
-
 > Si intenta procesar el contenido junto con un código de estado sin contenido \(100-199, 204, 205 o 304\), se eliminará de la respuesta.
-
-
 
 #### 2.2.12.5 La opción :formats
 
-Rails utiliza el formato especificado en la solicitud \(o `:html `de forma predeterminada\). Puede cambiar esto pasando la opción `:formats` con un símbolo o un array:
+Rails utiliza el formato especificado en la solicitud \(o `:html`de forma predeterminada\). Puede cambiar esto pasando la opción `:formats` con un símbolo o un array:
 
 ```ruby
 render formats: :xml
@@ -302,8 +298,6 @@ render formats: [:json, :xml]
 ```
 
 Si no existe una plantilla con el formato especificado, se genera un error `ActionView::MissingTemplate`.
-
-
 
 ### 2.2.13 Búsqueda de layouts
 
@@ -340,16 +334,16 @@ Puede utilizar un símbolo para aplazar la elección del layout hasta que se pro
 ```ruby
 class ProductsController < ApplicationController
   layout :products_layout
- 
+
   def show
     @product = Product.find(params[:id])
   end
- 
+
   private
     def products_layout
       @current_user.special? ? "special" : "products"
     end
- 
+
 end
 ```
 
@@ -362,6 +356,71 @@ class ProductsController < ApplicationController
   layout Proc.new { |controller| controller.request.xhr? ? "popup" : "application" }
 end
 ```
+
+#### 2.2.13.3 Layouts condicionales
+
+Los layouts especificados a nivel de controlador admiten las opciones `:only` y `:except`. Estas opciones llevan un nombre de método o un array de nombres de métodos que corresponden a nombres de métodos dentro del controlador:
+
+```ruby
+class ProductsController < ApplicationController
+  layout "product", except: [:index, :rss]
+end
+```
+
+Con esta declaración, el layout del producto se utilizaría para todo, excepto los métodos `rss` e `index`.
+
+#### 2.2.13.4 Herencia de layouts
+
+Las declaraciones de layouts caen en cascada hacia abajo en la jerarquía y las declaraciones de layouts más específicas siempre anulan las declaraciones más generales. Por ejemplo:
+
+application\_controller.rb
+
+```ruby
+class ApplicationController < ActionController::Base
+  layout "main"
+end
+```
+
+articles\_controller.rb
+
+```ruby
+class ArticlesController < ApplicationController
+end
+```
+
+special\_articles\_controller.rb
+
+```ruby
+class SpecialArticlesController < ArticlesController
+  layout "special"
+end
+```
+
+old\_articles\_controller.rb
+
+```ruby
+class OldArticlesController < SpecialArticlesController
+  layout false
+ 
+  def show
+    @article = Article.find(params[:id])
+  end
+ 
+  def index
+    @old_articles = Article.older
+    render layout: "old"
+  end
+  # ...
+end
+```
+
+En esta aplicación:
+
+* En general, las vistas se mostrarán en el layout principal
+* `ArticlesController#index` usará el layout principal
+* `SpecialArticlesController#index` usará el layout especial
+* `OldArticlesController#show` no utilizará ningún layout en absoluto
+* `OldArticlesController#index` utilizará el layout antiguo.
 
 
 
