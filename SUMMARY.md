@@ -106,4 +106,6 @@
     * [2.2 Uso del render](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas/22-uso-del-render.md)
     * [2.3 Uso de redirect\_to](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas/23-uso-de-redirectto.md)
     * [2.4 Uso de los headers para crear respuestas Header-Only](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas/24-uso-de-los-headers-para-crear-respuestas-header-only.md)
+  * [3 Estructuración de los layouts](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts.md)
+    * [3.1 Asset Tag Helpers](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts/31-asset-tag-helpers.md)
 
