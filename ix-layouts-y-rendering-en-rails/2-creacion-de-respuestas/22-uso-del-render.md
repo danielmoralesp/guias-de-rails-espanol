@@ -401,11 +401,11 @@ old\_articles\_controller.rb
 ```ruby
 class OldArticlesController < SpecialArticlesController
   layout false
- 
+
   def show
     @article = Article.find(params[:id])
   end
- 
+
   def index
     @old_articles = Article.older
     render layout: "old"
@@ -422,5 +422,82 @@ En esta aplicación:
 * `OldArticlesController#show` no utilizará ningún layout en absoluto
 * `OldArticlesController#index` utilizará el layout antiguo.
 
+#### 2.2.13.5 Herencia de plantilla
 
+Similar a la lógica de herencia de layout, si un template o partial no se encuentra en la ruta convencional, el controlador buscará una plantilla o parcial para procesar en su cadena de herencia. Por ejemplo:
+
+```ruby
+# in app/controllers/application_controller
+class ApplicationController < ActionController::Base
+end
+ 
+# in app/controllers/admin_controller
+class AdminController < ApplicationController
+end
+ 
+# in app/controllers/admin/products_controller
+class Admin::ProductsController < AdminController
+  def index
+  end
+end
+```
+
+El orden de búsqueda de la acción index de `admin/products#index `será:
+
+* app/views/admin/products/
+* app/views/admin/
+* app/views/application/
+
+Esto hace que `app/views/application/` sea un gran lugar para tus patials compartidos, que luego se pueden renderizar en tu `ERB` como tal:
+
+```ruby
+<%# app/views/admin/products/index.html.erb %>
+<%= render @products || "empty_list" %>
+ 
+<%# app/views/application/_empty_list.html.erb %>
+There are no items in this list <em>yet</em>.
+```
+
+#### 2.2.14 Evitar errores de procesamiento doble
+
+Tarde o temprano, la mayoría de los desarrolladores de Rails verán el mensaje de error "Can only render or redirect once per action". Si bien esto es molesto, es relativamente fácil de arreglar. Por lo general, esto ocurre debido a un malentendido fundamental de la forma en que funciona.
+
+Por ejemplo, aquí hay un código que activará este error:
+
+```ruby
+def show
+  @book = Book.find(params[:id])
+  if @book.special?
+    render action: "special_show"
+  end
+  render action: "regular_show"
+end
+```
+
+Si `@book.special?` se evalúa como `true`, Rails iniciará el proceso de renderizado para volcar la variable `@book` en la vista `special_show`. Pero esto no detendrá el resto del código en la acción `show`, y cuando Rails llegue al final de la acción, comenzará a mostrar la vista `regular_show` y lanzará un error. La solución es simple: asegúrese de que sólo tiene una llamada para procesar o redirigir en una ruta de un solo código. Una cosa que puede ayudar es `return`. He aquí una versión parcheada del método:
+
+```ruby
+def show
+  @book = Book.find(params[:id])
+  if @book.special?
+    render action: "special_show" and return
+  end
+  render action: "regular_show"
+end
+```
+
+Asegúrese de usar `and return`  en lugar solo `return` porque `and return` no funcionará debido a la precedencia del operador en el lenguaje Ruby
+
+Tenga en cuenta que el renderizado implícito realizado por ActionController detecta si `render` se ha llamado, por lo que lo siguiente funcionará sin errores:
+
+```ruby
+def show
+  @book = Book.find(params[:id])
+  if @book.special?
+    render action: "special_show"
+  end
+end
+```
+
+Esto hará que se renderice `book` con `special?` establecido con la plantilla `special_show`, mientras que otros `books` se procesarán con la plantilla de `show` predeterminada.
 
