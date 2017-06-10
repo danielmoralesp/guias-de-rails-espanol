@@ -28,11 +28,9 @@ Hay tres opciones de etiqueta disponibles para la etiqueta `auto_discovery_link_
 * `:type` especifica un tipo MIME explícito. Rails generará automáticamente un tipo MIME apropiado.
 * `:title` especifica el título del enlace. El valor predeterminado es el valor del `type` en mayúscula: por ejemplo, "`ATOM`" o "`RSS`".
 
-
-
 ### 3.1.2 Vinculación a archivos JavaScript con javascript\_include\_tag
 
-El helper `javascript_include_tag` devuelve una etiqueta de script `HTML` para cada source proporcionada. 
+El helper `javascript_include_tag` devuelve una etiqueta de script `HTML` para cada source proporcionada.
 
 Si está utilizando Rails con el assets pipeline activado, este helper generará un enlace a `/assets/javascripts/` en lugar de `public/javascripts` que se utilizó en versiones anteriores de Rails. Este enlace es servido por el assets pipeline.
 
@@ -70,8 +68,6 @@ Para incluir `http://example.com/main.js`:
 <%= javascript_include_tag "http://example.com/main.js" %>
 ```
 
-
-
 ### 3.1.3 Vinculación a archivos CSS con la etiqueta stylesheet\_link\_tag
 
 El ayudante `stylesheet_link_tag` devuelve una etiqueta `HTML` `<link>` para cada source proporcionada.
@@ -105,8 +101,6 @@ De forma predeterminada, `stylesheet_link_tag` crea vínculos con `media="screen
 ```ruby
 <%= stylesheet_link_tag "main_print", media: "print" %>
 ```
-
-
 
 ### 3.1.4 Vinculación a imágenes con image\_tag
 
@@ -151,10 +145,6 @@ Además de las etiquetas especiales anteriores, puede proporcionar un hash de la
                           class: "nav_bar" %>
 ```
 
-
-
-
-
 ### 3.1.5 Vinculación a vídeos con la etiqueta video
 
 El helper `video_tag` crea una etiqueta `HTML 5` `<video>` en el archivo especificado. De forma predeterminada, los archivos se cargan desde `public/videos`.
@@ -173,23 +163,50 @@ Al igual que un `image_tag`, puede proporcionar una ruta, absoluta o relativa al
 
 La etiqueta de vídeo también admite todas las opciones de `<video>` HTML a través del hash de opciones HTML, incluyendo:
 
-* poster: "image\_name.png", proporciona una imagen para poner en lugar del video antes de que comience a jugar.
-* Autoplay: true, comienza a reproducir el video en carga de página.
-* Loop: true, loops el video una vez que llega al final.
-* Controls: true, proporciona controles suministrados por el navegador para que el usuario interactúe con el video.
-* Autobuffer: true, el video cargará previamente el archivo para el usuario en carga de página.
+* `poster`: "`image_name.png`", proporciona una imagen para poner en lugar del video antes de que comience a reproducirse.
+* `autoplay:true`, comienza a reproducir el video en carga de página.
+* `loop :true`, hace un loop el video una vez que llega al final.
+* `controls :true`, proporciona controles suministrados por el navegador para que el usuario interactúe con el video.
+* `autobuffer :true`, el video cargará previamente el archivo para el usuario en carga de página.
+
+También puede especificar varios videos para reproducir pasando un array de videos a la `video_tag`:
+
+```ruby
+<%= video_tag ["trailer.ogg", "movie.ogg"] %>
+```
+
+El cual produce
+
+```ruby
+<video>
+  <source src="/videos/trailer.ogg">
+  <source src="/videos/movie.ogg">
+</video>
+```
 
 
 
+### 3.1.6 Vinculación a archivos de audio con audio\_tag
 
+El asistente `audio_tag` crea una etiqueta `HTML 5 <audio>` en el archivo especificado. De forma predeterminada, los archivos se cargan desde `public/audios`.
 
+```ruby
+<%= audio_tag "music.mp3" %>
+```
 
+Puede proporcionar una ruta de acceso al archivo de audio si lo desea:
 
+```ruby
+<%= audio_tag "music/first_song.mp3" %>
+```
 
+También puede proporcionar un hash de opciones adicionales, tales como `:id`, `:class` etc.
 
+Al igual que el `video_tag`, el `audio_tag` tiene opciones especiales:
 
-
-
+* `autoplay :true`, comienza a reproducir el audio en la carga de la página
+* `controls :true`, proporciona controles suministrados por el navegador para que el usuario interactúe con el audio.
+* `autobuffer :true`, el audio cargará previamente el archivo para el usuario en carga de página.
 
 
 
