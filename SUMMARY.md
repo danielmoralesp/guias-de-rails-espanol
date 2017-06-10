@@ -114,4 +114,5 @@
     * [3.5 Uso de layouts anidados](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts/35-uso-de-layouts-anidados.md)
 * [X- Helpers de Formulario de Action View](x-helpers-de-formulario-de-action-view.md)
   * [1- Tratamiento de formularios básicos](x-helpers-de-formulario-de-action-view/1-tratamiento-de-formularios-basicos.md)
+  * [2- Tratamiento de objetos del modelo](x-helpers-de-formulario-de-action-view/2-tratamiento-de-objetos-del-modelo.md)
 

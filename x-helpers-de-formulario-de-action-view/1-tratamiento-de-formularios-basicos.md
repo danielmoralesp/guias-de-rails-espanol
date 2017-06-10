@@ -74,8 +74,6 @@ form_tag({controller: "people", action: "search"}, method: "get", class: "nifty_
 # => '<form accept-charset="UTF-8" action="/people/search" method="get" class="nifty_form">'
 ```
 
-
-
 ### 1.3 Helpers para generar elementos del formulario
 
 Rails proporciona una serie de helpers para generar los elementos de un formulario como: casillas de verificación, campos de texto y botones de opción. Estos helpers básicos, con nombres que terminan en `_tag` \(como `text_field_tag` y `check_box_tag`\), generan sólo un elemento `<input>`. El primer parámetro para estos siempre es el nombre del `input`. Cuando se envía el formulario, el nombre se pasará junto con los datos del formulario, y hará su camino a los parámetros en el controlador con el valor introducido por el usuario para ese campo. Por ejemplo, si el formulario contiene `<%= text_field_tag (:query)%>`, entonces podrías obtener el valor de este campo en el controlador con `params[:query]`.
@@ -128,10 +126,6 @@ Al igual que con `check_box_tag`, el segundo parámetro de `radio_button_tag` es
 
 > Utilice siempre las etiquetas de checkbox o radio buttons. Asocian el texto a una opción específica y, al expandir la región seleccionable, facilitan que los usuarios hagan clic en las entradas.
 
-
-
-
-
 ### 1.4 Otros ayudantes de interés
 
 Otros controles de formulario que vale la pena mencionar son campos de texto, campos de contraseña, campos ocultos, campos de búsqueda, campos de teléfono, campos de fecha, campos de tiempo, campos de color, campos de fecha y hora, campos de mes, campos de semana, campos de URL, campos de correo electrónico, campos de números y campos de rango:
@@ -177,24 +171,8 @@ Salida
 Las entradas ocultas no se muestran al usuario, sino que en su lugar contienen datos como cualquier entrada textual. Los valores dentro de ellos se pueden cambiar con JavaScript.
 
 > Las entradas de búsqueda, teléfono, fecha, hora, color, fecha, fecha, hora, mes, semana, URL, correo electrónico, número y rango son controles HTML5. Si requiere que su aplicación tenga una experiencia consistente en navegadores antiguos, necesitará un `polyfill` HTML5 \(proporcionado por CSS y / o JavaScript\). Definitivamente no hay escasez de soluciones para esto, aunque una herramienta popular en este momento es `Modernizr`, que proporciona una forma sencilla de agregar funcionalidad basada en la presencia de características HTML5 detectadas.
-
+>
 > Si utiliza campos de entrada de contraseña \(para cualquier propósito\), puede configurar su aplicación para evitar que se registren esos parámetros. Puede obtener más información al respecto en la Guía de seguridad.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
