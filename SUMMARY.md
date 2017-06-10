@@ -108,4 +108,6 @@
     * [2.4 Uso de los headers para crear respuestas Header-Only](ix-layouts-y-rendering-en-rails/2-creacion-de-respuestas/24-uso-de-los-headers-para-crear-respuestas-header-only.md)
   * [3 Estructuración de los layouts](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts.md)
     * [3.1 Asset Tag Helpers](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts/31-asset-tag-helpers.md)
+    * [3.2 Entendiendo Yield](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts/32-comprension-del-yield.md)
+    * [3.3 Uso del método content\_for](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts/33-uso-del-metodo-contentfor.md)
 
