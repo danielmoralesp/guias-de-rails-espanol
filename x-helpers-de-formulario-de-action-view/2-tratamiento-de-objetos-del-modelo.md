@@ -1,7 +1,5 @@
 # 2- Tratamiento de objetos del modelo
 
-
-
 ### 2.1 Helper de objetos del modelo
 
 Una tarea particularmente común para un formulario es editar o crear un objeto del modelo. Mientras que los helper de la forma  `* _tag` se pueden utilizar ciertamente para esta tarea son algo verbosos como para que cada etiqueta que usted necesite, tenga que asegurarse que el nombre correcto del parámetro se esta utilizando y fijar el valor por defecto del `input` apropiadamente. Rails proporciona helpers adaptados para esta tarea. Estos helpers carecen del sufijo `_tag`, por ejemplo `text_field`, `text_area`.
@@ -23,8 +21,6 @@ Tras el envío del formulario, el valor ingresado por el usuario se almacenará 
 Debe pasar el nombre de una variable de instancia, es decir `:person` o "`person`", no una instancia real del objeto de modelo.
 
 Rails proporciona ayuda para mostrar los errores de validación asociados con un objeto del modelo. Estas son cubiertas en detalle por la guía de validación de Active Record.
-
-
 
 ### 2.2 Vinculación de un formulario a un objeto
 
@@ -89,8 +85,6 @@ Que produce la siguiente salida:
 
 El objeto dado por `fields_for` es un constructor de formularios como el que se obtiene por `form_for` \(de hecho `form_for` llama `fields_for` internamente\).
 
-
-
 ### 2.3 Basándose en la identificación de registros
 
 El modelo `Article` está directamente disponible para los usuarios de la aplicación, por lo que - siguiendo las mejores prácticas para desarrollar con Rails - debe declararle un `resource`:
@@ -109,7 +103,7 @@ Cuando se trata de recursos `RESTful`, las llamadas a `form_for` pueden ser sign
 form_for(@article, url: articles_path)
 # same thing, short-style (record identification gets used):
 form_for(@article)
- 
+
 ## Editing an existing article
 # long-style:
 form_for(@article, url: article_path(@article), html: {method: "patch"})
@@ -143,9 +137,26 @@ Para obtener más información sobre el sistema de enrutamiento de Rails y las c
 
 
 
+### 2.4 ¿Cómo funcionan los formularios con métodos PATCH, PUT o DELETE?
 
+El framework de Rails alienta el diseño `RESTful` de sus aplicaciones, lo que significa que va a hacer un montón de solicitudes "`PATCH`" y "`DELETE`" \(además de "`GET`" y "`POST`"\). Sin embargo, la mayoría de los navegadores no admiten métodos distintos de "`GET`" y "`POST`" cuando se trata de enviar formularios.
 
+Rails trabaja alrededor de este problema emulando otros métodos en `POST` con una entrada oculta denominada "`_method`", que se establece para reflejar el método deseado:
 
+```ruby
+form_tag(search_path, method: "patch")
+```
 
+salida:
 
+```ruby
+<form accept-charset="UTF-8" action="/search" method="post">
+  <input name="_method" type="hidden" value="patch" />
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <input name="authenticity_token" type="hidden" value="f755bb0ed134b76c432144748a6d4b7a7ddf2b71" />
+  ...
+</form>
+```
+
+Al analizar datos POSTed, Rails tendrá en cuenta el parámetro especial `_method`  y actuará como si el método `HTTP` fuera el especificado dentro de él \("`PATCH`" en este ejemplo\).
 
