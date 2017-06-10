@@ -39,5 +39,5 @@ En las páginas generadas por `NewsController`, desea ocultar el menú superior 
 
 Eso es. La vista News utilizarán el nuevo layout, ocultando el menú superior y añadiendo un nuevo menú derecho dentro del div "`content`".
 
-Hay varias maneras de obtener resultados similares con diferentes esquemas de sub-plantillas usando esta técnica. Tenga en cuenta que no hay límite en los niveles de anidamiento. Puede usar el método `ActionView::render` a través de la plantilla de render: '`layouts/news`' para basar un nuevo layout en el layout de news. Si está seguro de que no quiere "sub-templear" el layout de noticias, puede reemplazar el `content_for?(:news_content) ? yield(:news_content) : yield` por un simple `yield`. 
+Hay varias maneras de obtener resultados similares con diferentes esquemas de sub-plantillas usando esta técnica. Tenga en cuenta que no hay límite en los niveles de anidamiento. Puede usar el método `ActionView::render` a través de la plantilla de render: '`layouts/news`' para basar un nuevo layout en el layout de news. Si está seguro de que no quiere "sub-templear" el layout de noticias, puede reemplazar el `content_for?(:news_content) ? yield(:news_content) : yield` por un simple `yield`.
 
