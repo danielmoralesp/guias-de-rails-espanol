@@ -111,4 +111,5 @@
     * [3.2 Entendiendo Yield](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts/32-comprension-del-yield.md)
     * [3.3 Uso del método content\_for](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts/33-uso-del-metodo-contentfor.md)
     * [3.4 Uso de Partials](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts/34-uso-de-partials.md)
+    * [3.5 Uso de layouts anidados](ix-layouts-y-rendering-en-rails/3-estructuracion-de-los-layouts/35-uso-de-layouts-anidados.md)
 
