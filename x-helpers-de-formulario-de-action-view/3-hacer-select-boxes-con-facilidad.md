@@ -15,6 +15,8 @@ Así es como podría lucir el etiquetado:
 
 Aquí tiene una lista de ciudades cuyos nombres se le presentan al usuario. Internamente, la aplicación sólo quiere manejar sus `IDs` para que se usen como el atributo `value` de las opciones. Veamos cómo Rails nos puede ayudar aquí.
 
+
+
 ### 3.1 Las etiquetas de select y option
 
 El ayudante más genérico es `select_tag`, que -como su nombre indica- simplemente genera la etiqueta `SELECT` que encapsula una cadena de opciones:
@@ -27,9 +29,9 @@ Esto es un comienzo, pero no crea dinámicamente las etiquetas `option`. Puede g
 
 ```ruby
 <%= options_for_select([['Lisbon', 1], ['Madrid', 2], ...]) %>
- 
+
 output:
- 
+
 <option value="1">Lisbon</option>
 <option value="2">Madrid</option>
 ...
@@ -47,9 +49,9 @@ Sabiendo esto, puede combinar `select_tag` y `options_for_select` para lograr el
 
 ```ruby
 <%= options_for_select([['Lisbon', 1], ['Madrid', 2], ...], 2) %>
- 
+
 output:
- 
+
 <option value="1">Lisbon</option>
 <option value="2" selected="selected">Madrid</option>
 ...
@@ -68,13 +70,23 @@ Puede agregar atributos arbitrarios a las opciones utilizando hashes:
     ['Madrid', 2, { 'data-size' => '3.2 million' }]
   ], 2
 ) %>
- 
+
 output:
- 
+
 <option value="1" data-size="2.8 million">Lisbon</option>
 <option value="2" selected="selected" data-size="3.2 million">Madrid</option>
 ...
 ```
+
+
+
+
+
+### 3.2 Select box para tratar con modelos
+
+
+
+
 
 
 
