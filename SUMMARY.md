@@ -116,4 +116,5 @@
   * [1- Tratamiento de formularios básicos](x-helpers-de-formulario-de-action-view/1-tratamiento-de-formularios-basicos.md)
   * [2- Tratamiento de objetos del modelo](x-helpers-de-formulario-de-action-view/2-tratamiento-de-objetos-del-modelo.md)
   * [3- Hacer Select Boxes con facilidad](x-helpers-de-formulario-de-action-view/3-hacer-select-boxes-con-facilidad.md)
+  * [4- Uso de los helpers de formulario Fecha y Hora](x-helpers-de-formulario-de-action-view/4-uso-de-los-helpers-de-formulario-fecha-y-hora.md)
 
