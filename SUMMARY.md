@@ -121,4 +121,5 @@
   * [6- Personalización de los constructores de formularios](x-helpers-de-formulario-de-action-view/6-personalizacion-de-los-constructores-de-formularios.md)
   * [7- Entendiendo las convenciones de nombramiento de parámetros](x-helpers-de-formulario-de-action-view/7-entendiendo-las-convenciones-de-nombramiento-de-parametros.md)
   * [8- Formularios a Recursos Externos](x-helpers-de-formulario-de-action-view/8-formularios-a-recursos-externos.md)
+  * [9- Construcción de formularios complejos](x-helpers-de-formulario-de-action-view/9-construccion-de-formularios-complejos.md)
 
