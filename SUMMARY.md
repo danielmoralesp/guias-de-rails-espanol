@@ -119,4 +119,5 @@
   * [4- Uso de los helpers de formulario Fecha y Hora](x-helpers-de-formulario-de-action-view/4-uso-de-los-helpers-de-formulario-fecha-y-hora.md)
   * [5- Carga de archivos](x-helpers-de-formulario-de-action-view/5-carga-de-archivos.md)
   * [6- Personalización de los constructores de formularios](x-helpers-de-formulario-de-action-view/6-personalizacion-de-los-constructores-de-formularios.md)
+  * [7- Entendiendo las convenciones de nombramiento de parámetros](x-helpers-de-formulario-de-action-view/7-entendiendo-las-convenciones-de-nombramiento-de-parametros.md)
 
