@@ -123,4 +123,5 @@
   * [8- Formularios a Recursos Externos](x-helpers-de-formulario-de-action-view/8-formularios-a-recursos-externos.md)
   * [9- Construcción de formularios complejos](x-helpers-de-formulario-de-action-view/9-construccion-de-formularios-complejos.md)
 * [XI- Descripción general de Action Controller](xi-descripcion-general-de-action-controller.md)
+  * [1- ¿Qué hace un controlador?](xi-descripcion-general-de-action-controller/1-que-hace-un-controlador.md)
 
