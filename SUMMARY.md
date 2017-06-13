@@ -126,4 +126,5 @@
   * [1- ¿Qué hace un controlador?](xi-descripcion-general-de-action-controller/1-que-hace-un-controlador.md)
   * [2- Convención de nombres del controlador](xi-descripcion-general-de-action-controller/2-convencion-de-nombres-del-controlador.md)
   * [3- Métodos y acciones](xi-descripcion-general-de-action-controller/3-metodos-y-acciones.md)
+  * [4- Parámetros](xi-descripcion-general-de-action-controller/4-parametros.md)
 
