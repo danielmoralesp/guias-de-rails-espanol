@@ -124,4 +124,5 @@
   * [9- Construcción de formularios complejos](x-helpers-de-formulario-de-action-view/9-construccion-de-formularios-complejos.md)
 * [XI- Descripción general de Action Controller](xi-descripcion-general-de-action-controller.md)
   * [1- ¿Qué hace un controlador?](xi-descripcion-general-de-action-controller/1-que-hace-un-controlador.md)
+  * [2- Convención de nombres del controlador](xi-descripcion-general-de-action-controller/2-convencion-de-nombres-del-controlador.md)
 

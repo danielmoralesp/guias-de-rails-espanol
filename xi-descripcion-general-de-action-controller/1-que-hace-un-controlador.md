@@ -6,5 +6,7 @@ Para la mayoría de las aplicaciones convencionales RESTful, el controlador reci
 
 Por lo tanto, un controlador puede considerarse como un intermediario entre los modelos y las vistas. Hace que los datos del modelo estén disponibles para que la vista pueda mostrar esos datos al usuario, y guarda o actualiza los datos que ingresa un usuario en el modelo.
 
-Para obtener más detalles sobre el proceso de enrutamiento, consulte Rails Routing.
+> Para obtener más detalles sobre el proceso de enrutamiento, consulte Rails Routing.
+
+
 
