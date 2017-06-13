@@ -89,10 +89,6 @@ Puede personalizar el nombre de la clave o los parámetros específicos que dese
 
 > El soporte para parsear parámetros `XML` se ha extraído en una gema denominada `actionpack-xml_parser`.
 
-
-
-
-
 ### 4.3 Parámetros de enrutamiento
 
 El hash params siempre contendrá las claves `:controller` y `:action`, pero debería usar los métodos `controller_name` y `action_name` para acceder a estos valores. Otros parámetros definidos por el enrutamiento, tales como `:id`, también estarán disponibles. Por ejemplo, considere una lista de clientes donde la lista puede mostrar clientes activos o inactivos. Podemos agregar una ruta que captura el parámetro `:status` en una URL "bonita":
@@ -102,10 +98,6 @@ get '/clients/:status' => 'clients#index', foo: 'bar'
 ```
 
 En este caso, cuando un usuario abre la URL `/clients/active`, `params[:status]` se establecerá en "`active`". Cuando se utiliza esta ruta, `params[:foo]` también se establecerá en "`bar`", como si se pasara en la cadena de consulta. Su controlador también recibirá `params[:action]` como "`index`" y `params[:controller]` como "`clients`".
-
-
-
-
 
 ### 4.4 default\_url\_options
 
@@ -124,10 +116,6 @@ Estas opciones se utilizarán como punto de partida al generar las URLs, por lo 
 Si define `default_url_options` en `ApplicationController`, como en el ejemplo anterior, estos valores predeterminados se utilizarán para toda la generación de todas las URLs. El método también puede definirse en un controlador específico, en cuyo caso sólo afecta a las URLs allí generadas.
 
 En una solicitud dada, el método no es realmente llamado para cada URL generada; Por razones de rendimiento, el hash devuelto se almacena en caché, y hay como máximo una invocación por solicitud.
-
-
-
-
 
 ### 4.5 Strong Parameters
 
@@ -169,4 +157,42 @@ end
 #### 4.5.1 Valores escalares permitidos
 
 Dado
+
+```ruby
+params.permit(:id)
+```
+
+La clave `:id` pasa la lista blanca si aparece en `params` y tiene un valor escalar permitido asociado. De lo contrario, la clave se va a filtrar, por lo que no se pueden inyectar arrays, hashes ni ningún otro objeto.
+
+Los tipos escalares permitidos son `String`, `Symbol`, `NilClass`, `Numeric`, `TrueClass`, `FalseClass`, `Date`, `Time`, `DateTime`, `StringIO`, `IO`, `ActionDispatch::Http::UploadedFile`, y `Rack::Test::UploadedFile`.
+
+Para declarar que el valor en `params` debe ser un array de valores escalares permitidos, debe mapear la key a un array vacío:
+
+```ruby
+params.permit(id: [])
+```
+
+A veces no es posible o conveniente declarar las keys válidas de un parámetro hash o su estructura interna. Sólo tiene que asignar un hash vacío:
+
+```ruby
+params.permit(preferences: {})
+```
+
+Pero tenga cuidado porque esto abre la puerta a un input arbitrario. En este caso, el `permit` asegura que los valores en la estructura devuelta se permitan escalares y filtra cualquier otra cosa.
+
+Para la lista blanca de un conjunto de parámetros, el `permit!` puede utilizarse:
+
+```ruby
+params.require(:log_entry).permit!
+```
+
+
+
+
+
+
+
+
+
+
 
