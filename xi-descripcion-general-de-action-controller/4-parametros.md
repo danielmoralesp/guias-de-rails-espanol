@@ -16,7 +16,7 @@ class ClientsController < ApplicationController
       @clients = Client.inactivated
     end
   end
- 
+
   # Esta acción utiliza parámetros POST. Lo más probable es que vengan
   # de un formulario HTML que el usuario ha enviado. La URL para
   # esta solicitud RESTful será "/clients", y los datos serán
@@ -32,8 +32,6 @@ class ClientsController < ApplicationController
 end
 ```
 
-
-
 ### 4.1 Parámetros de hash y de array
 
 El hash de parámetros no está limitado a claves y valores unidimensionales. Puede contener arrays anidados y hashes. Para enviar un array de valores, agregue un par de corchetes vacíos "`[]`" al nombre de la clave:
@@ -44,9 +42,9 @@ GET /clients?ids[]=1&ids[]=2&ids[]=3
 
 > La URL real en este ejemplo se codificará como "`/clients?ids%5b%5d=1&ids%5b%5d=2&ids%5b%5d=3`" ya que los caracteres "`[`" y "`]`" no están permitidos en las URL. La mayoría de las veces no tienes que preocuparte por esto porque el navegador lo codificará por ti, y Rails lo descodificará automáticamente, pero si alguna vez te encuentras teniendo que enviar esas solicitudes al servidor manualmente debes tener esto en cuenta .
 
-El valor de `params[:ids]` será ahora` ["1", "2", "3"]`. Tenga en cuenta que los valores de los parámetros son siempre cadenas; Rails no intenta adivinar o lanzar el `type`.
+El valor de `params[:ids]` será ahora`["1", "2", "3"]`. Tenga en cuenta que los valores de los parámetros son siempre cadenas; Rails no intenta adivinar o lanzar el `type`.
 
-> Valores como `[nil]` o` [nil, nil, ...]` en params se sustituyen por `[] `por motivos de seguridad de forma predeterminada. Consulte la Guía de seguridad para obtener más información.
+> Valores como `[nil]` o`[nil, nil, ...]` en params se sustituyen por `[]`por motivos de seguridad de forma predeterminada. Consulte la Guía de seguridad para obtener más información.
 
 Para enviar un hash, debe incluir el nombre de la clave dentro de los corchetes:
 
@@ -62,10 +60,6 @@ Para enviar un hash, debe incluir el nombre de la clave dentro de los corchetes:
 Cuando se envíe este formulario, el valor de `params[:client]` será `{ "name" => "Acme", "phone" => "12345", "address" => { "postcode" => "12345", "city" => "Carrot City" } }`. Tenga en cuenta el hash anidado en `params[:client][: address]`.
 
 El objeto `params` actúa como un Hash, pero le permite usar símbolos y cadenas de forma intercambiable como claves.
-
-
-
-
 
 ### 4.2 Parámetros JSON
 
@@ -149,7 +143,7 @@ class PeopleController < ActionController::Base
   def create
     Person.create(params[:person])
   end
- 
+
   # Esto pasará sin problemas, siempre y cuando hay una key person
   # en los parámetros, de lo contrario dispara una excepción
   # ActionController::ParameterMissing, que obtendrá una captura
@@ -160,7 +154,7 @@ class PeopleController < ActionController::Base
     person.update!(person_params)
     redirect_to person
   end
- 
+
   private
     # Utilizando un método privado para encapsular los parámetros permitidos
     # es sólo un buen patrón ya que podrá reutilizar el mismo
@@ -172,11 +166,7 @@ class PeopleController < ActionController::Base
 end
 ```
 
+#### 4.5.1 Valores escalares permitidos
 
-
-
-
-
-
-
+Dado
 
