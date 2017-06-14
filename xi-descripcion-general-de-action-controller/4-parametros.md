@@ -186,13 +186,5 @@ Para la lista blanca de un conjunto de parámetros, el `permit!` puede utilizars
 params.require(:log_entry).permit!
 ```
 
-
-
-
-
-
-
-
-
-
+Esto marca los hash params `:log_entry`  y cualquier sub-hash de él como permitido y no se comprueba para los escalares permitidos, porque cualquier cosa es aceptada. Se debe tener mucho cuidado cuando se usa `permit!`, ya que permitirá asignar masivamente todos los atributos actuales y futuros del modelo.
 
