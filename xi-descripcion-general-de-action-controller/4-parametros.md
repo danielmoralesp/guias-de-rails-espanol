@@ -188,3 +188,52 @@ params.require(:log_entry).permit!
 
 Esto marca los hash params `:log_entry`  y cualquier sub-hash de él como permitido y no se comprueba para los escalares permitidos, porque cualquier cosa es aceptada. Se debe tener mucho cuidado cuando se usa `permit!`, ya que permitirá asignar masivamente todos los atributos actuales y futuros del modelo.
 
+#### 4.5.2 Parámetros anidados
+
+También puede utilizar `permit` en parámetros anidados, como:
+
+```ruby
+params.permit(:name, { emails: [] },
+              friends: [ :name,
+                         { family: [ :name ], hobbies: [] }])
+```
+
+Esta declaración de lista blanca \(whitelist\) de `name`, `emails` y `friends`espera que los `emais` sean un array de valores escalares permitidos y que los `friends` sean un array de recursos con atributos específicos: deben tener un atributo `name` \(cualquier valor escalar permitido permitido\), un atributo `hobbies` como un array escalar permitido, y  valores y un atributo de `family` que está restringido a tener un `name` \(también se permiten valores escalares aquí\).
+
+#### 4.5.3 Más ejemplos
+
+También puede usar los atributos de `permit` en su nueva acción. Esto dispara el problema que no puede utilizar `require` en la clave raíz porque, normalmente, no existe al llamar a `new`:
+
+```ruby
+# using `fetch` you can supply a default and use
+# the Strong Parameters API from there.
+params.fetch(:blog, {}).permit(:title, :author)
+```
+
+El método de clase de modelos llamado  `accepted_nested_attributes_for` le permite actualizar y destruir registros asociados. Esto se basa en los parámetros `id` y `_destroy`:
+
+Los hashs con claves enteras se tratan de forma diferente y se pueden declarar los atributos como si fueran hijos directos. Obtiene este tipo de parámetros cuando utiliza `accept_nested_attributes_for` en combinación con una asociación `has_many`:
+
+```ruby
+# To whitelist the following data:
+# {"book" => {"title" => "Some Book",
+#             "chapters_attributes" => { "1" => {"title" => "First Chapter"},
+#                                        "2" => {"title" => "Second Chapter"}}}}
+ 
+params.require(:book).permit(:title, chapters_attributes: [:title])
+```
+
+#### 4.5.4 Fuera del scope de los strong parameters
+
+La API de los strong parameters fue diseñada con los casos de uso más comunes en mente. No se entiende como una bala de plata para manejar todos sus problemas de lista blanca. Sin embargo, puede combinar fácilmente la API con su propio código para adaptarse a su situación.
+
+Imagine un escenario en el que tenga parámetros que representen un nombre de producto y un hash de datos arbitrarios asociados con ese producto y que desee incluir en la lista blanca el atributo de nombre de producto y también el hash de datos completo. La API de los strong parameters no le permite directamente incluir en la lista blanca el conjunto de un hash anidado con ninguna clave, pero puede utilizar las claves de su hash anidado para declarar lo que desea para la lista blanca:
+
+```ruby
+def product_params
+  params.require(:product).permit(:name, data: params[:product][:data].try(:keys))
+end
+```
+
+
+
