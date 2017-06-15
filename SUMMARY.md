@@ -127,4 +127,5 @@
   * [2- Convención de nombres del controlador](xi-descripcion-general-de-action-controller/2-convencion-de-nombres-del-controlador.md)
   * [3- Métodos y acciones](xi-descripcion-general-de-action-controller/3-metodos-y-acciones.md)
   * [4- Parámetros](xi-descripcion-general-de-action-controller/4-parametros.md)
+  * [5- Session](xi-descripcion-general-de-action-controller/5-session.md)
 
