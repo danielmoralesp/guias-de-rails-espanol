@@ -132,4 +132,5 @@
   * [7- Renderizando datos XML y JSON](xi-descripcion-general-de-action-controller/7-renderizando-datos-xml-y-json.md)
   * [8- Filters](xi-descripcion-general-de-action-controller/8-filters.md)
   * [9- Request Forgery Protection](xi-descripcion-general-de-action-controller/9-request-forgery-protection.md)
+  * [10- Objetos de solicitud y respuesta](xi-descripcion-general-de-action-controller/10-objetos-de-solicitud-y-respuesta.md)
 
