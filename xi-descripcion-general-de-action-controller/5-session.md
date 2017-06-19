@@ -53,13 +53,13 @@ Rails configura \(para CookieStore\) una clave secreta utilizada para firmar los
 # Puede utilizar `rails secret` para generar una clave secreta segura.
 # asegúrese de que las claves de este archivo se mantengan privadas
 # si está compartiendo su código públicamente.
- 
+
 development:
   secret_key_base: a75d...
- 
+
 test:
   secret_key_base: 492f...
- 
+
 # Do not keep production secrets in the repository,
 # instead read values from the environment.
 production:
@@ -78,9 +78,9 @@ Los valores de sesión se almacenan utilizando pares clave/valor como un hash:
 
 ```ruby
 class ApplicationController < ActionController::Base
- 
+
   private
- 
+
   # Encuentra el usuario con el ID almacenado en la sesión con la clave 
   # :current_user_id Esta es una forma común de manejar el inicio de sesión de un usuario en
   # una aplicación Rails; El inicio de sesión establece el valor de la sesión y
@@ -158,7 +158,7 @@ La acción `destroy` vuelve a dirigir al `root_url` de la aplicación, donde se 
     <% flash.each do |name, msg| -%>
       <%= content_tag :div, msg, class: name %>
     <% end -%>
- 
+
     <!-- more content -->
   </body>
 </html>
@@ -186,10 +186,28 @@ class MainController < ApplicationController
   def index
     # Will persist all flash values.
     flash.keep
- 
+
     # You can also use a key to keep only some kind of value.
     # flash.keep(:notice)
     redirect_to users_url
+  end
+end
+```
+
+#### 5.2.1 flash.now
+
+De forma predeterminada, agregar valores a `flash` los hará disponibles para la siguiente solicitud, pero a veces es posible que desee acceder a esos valores en la misma solicitud. Por ejemplo, si la acción `create` no puede guardar un recurso y renderizar la nueva plantilla directamente, no resultará en una nueva solicitud, pero es posible que quiera mostrar un mensaje utilizando flash. Para ello, puede utilizar `flash.now` de la misma manera que utiliza el `flash` normal:
+
+```ruby
+class ClientsController < ApplicationController
+  def create
+    @client = Client.new(params[:client])
+    if @client.save
+      # ...
+    else
+      flash.now[:error] = "Could not save client"
+      render action: "new"
+    end
   end
 end
 ```
