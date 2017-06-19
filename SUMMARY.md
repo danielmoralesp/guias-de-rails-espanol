@@ -136,4 +136,5 @@
   * [11- Autenticaciones HTTP](xi-descripcion-general-de-action-controller/11-autenticaciones-http.md)
   * [12- Streaming y descargas de archivos](xi-descripcion-general-de-action-controller/12-streaming-y-descargas-de-archivos.md)
   * [13- Filtrado de logs](xi-descripcion-general-de-action-controller/13-filtrado-de-logs.md)
+  * [14- Rescue](xi-descripcion-general-de-action-controller/14-rescue.md)
 
