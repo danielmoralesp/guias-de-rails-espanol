@@ -128,4 +128,5 @@
   * [3- Métodos y acciones](xi-descripcion-general-de-action-controller/3-metodos-y-acciones.md)
   * [4- Parámetros](xi-descripcion-general-de-action-controller/4-parametros.md)
   * [5- Session](xi-descripcion-general-de-action-controller/5-session.md)
+  * [6- Cookies](xi-descripcion-general-de-action-controller/6-cookies.md)
 
