@@ -129,4 +129,5 @@
   * [4- Parámetros](xi-descripcion-general-de-action-controller/4-parametros.md)
   * [5- Session](xi-descripcion-general-de-action-controller/5-session.md)
   * [6- Cookies](xi-descripcion-general-de-action-controller/6-cookies.md)
+  * [7- Renderizando datos XML y JSON](xi-descripcion-general-de-action-controller/7-renderizando-datos-xml-y-json.md)
 
