@@ -138,4 +138,6 @@
   * [13- Filtrado de logs](xi-descripcion-general-de-action-controller/13-filtrado-de-logs.md)
   * [14- Rescue](xi-descripcion-general-de-action-controller/14-rescue.md)
   * [15- Forzar el protocolo HTTPS](xi-descripcion-general-de-action-controller/15-forzar-el-protocolo-https.md)
+* [XII- Enrutamiento en Rails](xii-enrutamiento-en-rails.md)
+  * [1- El Propósito del Enrutador de Rails](xii-enrutamiento-en-rails/1-el-proposito-del-enrutador-de-rails.md)
 
