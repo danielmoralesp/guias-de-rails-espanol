@@ -141,4 +141,5 @@
 * [XII- Enrutamiento en Rails](xii-enrutamiento-en-rails.md)
   * [1- El Propósito del Enrutador de Rails](xii-enrutamiento-en-rails/1-el-proposito-del-enrutador-de-rails.md)
   * [2- Ruta resource: el valor predeterminado de Rails](xii-enrutamiento-en-rails/2-ruta-resource-el-valor-predeterminado-de-rails.md)
+  * [3- Rutas sin resources](xii-enrutamiento-en-rails/3-rutas-sin-resources.md)
 
