@@ -327,7 +327,7 @@ El recurso `comments` aquí tendrá las siguientes rutas generadas para él:
 | PATCH/PUT | /comments/:id\(.:format\) | comments\#update | sekret\_comment\_path |
 | DELETE | /comments/:id\(.:format\) | comments\#destroy | sekret\_comment\_path |
 
-2.8 Routing concerns
+### 2.8 Routing concerns
 
 El Routing concerns le permite declarar rutas comunes que pueden reutilizarse dentro de otros recursos y rutas. Para definir un concerns:
 
@@ -335,7 +335,7 @@ El Routing concerns le permite declarar rutas comunes que pueden reutilizarse de
 concern :commentable do
   resources :comments
 end
- 
+
 concern :image_attachable do
   resources :images, only: :index
 end
@@ -345,7 +345,7 @@ Estos concerns pueden utilizarse en recursos para evitar la duplicación de cód
 
 ```ruby
 resources :messages, concerns: :commentable
- 
+
 resources :articles, concerns: [:commentable, :image_attachable]
 ```
 
@@ -355,7 +355,7 @@ Lo anterior es equivalente a:
 resources :messages do
   resources :comments
 end
- 
+
 resources :articles do
   resources :comments
   resources :images, only: :index
