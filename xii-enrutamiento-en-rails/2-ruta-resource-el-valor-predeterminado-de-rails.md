@@ -370,5 +370,111 @@ namespace :articles do
 end
 ```
 
+### 2.9 Creación de rutas y URL desde objetos
+
+Además de utilizar los ayudantes de enrutamiento, Rails también puede crear rutas de acceso y URL desde un array de parámetros. Por ejemplo, supongamos que tiene este conjunto de rutas:
+
+```ruby
+resources :magazines do
+  resources :ads
+end
+```
+
+Cuando se utiliza `magazine_ad_path`, puede pasarle instancias de Magazine y Ad en lugar de los `ID` numéricos:
+
+```ruby
+<%= link_to 'Ad details', magazine_ad_path(@magazine, @ad) %>
+```
+
+También puede utilizar `url_for` con un conjunto de objetos y Rails determinará automáticamente la ruta que desea:
+
+```ruby
+<%= link_to 'Ad details', url_for([@magazine, @ad]) %>
+```
+
+En este caso, Rails verá que `@magazine` es una revista y `@ad` es un anuncio y por lo tanto utilizará el ayudante de `magazine_ad_path`. En helpers como `link_to`, puede especificar sólo el objeto en lugar de la llamada completa `url_for`:
+
+```ruby
+<%= link_to 'Ad details', [@magazine, @ad] %>
+```
+
+Si quisieras linkearte a una sola revista:
+
+```ruby
+<%= link_to 'Magazine details', @magazine %>
+```
+
+Para otras acciones, sólo tiene que insertar el nombre de la acción como el primer elemento del array:
+
+```ruby
+<%= link_to 'Edit Ad', [:edit, @magazine, @ad] %>
+```
+
+Esto le permite tratar instancias de sus modelos como URLs, y es una ventaja clave para usar el estilo resource.
+
+### 2.10 Añadir más acciones RESTful
+
+No está limitado a las siete rutas que el enrutamiento `RESTful` crea de forma predeterminada. Si lo desea, puede agregar rutas adicionales que se aplican a la colección o miembros individuales de la colección.
+
+#### 2.10.1 Agregar rutas member
+
+Para agregar una ruta member, simplemente agregue un bloque member en el bloque de recursos:
+
+```ruby
+resources :photos do
+  member do
+    get 'preview'
+  end
+end
+```
+
+Esto reconocerá `/photos/1/preview` con `GET` y enruta a la acción `preview` de `PhotosController`, con el valor de `id` de recurso pasado en `params[:id]`. También creará los ayudantes `preview_photo_url` y `preview_photo_path`.
+
+Dentro del bloque de rutas member, cada nombre de ruta especifica que el verbo HTTP será reconocido. Puedes usar aquí `get`, `patch`, `put`, `post` o `delete` . Si no tiene múltiples rutas `member`, también puede pasar `:on` a una ruta, eliminando el bloque:
+
+```ruby
+resources :photos do
+  get 'preview', on: :member
+end
+```
+
+Puede omitir la opción `:on`, esto creará la misma ruta `member`, excepto que el valor `id` del recurso estará disponible en `params[:photo_id]` en lugar de `params[:id]`.
+
+#### 2.10.2 Adición de collection routes
+
+Para agregar una ruta a la colección:
+
+```ruby
+resources :photos do
+  collection do
+    get 'search'
+  end
+end
+```
+
+Esto permitirá a Rails reconocer rutas como `/photos/search` con `GET`, y enruta a la acción `search` de `PhotosController`. También creará los helpers de búsqueda `search_photos_url` y `search_photos_path`.
+
+Al igual que con las rutas `member`, puede pasar `:on` a una ruta:
+
+```ruby
+resources :photos do
+  get 'search', on: :collection
+end
+```
+
+#### 2.10.3 Agregar rutas para nuevas acciones adicionales
+
+Para agregar una acción nueva alternativa se hace mediante el acceso directo `:on`
+
+```ruby
+resources :comments do
+  get 'preview', on: :new
+end
+```
+
+Esto permitirá a Rails reconocer rutas como `/comments/new/preview` con `GET`, y enruta a la acción `preview` de `CommentsController`. También creará los auxiliares de ruta `preview_new_comment_url` y `preview_new_comment_path`.
+
+> Si te encuentras agregando muchas acciones adicionales a una ruta de recursos, es hora de parar y pregúntarte si estás disfrazando la presencia de otro recurso.
+
 
 
