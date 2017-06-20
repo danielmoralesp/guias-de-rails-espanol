@@ -41,17 +41,17 @@ crea siete rutas diferentes en su aplicación, todas mapeando al controlador de 
 | DELETE | /photos/:id | photos\#destroy | elimina una foto en especifico |
 
 > Debido a que el enrutador usa el verbo `HTTP` y la `URL` para coincidir con las solicitudes entrantes, cuatro direcciones URL asignan siete acciones diferentes.
-
+>
 > Las rutas de Rails se emparejan en el orden en que se especifican, por lo que si tienes `resources :photos`  arriba de `get 'photos/poll'` la ruta de la acción  `show` para la línea de `resources` coincidirá antes de la línea `get`. Para arreglar esto, mueva la línea `get` por encima de la línea de `resources` para que coincida primero.
 
 ### 2.3 Ayudantes de ruta y URL
 
 La creación de una ruta `resources` también expondrá una serie de ayudantes a los controladores en su aplicación. En el caso de `resources :photos`
 
-* `photos_path `retorna` /photos`
-* `new_photo_path `retorna` /photos/new`
-* `edit_photo_path(:id) `retorna` /photos/:id/edit` \(por ejemplo, `edit_photo_path(10)` retorna `/photos/10/edit`\)
-* `photo_path(:id) `retorna` /photos/:id` \(por ejemplo, `photo_path(10) retorna` `/photos/10`\)
+* `photos_path`retorna`/photos`
+* `new_photo_path`retorna`/photos/new`
+* `edit_photo_path(:id)`retorna`/photos/:id/edit` \(por ejemplo, `edit_photo_path(10)` retorna `/photos/10/edit`\)
+* `photo_path(:id)`retorna`/photos/:id` \(por ejemplo, `photo_path(10) retorna` `/photos/10`\)
 
 Cada uno de estos ayudantes tiene un ayudante `_url` correspondiente \(como `photos_url`\) que devuelve la misma ruta prefijada con el prefijo actual de host, puerto y ruta.
 
@@ -106,9 +106,9 @@ Como es posible que desee utilizar el mismo controlador para una ruta singular \
 
 Una ruta singular genera estos ayudantes:
 
-* `new_geocoder_path `retorna` /geocoder/new`
-* `edit_geocoder_path `retorna` /geocoder/edit`
-* `geocoder_path `retorna` /geocoder`
+* `new_geocoder_path`retorna`/geocoder/new`
+* `edit_geocoder_path`retorna`/geocoder/edit`
+* `geocoder_path`retorna`/geocoder`
 
 Al igual que con recursos en plural, los mismos helpers que terminan en `_url` también incluirán el prefijo host, port y path.
 
@@ -116,7 +116,7 @@ Un error de larga data impide que `form_for` trabaje automáticamente con recurs
 
 ```ruby
 form_for @geocoder, url: geocoder_path do |f|
- 
+
 # snippet for brevity
 ```
 
@@ -192,7 +192,7 @@ Es común tener recursos que son lógicamente hijos de otros recursos. Por ejemp
 class Magazine < ApplicationRecord
   has_many :ads
 end
- 
+
 class Ad < ApplicationRecord
   belongs_to :magazine
 end
@@ -280,6 +280,93 @@ shallow do
     resources :quotes
     resources :drafts
   end
+end
+```
+
+Existen dos opciones de ámbito para personalizar rutas poco profundas. prefijos `:shallow_path`  del path miembro con el parámetro especificado:
+
+```ruby
+scope shallow_path: "sekret" do
+  resources :articles do
+    resources :comments, shallow: true
+  end
+end
+```
+
+El recurso de comentarios aquí tendrá las siguientes rutas generadas:
+
+| HTTP Verb | Path | Controller\#Action | Named Helper |
+| :--- | :--- | :--- | :--- |
+| GET | /articles/:article\_id/comments\(.:format\) | comments\#index | article\_comments\_path |
+| POST | /articles/:article\_id/comments\(.:format\) | comments\#create | article\_comments\_path |
+| GET | /articles/:article\_id/comments/new\(.:format\) | comments\#new | new\_article\_comment\_path |
+| GET | /sekret/comments/:id/edit\(.:format\) | comments\#edit | edit\_comment\_path |
+| GET | /sekret/comments/:id\(.:format\) | comments\#show | comment\_path |
+| PATCH/PUT | /sekret/comments/:id\(.:format\) | comments\#update | comment\_path |
+| DELETE | /sekret/comments/:id\(.:format\) | comments\#destroy | comment\_path |
+
+La opción: `shallow_prefix` añade el parámetro especificado a los ayudantes nombrados:
+
+```ruby
+scope shallow_prefix: "sekret" do
+  resources :articles do
+    resources :comments, shallow: true
+  end
+end
+```
+
+El recurso `comments` aquí tendrá las siguientes rutas generadas para él:
+
+| HTTP Verb | Path | Controller\#Action | Named Helper |
+| :--- | :--- | :--- | :--- |
+| GET | /articles/:article\_id/comments\(.:format\) | comments\#index | article\_comments\_path |
+| POST | /articles/:article\_id/comments\(.:format\) | comments\#create | article\_comments\_path |
+| GET | /articles/:article\_id/comments/new\(.:format\) | comments\#new | new\_article\_comment\_path |
+| GET | /comments/:id/edit\(.:format\) | comments\#edit | edit\_sekret\_comment\_path |
+| GET | /comments/:id\(.:format\) | comments\#show | sekret\_comment\_path |
+| PATCH/PUT | /comments/:id\(.:format\) | comments\#update | sekret\_comment\_path |
+| DELETE | /comments/:id\(.:format\) | comments\#destroy | sekret\_comment\_path |
+
+2.8 Routing concerns
+
+El Routing concerns le permite declarar rutas comunes que pueden reutilizarse dentro de otros recursos y rutas. Para definir un concerns:
+
+```ruby
+concern :commentable do
+  resources :comments
+end
+ 
+concern :image_attachable do
+  resources :images, only: :index
+end
+```
+
+Estos concerns pueden utilizarse en recursos para evitar la duplicación de código y compartir el comportamiento entre rutas:
+
+```ruby
+resources :messages, concerns: :commentable
+ 
+resources :articles, concerns: [:commentable, :image_attachable]
+```
+
+Lo anterior es equivalente a:
+
+```ruby
+resources :messages do
+  resources :comments
+end
+ 
+resources :articles do
+  resources :comments
+  resources :images, only: :index
+end
+```
+
+También puedes usarlos en cualquier lugar que quieras dentro de las rutas, por ejemplo en una llamada de ámbito o de espacio de nombres:
+
+```ruby
+namespace :articles do
+  concerns :commentable
 end
 ```
 
