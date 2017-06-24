@@ -86,7 +86,7 @@ get ':username', to: 'users#show', as: :user
 
 Esto definirá un método `user_path` que estará disponible en los controladores, ayudantes y vistas que irán a una ruta como `/bob`. Dentro de la acción `show` de `UsersController`, `params[:username]` contendrá el nombre de usuario para el usuario. cambie `:username` en la definición de ruta si no desea que su nombre de parámetro sea `:username`.
 
-
-
 Aqui continuamos
+
+Aqui continuamos el sabado
 
