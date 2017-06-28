@@ -42,7 +42,7 @@ Puede utilizar la opción `:constraints` para especificar un formato requerido e
 resources :photos, constraints: { id: /[A-Z][A-Z][0-9]+/ }
 ```
 
-Esta declaración limita el parámetro `:id` para que coincida con la expresión regular suministrada. Por lo tanto, en este caso, el enrutador ya no coincidiría con esta ruta `/photos/1` . En su lugar coincidiría con,` /photos/RR27` .
+Esta declaración limita el parámetro `:id` para que coincida con la expresión regular suministrada. Por lo tanto, en este caso, el enrutador ya no coincidiría con esta ruta `/photos/1` . En su lugar coincidiría con,`/photos/RR27` .
 
 Puede especificar una restricción única para aplicar a un número de rutas utilizando el formulario de bloque:
 
@@ -54,8 +54,8 @@ end
 ```
 
 > Por supuesto, puede utilizar las limitaciones más avanzadas disponibles en rutas sin-resources en este contexto.
-
+>
 > De forma predeterminada, el parámetro `id` no acepta puntos, ya que el punto se utiliza como separador para las rutas formateadas. Si necesitas usar un punto dentro de un `:id` agrega una restricción que anula esto - por ejemplo `id: /[^\/]+/` permite cualquier cosa menos una barra.
 
-
+aqui vamos el miercoles
 
