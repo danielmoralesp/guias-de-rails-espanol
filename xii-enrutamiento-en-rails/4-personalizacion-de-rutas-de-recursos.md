@@ -57,5 +57,5 @@ end
 >
 > De forma predeterminada, el parámetro `id` no acepta puntos, ya que el punto se utiliza como separador para las rutas formateadas. Si necesitas usar un punto dentro de un `:id` agrega una restricción que anula esto - por ejemplo `id: /[^\/]+/` permite cualquier cosa menos una barra.
 
-aqui vamos el miercoles
+aqui vamos el martes
 
