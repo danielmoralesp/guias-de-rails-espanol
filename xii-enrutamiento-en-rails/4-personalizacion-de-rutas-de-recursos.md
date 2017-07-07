@@ -54,8 +54,71 @@ end
 ```
 
 > Por supuesto, puede utilizar las limitaciones más avanzadas disponibles en rutas sin-resources en este contexto.
->
+
 > De forma predeterminada, el parámetro `id` no acepta puntos, ya que el punto se utiliza como separador para las rutas formateadas. Si necesitas usar un punto dentro de un `:id` agrega una restricción que anula esto - por ejemplo `id: /[^\/]+/` permite cualquier cosa menos una barra.
 
-aqui vamos el martes
+### 4.3 Sobre-escritura de los helpers nombrados
+
+La opción `:as` le permite anular la denominación normal para los ayudantes de ruta designados. Por ejemplo:
+
+```ruby
+resources :photos, as: 'images'
+```
+
+Reconocerán las rutas entrantes que empiezan con `/photos` y enrutarán las solicitudes a `PhotosController`, pero usarán el valor de la opción `:as` para nombrar a los helpers.
+
+| HTTP Verb | Path | Controller\#Action | Named Helper |
+| :--- | :--- | :--- | :--- |
+| GET | /photos | photos\#index | images\_path |
+| GET | /photos/new | photos\#new | new\_image\_path |
+| POST | /photos | photos\#create | images\_path |
+| GET | /photos/:id | photos\#show | image\_path\(:id\) |
+| GET | /photos/:id/edit | photos\#edit | edit\_image\_path\(:id\) |
+| PATCH/PUT | /photos/:id | photos\#update | image\_path\(:id\) |
+| DELETE | /photos/:id | photos\#destroy | image\_path\(:id\) |
+
+### 4.4 Sobre-escritura de los segmentos new y de edit
+
+La opción `:path_names` le permite sobre-escribir los segmentos `new` y `edit` automáticamente en las rutas:
+
+```ruby
+resources :photos, path_names: { new: 'make', edit: 'change' }
+```
+
+Esto haría que el enrutamiento reconozca los paths como:
+
+```ruby
+/photos/make
+/photos/1/change
+```
+
+> Esta opción no cambia los nombres de los action reales. Los dos paths mostrados seguirían la ruta hacia las acciones `new` y de `edit`.
+
+> Si desea cambiar esta opción de manera uniforme para todas sus rutas, puede utilizar un scope.
+
+```ruby
+scope path_names: { new: 'make' } do
+  # rest of your routes
+end
+```
+
+### 4.5 Prefijo de los ayudantes de ruta designados
+
+Puede utilizar la opción `:as` para prefijar los ayudantes de ruta designados que Rails genera para una ruta. Utilice esta opción para evitar colisiones de nombres entre rutas utilizando un scope de ruta. Por ejemplo:
+
+```ruby
+scope 'admin' do
+  resources :photos, as: 'admin_photos'
+end
+ 
+resources :photos
+```
+
+Esto proporcionará ayudantes de ruta tales como `admin_photos_path`, `new_admin_photo_path`, etc.
+
+Para prefijar un grupo de ayudantes de ruta, utilice `:as` con `scope`:
+
+
+
+
 
