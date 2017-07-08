@@ -144,4 +144,7 @@
   * [3- Rutas sin resources](xii-enrutamiento-en-rails/3-rutas-sin-resources.md)
   * [4- Personalización de rutas de recursos](xii-enrutamiento-en-rails/4-personalizacion-de-rutas-de-recursos.md)
   * [5- Inspección y pruebas de las rutas](xii-enrutamiento-en-rails/5-inspeccion-y-prueba-de-las-rutas.md)
+* [XIII - Active Support Extensiones Core](xiii-active-support-extensiones-core.md)
+  * [1- Cómo cargar las extensiones core](xiii-active-support-extensiones-core/1-como-cargar-las-extensiones-core.md)
+  * [2- Extensiones a todos los objetos](xiii-active-support-extensiones-core/2-extensiones-a-todos-los-objetos.md)
 
