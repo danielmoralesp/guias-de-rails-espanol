@@ -10,7 +10,7 @@ Los valores siguientes se consideran en blanco en una aplicación de Rails:
 * Cualquier otro objeto que responde a `empty?` Y está vacío.
 
 > El predicado de las cadenas usa los caracteres Unicode-aware para la `class[:space:]`, por lo que por ejemplo U+2029 \(separador de párrafos\) se considera como espacio en blanco.
-
+>
 > Tenga en cuenta que los números no se mencionan. En particular, 0 y 0,0 no están en blanco.
 
 Por ejemplo, este método de `ActionController::HttpAuthentication::Token::ControllerMethods` utiliza `blank?` Para comprobar si un token está presente:
@@ -46,4 +46,6 @@ host = config[:host].presence || 'localhost'
 Se define en `active_support/core_ext/object/blank.rb`.
 
 
+
+vamos aqui el domingo 9 de julio
 
