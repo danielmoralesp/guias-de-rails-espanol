@@ -45,7 +45,7 @@ host = config[:host].presence || 'localhost'
 
 Se define en `active_support/core_ext/object/blank.rb`.
 
-
-
 vamos aqui el domingo 9 de julio
+
+vamos aqui el miercoles 12 de julio
 
