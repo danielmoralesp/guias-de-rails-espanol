@@ -147,4 +147,6 @@
 * [XIII - Active Support Extensiones Core](xiii-active-support-extensiones-core.md)
   * [1- Cómo cargar las extensiones core](xiii-active-support-extensiones-core/1-como-cargar-las-extensiones-core.md)
   * [2- Extensiones a todos los objetos](xiii-active-support-extensiones-core/2-extensiones-a-todos-los-objetos.md)
+* [XIV- API de Internacionalización de Rails \(I18n\)](xiv.md)
+  * [1-  Cómo funciona I18n en Ruby on Rails](xiv/1-c-omo-funciona-i18n-en-ruby-on-rails.md)
 
