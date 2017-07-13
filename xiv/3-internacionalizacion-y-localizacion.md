@@ -17,7 +17,7 @@ end
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
   before_action :set_locale
- 
+
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
   end
@@ -55,7 +55,6 @@ end
 ```
 
 ```ruby
-
 # app/views/home/index.html.erb
 <h1><%=t :hello_world %></h1>
 <p><%= flash[:notice] %></p>
@@ -76,12 +75,12 @@ Agregue las traducciones faltantes a los archivos del diccionario de traducción
 en:
   hello_world: Hello world!
   hello_flash: Hello flash!
- 
+
 # config/locales/pirate.yml
 pirate:
   hello_world: Ahoy World
   hello_flash: Ahoy Flash
 ```
 
-
+vamos aqui el jueves 13 de julio
 
