@@ -123,7 +123,7 @@ end
 
 En inglés hay sólo una forma singular y una plural para una cadena dada, por ejemplo. "1 mensaje" y "2 mensajes". Otros idiomas \(árabe, japonés, ruso y muchos más\) tienen diferentes gramáticas que tienen formas plurales adicionales o menos. Por lo tanto, la I18n API proporciona una funcionalidad flexible de pluralización.
 
-La variable de interpolación` :count` tiene un papel especial en que se interpola a la traducción y se utiliza para escoger una pluralización a partir de las traducciones según las reglas de pluralización definidas por CLDR:
+La variable de interpolación`:count` tiene un papel especial en que se interpola a la traducción y se utiliza para escoger una pluralización a partir de las traducciones según las reglas de pluralización definidas por CLDR:
 
 ```ruby
 I18n.backend.store_translations :en, inbox: {
@@ -133,10 +133,10 @@ I18n.backend.store_translations :en, inbox: {
 }
 I18n.translate :inbox, count: 2
 # => '2 messages'
- 
+
 I18n.translate :inbox, count: 1
 # => 'one message'
- 
+
 I18n.translate :inbox, count: 0
 # => 'no messages'
 ```
@@ -230,11 +230,146 @@ en:
       # will translate User attribute "login" as "Handle"
 ```
 
+Entonces `User.model_name.human` devolverá "Dude" y `User.human_attribute_name("login")` devolverá "Handle".
 
+También puede establecer una forma plural para los nombres de los modelos, agregandolos como sigue:
 
+```ruby
+en:
+  activerecord:
+    models:
+      user:
+        one: Dude
+        other: Dudes
+```
 
+Entonces `User.model_name.human(count: 2)` devolverá "Dudes". Con `count: 1` o sin params devolverá "Dude".
 
+En caso de que necesite acceder a atributos anidados dentro de un modelo determinado, debe anidarlos bajo `model/attribute` en el nivel de modelo de su archivo de traducción:
 
+```ruby
+en:
+  activerecord:
+    attributes:
+      user/gender:
+        female: "Female"
+        male: "Male"
+```
+
+Entonces `User.human_attribute_name("gender.female")` devolverá "Female".
+
+> Si está utilizando una clase que incluye ActiveModel y no hereda de `ActiveRecord::Base`, reemplace activerecord con activemodel en las rutas de clave anteriores.
+
+#### 4.5.1 Scope de los mensajes de error
+
+Los mensajes de error de validación de Active record también se pueden traducirse fácilmente. Active Record le ofrece un par de espacios de nombres donde puede colocar sus traducciones de mensajes con el fin de proporcionar diferentes mensajes y traducción para ciertos modelos, atributos y / o validaciones. También tiene en cuenta transparentemente la herencia de una sola tabla.
+
+Esto le da medios muy poderosos para ajustar con flexibilidad sus mensajes a las necesidades de su aplicación.
+
+Considere un modelo de usuario con una validación para el atributo de nombre como este:
+
+```ruby
+class User < ApplicationRecord
+  validates :name, presence: true
+end
+```
+
+La clave para el mensaje de error en este caso es `:blank`. Active Record buscará esta clave en los espacios de nombres:
+
+```ruby
+activerecord.errors.models.[model_name].attributes.[attribute_name]
+activerecord.errors.models.[model_name]
+activerecord.errors.messages
+errors.attributes.[attribute_name]
+errors.messages
+```
+
+Así, en nuestro ejemplo probará las siguientes claves en este orden y devolverá el primer resultado:
+
+```ruby
+activerecord.errors.models.user.attributes.name.blank
+activerecord.errors.models.user.blank
+activerecord.errors.messages.blank
+errors.attributes.name.blank
+errors.messages.blank
+```
+
+Cuando sus modelos también están usando la herencia entonces los mensajes se buscan en la cadena de herencia.
+
+Por ejemplo, es posible que tenga un modelo Admin heredado de Usuario:
+
+```ruby
+class Admin < User
+  validates :name, presence: true
+end
+```
+
+Entonces Active Record buscará mensajes en este orden:
+
+```ruby
+activerecord.errors.models.admin.attributes.name.blank
+activerecord.errors.models.admin.blank
+activerecord.errors.models.user.attributes.name.blank
+activerecord.errors.models.user.blank
+activerecord.errors.messages.blank
+errors.attributes.name.blank
+errors.messages.blank
+```
+
+De esta manera, puede proporcionar traducciones especiales para varios mensajes de error en diferentes puntos de la cadena de herencia de los modelos y en los atributos, modelos o ámbitos predeterminados.
+
+#### 4.5.2 Interpolación de mensajes de error
+
+El nombre del modelo traducido, el nombre del atributo traducido y el valor siempre están disponibles para la interpolación como modelo, atributo y valor, respectivamente.
+
+Por ejemplo, en lugar del mensaje de error predeterminado "cannot be blank", puede utilizar el nombre de atributo como este: "Please fill in your %{attribute}".
+
+Cuando esté disponible, puede utilizarse para la pluralización si está presente:
+
+| validation | with option | message | interpolation |
+| :--- | :--- | :--- | :--- |
+| confirmation | - | :confirmation | attribute |
+| acceptance | - | :accepted | - |
+| presence | - | :blank | - |
+| absence | - | :present | - |
+| length | :within, :in | :too\_short | count |
+| length | :within, :in | :too\_long | count |
+| length | :is | :wrong\_length | count |
+| length | :minimum | :too\_short | count |
+| length | :maximum | :too\_long | count |
+| uniqueness | - | :taken | - |
+| format | - | :invalid | - |
+| inclusion | - | :inclusion | - |
+| exclusion | - | :exclusion | - |
+| associated | - | :invalid | - |
+| non-optional association | - | :required | - |
+| numericality | - | :not\_a\_number | - |
+| numericality | :greater\_than | :greater\_than | count |
+| numericality | :greater\_than\_or\_equal\_to | :greater\_than\_or\_equal\_to | count |
+| numericality | :equal\_to | :equal\_to | count |
+| numericality | :less\_than | :less\_than | count |
+| numericality | :less\_than\_or\_equal\_to | :less\_than\_or\_equal\_to | count |
+| numericality | :other\_than | :other\_than | count |
+| numericality | :only\_integer | :not\_an\_integer | - |
+| numericality | :odd | :odd | - |
+| numericality | :even | :even | - |
+
+#### 4.5.3 Traducciones para Helper `error_messages_for` de Active Record
+
+Rails incluye las siguientes traducciones:
+
+```ruby
+en:
+  activerecord:
+    errors:
+      template:
+        header:
+          one:   "1 error prohibited this %{model} from being saved"
+          other: "%{count} errors prohibited this %{model} from being saved"
+        body:    "There were problems with the following fields:"
+```
+
+Para usar este ayudante, debe instalar la gema `DynamicForm` añadiendo esta línea a su Gemfile: `gem 'dynamic_form'`.
 
 
 
