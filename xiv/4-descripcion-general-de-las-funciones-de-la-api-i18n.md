@@ -371,5 +371,65 @@ en:
 
 Para usar este ayudante, debe instalar la gema `DynamicForm` añadiendo esta línea a su Gemfile: `gem 'dynamic_form'`.
 
+#### 4.6 Traducciones del Subject de Email de Action Mailer.
+
+Si no pasa un asunto al método de correo, Action Mailer intentará encontrarlo en sus traducciones. La búsqueda realizada utilizará el patrón `<mailer_scope>`. `<action_name> .subject` para construir la clave.
+
+```ruby
+# user_mailer.rb
+class UserMailer < ActionMailer::Base
+  def welcome(user)
+    #...
+  end
+end
+```
+
+```ruby
+en:
+  user_mailer:
+    welcome:
+      subject: "Welcome to Rails Guides!"
+```
+
+Para enviar parámetros a la interpolación, use el método `default_i18n_subject` en el mailer.
+
+```ruby
+# user_mailer.rb
+class UserMailer < ActionMailer::Base
+  def welcome(user)
+    mail(to: user.email, subject: default_i18n_subject(user: user.name))
+  end
+end
+```
+
+```ruby
+en:
+  user_mailer:
+    welcome:
+      subject: "%{user}, welcome to Rails Guides!"
+```
+
+#### 4.7 Descripción general de otros métodos integrados que proporcionan compatibilidad con I18n
+
+Rails utiliza cadenas fijas y otras localizaciones, como cadenas de formato y otra información de formato en un par de ayudantes. He aquí un breve resumen.
+
+##### 4.7.1 Métodos de ayuda de Action View
+
+* `distance_of_time_in_words` traduce y pluraliza su resultado e interpola el número de segundos, minutos, horas, etc. Vea las traducciones de `datetime.distance_in_words`.
+* `datetime_select` y `select_month` utilizan nombres de mes traducidos para rellenar la etiqueta de selección resultante. Vea `date.month_names` para traducciones. `datetime_select` también busca la opción de orden desde `date.order` \(a menos que pase la opción explícitamente\). Todos los ayudantes de selección de fechas traducen el mensaje utilizando las traducciones en el ámbito `datetime.prompts` si corresponde.
+* Los helpers `number_to_currency`, `number_with_precision`, `number_to_percentage`, `number_with_delimiter` y `number_to_human_size` utilizan los ajustes de formato numérico situados en el ámbito numérico.
+
+##### 4.7.2 Métodos del Active Model
+
+* `model_name.human` y `human_attribute_name` utilizan traducciones para nombres de modelos y nombres de atributos si están disponibles en el ámbito `activerecord.models`. También admiten traducciones de nombres de clases heredados \(por ejemplo, para su uso con STI\) como se explicó anteriormente en "Scope de mensaje de error".
+* `ActiveModel::Errors#generate_message` \(que es usado por las validaciones de Active Model pero también se puede usar manualmente\) usa `nombre_modelo.human` y `human_attribute_name` \(ver arriba\). También traduce el mensaje de error y admite traducciones para nombres de clases heredados como se explicó anteriormente en "Scope de mensaje de error".
+* `ActiveModel::Errors#full_messages` anula el nombre del atributo al mensaje de error usando un separador que se buscará desde `errors.format` \(y que por defecto es "`%{attribute} %{message}`"\).
+
+##### 4.7.3 Métodos de Active Support
+
+`Array#to_sentence` utiliza la configuración de formato tal como se da en el ámbito `support.array`.
+
+
+
 
 
