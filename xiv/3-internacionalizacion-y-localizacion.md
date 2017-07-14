@@ -138,7 +138,7 @@ La abstracción incorrecta se muestra en el siguiente ejemplo, donde se hacen su
 # config/locales/en.yml
 en:
   currency: "$"
- 
+
 # config/locales/es.yml
 es:
   currency: "€"
@@ -159,7 +159,7 @@ La abstracción apropiada se muestra en el siguiente ejemplo:
 # config/locales/en.yml
 en:
   product_price: "$%{price}"
- 
+
 # config/locales/es.yml
 es:
   product_price: "%{price} €"
@@ -171,7 +171,7 @@ Las palabras clave predeterminadas y de ámbito están reservadas y no se pueden
 
 ### 3.4 Adición de formatos de fecha / hora
 
-¡Ok! Ahora vamos a agregar una marca de tiempo a la vista, por lo que también puede mostrar la función de localización de fecha y hora. Para localizar el formato de hora, pasa el objeto `Time` a `I18n.l` o \(preferiblemente\) usa el ayudante `#l `de Rails. Puede elegir un formato pasando la opción `:format` - por defecto se usa el formato `:default`.
+¡Ok! Ahora vamos a agregar una marca de tiempo a la vista, por lo que también puede mostrar la función de localización de fecha y hora. Para localizar el formato de hora, pasa el objeto `Time` a `I18n.l` o \(preferiblemente\) usa el ayudante `#l`de Rails. Puede elegir un formato pasando la opción `:format` - por defecto se usa el formato `:default`.
 
 ```ruby
 # app/views/home/index.html.erb
@@ -205,6 +205,52 @@ Rails le permite definir reglas de inflexión \(como reglas para la singularizac
 Digamos que usted tiene un BooksController en su aplicación. La acción `index` procesa contenido en la plantilla `app/views/books/index.html.erb`. Cuando se coloca una variante localizada de esta plantilla: `index.es.html.erb` en el mismo directorio, Rails procesará contenido en esta plantilla, cuando la configuración regional esté establecida en `:es`. Cuando la configuración regional se establece en la configuración regional predeterminada, se utilizará la vista genérica `index.html.erb`. \(Las versiones de Future Rails pueden traer esta localización automagic a los assets en `public`, etc.\)
 
 Puede utilizar esta función por ejemplo, cuando se trabaja con una gran cantidad de contenido estático, lo que sería torpe para poner dentro de los diccionarios YAML o Ruby. Tenga en cuenta, sin embargo, que cualquier cambio que le gustaría hacer más tarde a la plantilla debe propagarse a todos ellos.
+
+### 3.7 Organización de archivos locales
+
+Cuando está utilizando el SimpleStore predeterminado que se entrega con la biblioteca i18n, los diccionarios se almacenan en archivos de texto sin formato en el disco. Poner las traducciones para todas las partes de la aplicación en un archivo por localidad podría ser difícil de gestionar. Puede almacenar estos archivos en una jerarquía que tenga sentido para usted.
+
+Por ejemplo, su directorio `config/locales` podría tener este aspecto:
+
+```ruby
+|-defaults
+|---es.rb
+|---en.rb
+|-models
+|---book
+|-----es.rb
+|-----en.rb
+|-views
+|---defaults
+|-----es.rb
+|-----en.rb
+|---books
+|-----es.rb
+|-----en.rb
+|---users
+|-----es.rb
+|-----en.rb
+|---navigation
+|-----es.rb
+|-----en.rb
+```
+
+De esta manera, puede separar los nombres de los atributos del modelo y el modelo de texto dentro de vistas, y todo esto de los "valores por defecto" \(por ejemplo, formatos de fecha y hora\). Otras stores para la biblioteca i18n podrían proporcionar diferentes medios para tal separación.
+
+> El mecanismo de carga de configuración predeterminada en Rails no carga archivos de configuración regional en diccionarios anidados, como tenemos aquí. Por lo tanto, para que esto funcione, debemos decirle explícitamente a Rails que busque más:
+
+```ruby
+# config/application.rb
+config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+```
+
+
+
+
+
+
+
+
 
 
 
