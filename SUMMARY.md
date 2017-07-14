@@ -151,4 +151,5 @@
   * [1-  Cómo funciona I18n en Ruby on Rails](xiv/1-c-omo-funciona-i18n-en-ruby-on-rails.md)
   * [2- Configuración de una aplicación de Rails para la internacionalización](xiv/2-configuracion-de-una-aplicacion-de-rails-para-la-internacionalizacion.md)
   * [3- Internacionalización y localización](xiv/3-internacionalizacion-y-localizacion.md)
+  * [4- Descripción general de las funciones de la API I18n](xiv/4-descripcion-general-de-las-funciones-de-la-api-i18n.md)
 
