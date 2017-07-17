@@ -153,4 +153,5 @@
   * [3- Internacionalización y localización](xiv/3-internacionalizacion-y-localizacion.md)
   * [4- Descripción general de las funciones de la API I18n](xiv/4-descripcion-general-de-las-funciones-de-la-api-i18n.md)
   * [5- Cómo almacenar sus traducciones personalizadas](xiv/5-como-almacenar-sus-traducciones-personalizadas.md)
+  * [6- Personaliza tu configuración de I18n](xiv/6-personaliza-tu-configuracion-de-i18n.md)
 
