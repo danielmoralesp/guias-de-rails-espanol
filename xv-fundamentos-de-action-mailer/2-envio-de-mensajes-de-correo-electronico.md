@@ -358,11 +358,15 @@ Al usar la URL completa, sus vínculos funcionarán ahora en sus correos electr�
 
 2.6.1 generando URLs con url\_for
 
-
-
 Url\_for genera la URL completa por defecto en las plantillas.
 
+Si no configuró la opción `:host` globalmente asegúrese de pasarla a `url_for`.
+
+```ruby
+<%= url_for(host: 'example.com',
+            controller: 'welcome',
+            action: 'greeting') %>
+```
 
 
-Si no configuró la opción: host globalmente asegúrese de pasarla a url\_for.
 
