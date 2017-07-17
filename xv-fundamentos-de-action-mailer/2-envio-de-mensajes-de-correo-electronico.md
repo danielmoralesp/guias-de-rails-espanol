@@ -187,7 +187,7 @@ Pase el nombre y el contenido del archivo y Action Mailer y la [gema mail](https
 attachments['filename.jpg'] = File.read('/path/to/filename.jpg')
 ```
 
-Cuando se active el método de mail, enviará un correo electrónico multipart con un archivo adjunto, correctamente anidado con el nivel superior que es `multipart/mixed `y la primera parte es una `multipart/alternative` que contiene el texto sin formato y mensajes de correo electrónico HTML.
+Cuando se active el método de mail, enviará un correo electrónico multipart con un archivo adjunto, correctamente anidado con el nivel superior que es `multipart/mixed`y la primera parte es una `multipart/alternative` que contiene el texto sin formato y mensajes de correo electrónico HTML.
 
 > Mail codificará automáticamente un archivo adjunto. Si desea algo diferente, codifique su contenido y pase el contenido codificado y la codificación en un Hash al método de archivos adjuntos.
 
@@ -220,7 +220,7 @@ A continuación, en sus vistas, sólo puede hacer referencia a los archivos adju
 
 ```ruby
 <p>Hello there, this is our image</p>
- 
+
 <%= image_tag attachments['image.jpg'].url %>
 ```
 
@@ -228,7 +228,7 @@ Como se trata de una llamada estándar a `image_tag`, puedes pasar un hash de op
 
 ```ruby
 <p>Hello there, this is our image</p>
- 
+
 <%= image_tag attachments['image.jpg'].url, alt: 'My Photo', class: 'photos' %>
 ```
 
@@ -240,7 +240,7 @@ Es posible enviar correo electrónico a uno o más destinatarios en un mismo ema
 class AdminMailer < ActionMailer::Base
   default to: Proc.new { Admin.pluck(:email) },
           from: 'notification@example.com'
- 
+
   def new_registration(user)
     @user = user
     mail(subject: "New User Signup: #{@user.email}")
@@ -271,7 +271,7 @@ Para cambiar la vista de correo predeterminada de su acción, haga algo como:
 ```ruby
 class UserMailer < ApplicationMailer
   default from: 'notifications@example.com'
- 
+
   def welcome_email(user)
     @user = user
     @url  = 'http://example.com/login'
@@ -290,7 +290,7 @@ Si desea más flexibilidad, también puede pasar un bloque y renderizar plantill
 ```ruby
 class UserMailer < ApplicationMailer
   default from: 'notifications@example.com'
- 
+
   def welcome_email(user)
     @user = user
     @url  = 'http://example.com/login'
@@ -305,5 +305,64 @@ end
 
 Esto hará que la plantilla `'another_template.html.erb`' para la parte HTML y utilice el texto representado para la parte de texto. El comando `render` es el mismo utilizado dentro de Action Controller, por lo que puede utilizar todas las mismas opciones, tales como `:text` , `:inline` etc.
 
+### 2.5 Plantillas de Action Mailer
 
+Al igual que las vistas del controlador, también puede tener layouts de correo. El nombre de layout debe ser el mismo que el de correo, como `user_mailer.html.erb` y `user_mailer.text.erb` para ser reconocido automáticamente por su mailer como un layout.
+
+```ruby
+class UserMailer < ApplicationMailer
+  layout 'awesome' # use awesome.(html|text).erb as the layout
+end
+```
+
+Al igual que con las vistas del controlador, utilice `yield` para representar la vista dentro del layout.
+
+También puede pasar una opción de layout: '`layout_name`' a la llamada de `render` dentro del bloque de formato para especificar diferentes layouts para diferentes formatos:
+
+```ruby
+class UserMailer < ApplicationMailer
+  def welcome_email(user)
+    mail(to: user.email) do |format|
+      format.html { render layout: 'my_layout' }
+      format.text
+    end
+  end
+end
+```
+
+Proporcionará la parte HTML utilizando el archivo `my_layout.html.erb` y la parte de texto con el archivo `user_mailer.text.erb` habitual si existe.
+
+### 2.6 Generación de URLs en las vistas de Action Mailer
+
+A diferencia de los controladores, la instancia de mailer no tiene ningún contexto sobre la solicitud entrante por lo que tendrá que proporcionar el parámetro `:host` usted mismo.
+
+A medida que el `:host` suele ser consistente en la aplicación, se puede configurar globalmente en `config/application.rb`:
+
+```ruby
+config.action_mailer.default_url_options = { host: 'example.com' }
+```
+
+Debido a este comportamiento no puede utilizar ninguno de los helpers `*_path`  dentro de un correo electrónico. En su lugar, necesitará utilizar el auxiliar asociado `*_url`. Por ejemplo, en lugar de usar
+
+```ruby
+<%= link_to 'welcome', welcome_path %>
+```
+
+Usted necesitará usar:
+
+```ruby
+<%= link_to 'welcome', welcome_url %>
+```
+
+Al usar la URL completa, sus vínculos funcionarán ahora en sus correos electrónicos.
+
+2.6.1 generando URLs con url\_for
+
+
+
+Url\_for genera la URL completa por defecto en las plantillas.
+
+
+
+Si no configuró la opción: host globalmente asegúrese de pasarla a url\_for.
 
