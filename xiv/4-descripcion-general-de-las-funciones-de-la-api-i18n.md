@@ -427,9 +427,5 @@ Rails utiliza cadenas fijas y otras localizaciones, como cadenas de formato y ot
 
 ##### 4.7.3 Métodos de Active Support
 
-`Array#to_sentence` utiliza la configuración de formato tal como se da en el ámbito `support.array`.
-
-Aqui vamosv el lunes 15
-
-Aqui 
+`Array#to_sentence` utiliza la configuración de formato tal como se da en el ámbito `support.array`
 
