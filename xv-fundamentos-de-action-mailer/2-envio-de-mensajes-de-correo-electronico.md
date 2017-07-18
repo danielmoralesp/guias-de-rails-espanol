@@ -305,6 +305,22 @@ end
 
 Esto hará que la plantilla `'another_template.html.erb`' para la parte HTML y utilice el texto representado para la parte de texto. El comando `render` es el mismo utilizado dentro de Action Controller, por lo que puede utilizar todas las mismas opciones, tales como `:text` , `:inline` etc.
 
+#### 2.4.1 Almacenamiento en caché de la vista de correo
+
+Usted puede hacer la memoria caché en las vistas de correo como en las vistas de la aplicación utilizando el método `cache`.
+
+```ruby
+<% cache do %>
+  <%= @company.name %>
+<% end %>
+```
+
+Y para poder utilizar esta función, necesitas configurar tu aplicación con esto:
+
+```ruby
+config.action_mailer.perform_caching = true
+```
+
 ### 2.5 Plantillas de Action Mailer
 
 Al igual que las vistas del controlador, también puede tener layouts de correo. El nombre de layout debe ser el mismo que el de correo, como `user_mailer.html.erb` y `user_mailer.text.erb` para ser reconocido automáticamente por su mailer como un layout.
@@ -332,7 +348,29 @@ end
 
 Proporcionará la parte HTML utilizando el archivo `my_layout.html.erb` y la parte de texto con el archivo `user_mailer.text.erb` habitual si existe.
 
-### 2.6 Generación de URLs en las vistas de Action Mailer
+### 2.6 Vista previa de correos electrónicos
+
+Las previsualizaciones de Action Mailer proporcionan una forma de ver cómo se ven los correos electrónicos visitando una URL especial que los procesa. En el ejemplo anterior, la clase de vista previa para `UserMailer` debe llamarse `UserMailerPreview` y se encuentra en `test/mailers/previews/user_mailer_preview.rb`. Para ver la vista previa de `welcome_email`, implemente un método que tenga el mismo nombre y llame a `UserMailer.welcome_email`:
+
+```ruby
+class UserMailerPreview < ActionMailer::Preview
+  def welcome_email
+    UserMailer.welcome_email(User.first)
+  end
+end
+```
+
+A continuación, la vista previa estará disponible en `http://localhost:3000/rails/mailers/user_mailer/welcome_email.`
+
+Si cambia algo en `app/views/user_mailer/welcome_email.html.erb` o en el propio correo, se volverá a cargar automáticamente y renderizarlo para que visualice el nuevo estilo al instante. Una lista de vistas previas también está disponible en `http://localhost:3000/rails/mailers`
+
+De forma predeterminada, estas clases de vista previa están en `test/mailers/previews`. Esto se puede configurar usando la opción `preview_path`. Por ejemplo, si desea cambiarlo a `lib/mailer_previews`, puede configurarlo en `config/application.rb`:
+
+```ruby
+config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+```
+
+### 2.7 Generación de URLs en las vistas de Action Mailer
 
 A diferencia de los controladores, la instancia de mailer no tiene ningún contexto sobre la solicitud entrante por lo que tendrá que proporcionar el parámetro `:host` usted mismo.
 
@@ -356,7 +394,7 @@ Usted necesitará usar:
 
 Al usar la URL completa, sus vínculos funcionarán ahora en sus correos electrónicos.
 
-2.6.1 generando URLs con url\_for
+#### 2.7.1 generando URLs con url\_for
 
 Url\_for genera la URL completa por defecto en las plantillas.
 
@@ -368,5 +406,5 @@ Si no configuró la opción `:host` globalmente asegúrese de pasarla a `url_for
             action: 'greeting') %>
 ```
 
-vamos aqui el 18 de julio
+
 
