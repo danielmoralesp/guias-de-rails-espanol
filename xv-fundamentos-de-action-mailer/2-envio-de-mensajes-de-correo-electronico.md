@@ -406,5 +406,73 @@ Si no configuró la opción `:host` globalmente asegúrese de pasarla a `url_for
             action: 'greeting') %>
 ```
 
+#### 2.7.2 Generación de URL con rutas con nombre
+
+Los clientes de correo electrónico no tienen ningún contexto web y por lo tanto las rutas no tienen una URL de base para formar direcciones web completas. Por lo tanto, siempre debe utilizar la variante "`_url`" de ayudantes de ruta con nombre.
+
+Si no configuró la opción `:host` globalmente, asegúrese de pasarla al ayudante de la url.
+
+```ruby
+<%= user_url(@user, host: 'example.com') %>
+```
+
+> Los enlaces no-GET requieren `rails-ujs` o `jQuery_UJS`, y no funcionarán en las plantillas de correo. Resultarán en peticiones GET normales.
+
+### 2.8 Adición de imágenes en las vistas de Action Mailer
+
+A diferencia de los controladores, la instancia de correo no tiene ningún contexto sobre la solicitud entrante por lo que tendrá que proporcionar el parámetro `:asset_host` usted mismo.
+
+Como el `:asset_host` suele ser consistente en toda la aplicación, puede configurarlo globalmente en `config/application.rb`:
+
+```ruby
+config.action_mailer.asset_host = 'http://example.com'
+```
+
+Ahora puede mostrar una imagen dentro de su correo electrónico.
+
+```ruby
+<%= image_tag 'image.jpg' %>
+```
+
+### 2.9 Envío de correos electrónicos multipart
+
+Action Mailer enviará automáticamente correos electrónicos multipart si tiene plantillas diferentes para la misma acción. Por lo tanto, para nuestro ejemplo de `UserMailer`, si tiene `welcome_email.text.erb` y `welcome_email.html.erb` en `app/views/user_mailer`, Action Mailer enviará automáticamente un correo electrónico multipart con las versiones de texto HTML y texto como multipart.
+
+El orden de las piezas que se insertan es determinado por el `:parts_order` dentro del método `ActionMailer::Base.default`.
+
+### 2.10 Envío de correos electrónicos con opciones dinámicas de entrega
+
+Si desea reemplazar las opciones de entrega predeterminadas \(por ejemplo, las credenciales de SMTP\) durante la entrega de correos electrónicos, puede hacerlo utilizando `delivery_method_options` en la acción de correo.
+
+```ruby
+class UserMailer < ApplicationMailer
+  def welcome_email(user, company)
+    @user = user
+    @url  = user_url(@user)
+    delivery_options = { user_name: company.smtp_user,
+                         password: company.smtp_password,
+                         address: company.smtp_host }
+    mail(to: @user.email,
+         subject: "Please see the Terms and Conditions attached",
+         delivery_method_options: delivery_options)
+  end
+end
+```
+
+### 2.11 Envío de correos electrónicos sin renderización de plantillas
+
+Puede haber casos en los que desee omitir el paso de renderización de la plantilla y suministrar el cuerpo del correo como una cadena. Puede lograr esto usando la opción` :body`. En estos casos, no olvide añadir la opción `:content_type`. Rails predeterminará el `text/plain` de lo contrario.
+
+```ruby
+class UserMailer < ApplicationMailer
+  def welcome_email(user, email_body)
+    mail(to: user.email,
+         body: email_body,
+         content_type: "text/html",
+         subject: "Already rendered!")
+  end
+end
+```
+
 
 
