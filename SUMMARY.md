@@ -159,4 +159,6 @@
   * [2- Envío de mensajes de correo electrónico](xv-fundamentos-de-action-mailer/2-envio-de-mensajes-de-correo-electronico.md)
   * [3- Recibir correos electrónicos](xv-fundamentos-de-action-mailer/3-recibir-correos-electronicos.md)
   * [4- Action Mailer Callbacks](xv-fundamentos-de-action-mailer/4-action-mailer-callbacks.md)
+  * [5- Uso de Helpers de Action Mailer](xv-fundamentos-de-action-mailer/5-uso-de-helpers-de-action-mailer.md)
+  * [6- Configuración de Action Mailer](xv-fundamentos-de-action-mailer/6-configuracion-de-action-mailer.md)
 
