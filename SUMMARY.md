@@ -161,4 +161,6 @@
   * [4- Action Mailer Callbacks](xv-fundamentos-de-action-mailer/4-action-mailer-callbacks.md)
   * [5- Uso de Helpers de Action Mailer](xv-fundamentos-de-action-mailer/5-uso-de-helpers-de-action-mailer.md)
   * [6- Configuración de Action Mailer](xv-fundamentos-de-action-mailer/6-configuracion-de-action-mailer.md)
+  * [7- Mailer Testing](xv-fundamentos-de-action-mailer/7-mailer-testing.md)
+  * [8- Intercepción de correos electrónicos](xv-fundamentos-de-action-mailer/8-intercepcion-de-correos-electronicos.md)
 
