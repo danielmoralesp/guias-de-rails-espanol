@@ -163,4 +163,8 @@
   * [6- Configuración de Action Mailer](xv-fundamentos-de-action-mailer/6-configuracion-de-action-mailer.md)
   * [7- Mailer Testing](xv-fundamentos-de-action-mailer/7-mailer-testing.md)
   * [8- Intercepción de correos electrónicos](xv-fundamentos-de-action-mailer/8-intercepcion-de-correos-electronicos.md)
+* [XVI - Conceptos básicos de Active Jobs](xvi-conceptos-basicos-de-active-jobs.md)
+  * [1- Introducción](xvi-conceptos-basicos-de-active-jobs/1-introduccion.md)
+  * [2- El Propósito de Active Jobs](xvi-conceptos-basicos-de-active-jobs/2-el-proposito-de-active-jobs.md)
+  * [3- Creación de un Job](xvi-conceptos-basicos-de-active-jobs/3-creacion-de-un-job.md)
 
