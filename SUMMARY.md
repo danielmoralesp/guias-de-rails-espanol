@@ -182,4 +182,5 @@
   * [4- Pruebas de modelos](xvii-testing-de-aplicaciones-rails/4-pruebas-de-modelos.md)
   * [5- Pruebas del sistema](xvii-testing-de-aplicaciones-rails/5-pruebas-del-sistema.md)
   * [6- Pruebas de integración](xvii-testing-de-aplicaciones-rails/6-pruebas-de-integracion.md)
+  * [7- Pruebas funcionales para sus controladores](xvii-testing-de-aplicaciones-rails/7-pruebas-funcionales-para-sus-controladores.md)
 
