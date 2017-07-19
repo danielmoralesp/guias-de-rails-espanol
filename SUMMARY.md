@@ -179,4 +179,6 @@
   * [1- ¿Por qué escribir pruebas para sus aplicaciones Rails?](xvii-testing-de-aplicaciones-rails/1-por-que-escribir-pruebas-para-sus-aplicaciones-rails.md)
   * [2- Introducción a las pruebas](xvii-testing-de-aplicaciones-rails/2-introduccion-a-las-pruebas.md)
   * [3- Base de datos del testing](xvii-testing-de-aplicaciones-rails/3-el-test-de-la-base-de-datos.md)
+  * [4- Pruebas de modelos](xvii-testing-de-aplicaciones-rails/4-pruebas-de-modelos.md)
+  * [5- Pruebas del sistema](xvii-testing-de-aplicaciones-rails/5-pruebas-del-sistema.md)
 
