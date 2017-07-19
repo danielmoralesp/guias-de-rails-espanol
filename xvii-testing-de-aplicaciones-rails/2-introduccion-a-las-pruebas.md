@@ -305,9 +305,102 @@ Rails añade algunas aserciones personalizadas propias al framework de minitest:
 | [`assert_response(type, message = nil)`](http://api.rubyonrails.org/v5.1.2/classes/ActionDispatch/Assertions/ResponseAssertions.html#method-i-assert_response) | Afirma que la respuesta viene con un código de estado específico. Puede especificar :success para indicar 200-299, :redirect para indicar 300-399, :missing para indicar 404, o :errorpara coincidir con el rango 500-599. También puede pasar un número de estado explícito o su equivalente simbólico. Para obtener más información, consulte la lista completa de los códigos de estado y cómo. |
 | [`assert_redirected_to(options = {}, message=nil)`](http://api.rubyonrails.org/v5.1.2/classes/ActionDispatch/Assertions/ResponseAssertions.html#method-i-assert_redirected_to) | Afirma que las opciones de redirección pasadas coinciden con las de la redirección que se llama en la acción más reciente. Este partido puede ser parcial, por ejemplo, que asert\_redirected\_to \(controller: "weblog"\) también coincide con la redirección de redirector\_to \(controlador: "weblog", acción: "show"\) y así sucesivamente. También puede pasar rutas nombradas como asassert\_redirected\_to root\_pathand Active Record objects such asassert\_redirected\_to @article. |
 
+Veremos el uso de algunas de estas aserciones en el próximo capítulo.
 
+### 2.6 Una breve nota sobre los casos de prueba
 
+Todas las aserciones básicas como `assert_equal` definidas en `Minitest::Assertions` también están disponibles en las clases que usamos en nuestros propios casos de prueba. De hecho, Rails proporciona las siguientes clases para que usted herede de:
 
+* [`ActiveSupport::TestCase`](http://api.rubyonrails.org/v5.1.2/classes/ActiveSupport/TestCase.html)
+* [`ActionMailer::TestCase`](http://api.rubyonrails.org/v5.1.2/classes/ActionMailer/TestCase.html)
+* [`ActionView::TestCase`](http://api.rubyonrails.org/v5.1.2/classes/ActionView/TestCase.html)
+* [`ActionDispatch::IntegrationTest`](http://api.rubyonrails.org/v5.1.2/classes/ActionDispatch/IntegrationTest.html)
+* [`ActiveJob::TestCase`](http://api.rubyonrails.org/v5.1.2/classes/ActiveJob/TestCase.html)
+* [`ActionDispatch::SystemTestCase`](http://api.rubyonrails.org/v5.1.2/classes/ActionDispatch/SystemTestCase.html)
+
+Cada una de estas clases incluye `Minitest::Assertions`, lo que nos permite usar todas las aserciones básicas en nuestras pruebas.
+
+Para obtener más información sobre Minitest, consulte su documentación.
+
+### 2.7 El corredor de pruebas de Rails
+
+Podemos ejecutar todas nuestras pruebas a la vez usando el comando `bin / rails test`.
+
+O podemos ejecutar un solo archivo de prueba pasando el comando `bin / rails test` al nombre de archivo que contiene los casos de prueba.
+
+```ruby
+$ bin/rails test test/models/article_test.rb
+Run options: --seed 1559
+ 
+# Running:
+ 
+..
+ 
+Finished in 0.027034s, 73.9810 runs/s, 110.9715 assertions/s.
+ 
+2 runs, 3 assertions, 0 failures, 0 errors, 0 skips
+```
+
+Esto ejecutará todos los métodos de prueba del caso de prueba.
+
+También puede ejecutar un método de prueba particular desde el caso de prueba proporcionando el indicador `-n` o `--name` y el nombre del método de la prueba.
+
+```ruby
+$ bin/rails test test/models/article_test.rb -n test_the_truth
+Run options: -n test_the_truth --seed 43583
+ 
+# Running:
+ 
+.
+ 
+Finished tests in 0.009064s, 110.3266 tests/s, 110.3266 assertions/s.
+ 
+1 tests, 1 assertions, 0 failures, 0 errors, 0 skips
+```
+
+También puede ejecutar una prueba en una línea específica proporcionando el número de línea.
+
+```ruby
+$ bin/rails test test/models/article_test.rb:6 # run specific test and line
+```
+
+También puede ejecutar un directorio completo de pruebas proporcionando la ruta al directorio.
+
+```ruby
+$ bin/rails test test/controllers # run all tests from specific directory
+```
+
+El corredor de prueba también proporciona muchas otras características como failing fast, diferir la salida de la prueba al final de la prueba, y así sucesivamente. Compruebe la documentación del test runner de la siguiente manera:
+
+```ruby
+$ bin/rails test -h
+minitest options:
+    -h, --help                       Display this help.
+    -s, --seed SEED                  Sets random seed. Also via env. Eg: SEED=n rake
+    -v, --verbose                    Verbose. Show progress processing files.
+    -n, --name PATTERN               Filter run on /regexp/ or string.
+        --exclude PATTERN            Exclude /regexp/ or string from run.
+ 
+Known extensions: rails, pride
+ 
+Usage: bin/rails test [options] [files or directories]
+You can run a single test by appending a line number to a filename:
+ 
+    bin/rails test test/models/user_test.rb:27
+ 
+You can run multiple files and directories at the same time:
+ 
+    bin/rails test test/controllers test/integration/login_test.rb
+ 
+By default test failures and errors are reported inline during a run.
+ 
+Rails options:
+    -e, --environment ENV            Run tests in the ENV environment
+    -b, --backtrace                  Show the complete backtrace
+    -d, --defer-output               Output test failures and errors after the test run
+    -f, --fail-fast                  Abort test run on first failure or error
+    -c, --[no-]color                 Enable color in the output
+```
 
 
 
