@@ -51,7 +51,7 @@ El stub de test predeterminado se encuentra en `test/models/article_test.rb` tie
 
 ```ruby
 require 'test_helper'
- 
+
 class ArticleTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
@@ -126,22 +126,22 @@ Vamos a ejecutar esta prueba recién agregada \(donde 6 es el número de línea 
 ```ruby
 $ bin/rails test test/models/article_test.rb:6
 Run options: --seed 44656
- 
+
 # Running:
- 
+
 F
- 
+
 Failure:
 ArticleTest#test_should_not_save_article_without_title [/path/to/blog/test/models/article_test.rb:6]:
 Expected true to be nil or false
- 
- 
+
+
 bin/rails test test/models/article_test.rb:6
- 
- 
- 
+
+
+
 Finished in 0.023918s, 41.8090 runs/s, 41.8090 assertions/s.
- 
+
 1 runs, 1 assertions, 1 failures, 0 errors, 0 skips
 ```
 
@@ -175,13 +175,13 @@ Ahora la prueba debe pasar. Vamos a verificar la ejecución de la prueba de nuev
 ```ruby
 $ bin/rails test test/models/article_test.rb:6
 Run options: --seed 31252
- 
+
 # Running:
- 
+
 .
- 
+
 Finished in 0.027476s, 36.3952 runs/s, 36.3952 assertions/s.
- 
+
 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
 ```
 
@@ -204,23 +204,23 @@ Ahora puedes ver más información en la salida de la consola ejecutando las pru
 ```ruby
 $ bin/rails test test/models/article_test.rb
 Run options: --seed 1808
- 
+
 # Running:
- 
+
 .E
- 
+
 Error:
 ArticleTest#test_should_report_error:
 NameError: undefined local variable or method 'some_undefined_variable' for #<ArticleTest:0x007fee3aa71798>
     test/models/article_test.rb:11:in 'block in <class:ArticleTest>'
- 
- 
+
+
 bin/rails test test/models/article_test.rb:9
- 
- 
- 
+
+
+
 Finished in 0.040609s, 49.2500 runs/s, 24.6250 assertions/s.
- 
+
 2 runs, 1 assertions, 0 failures, 1 errors, 0 skips
 ```
 
@@ -284,6 +284,30 @@ He aquí un extracto de las aserciones que puede utilizar con [Minitest](https:/
 | `assert_predicate ( obj, predicate, [msg] )` | Se asegura que`obj.predicate` es true, por ejemplo.`assert_predicate str, :empty?` |
 | `assert_not_predicate ( obj, predicate, [msg] )` | Se asegura que`obj.predicate` es false, por ejemplo.`assert_not_predicate str, :empty?` |
 | `flunk( [msg] )` | Se asegura que sea failure. Esto es útil para marcar explícitamente una prueba que aún no ha terminado. |
+
+Lo anterior es un subconjunto de afirmaciones que admite minitest. Para obtener una lista exhaustiva y actualizada, consulte la documentación de la [API de Minitest](http://docs.seattlerb.org/minitest/), específicamente [Minitest::Assertions](http://docs.seattlerb.org/minitest/Minitest/Assertions.html).
+
+Debido a la naturaleza modular del framework de testing, es posible crear sus propias aserciones. De hecho, eso es exactamente lo que hace Rails. Incluye algunas aserciones especializadas para hacer su vida más fácil.
+
+> Crear sus propias aserciones es un tema avanzado que no cubriremos en este tutorial.
+
+### 2.5 Aserciones específicas de Rails
+
+Rails añade algunas aserciones personalizadas propias al framework de minitest:
+
+| Assertion | Purpose |
+| :--- | :--- |
+| [`assert_difference(expressions, difference = 1, message = nil) {...}`](http://api.rubyonrails.org/v5.1.2/classes/ActiveSupport/Testing/Assertions.html#method-i-assert_difference) | Probar la diferencia numérica entre el valor devuelto de una expresión como resultado de lo que se evalúa en el bloque cedido. |
+| [`assert_no_difference(expressions, message = nil, &block)`](http://api.rubyonrails.org/v5.1.2/classes/ActiveSupport/Testing/Assertions.html#method-i-assert_no_difference) | Afirma que el resultado numérico de evaluar una expresión no se cambia antes y después de invocar el pasado en un bloque. |
+| [`assert_nothing_raised { block }`](http://api.rubyonrails.org/v5.1.2/classes/ActiveSupport/TestCase.html#method-i-assert_nothing_raised) | Asegura que el bloque dado no plantea ninguna excepción. |
+| [`assert_recognizes(expected_options, path, extras={}, message=nil)`](http://api.rubyonrails.org/v5.1.2/classes/ActionDispatch/Assertions/RoutingAssertions.html#method-i-assert_recognizes) | Afirma que el enrutamiento de la ruta de acceso dada se ha manejado correctamente y que las opciones analizadas \(dadas en el hash expected\_options\) coinciden con la ruta. Básicamente, afirma que Rails reconoce la ruta dada por expected\_options. |
+| [`assert_generates(expected_path, options, defaults={}, extras = {}, message=nil)`](http://api.rubyonrails.org/v5.1.2/classes/ActionDispatch/Assertions/RoutingAssertions.html#method-i-assert_generates) | Afirma que las opciones proporcionadas pueden usarse para generar la ruta de acceso proporcionada. Este es el inverso de assert\_recognizes. El parámetro extras se utiliza para indicar a la solicitud los nombres y valores de los parámetros de petición adicionales que estarían en una cadena de consulta. El parámetro de mensaje le permite especificar un mensaje de error personalizado para los fallos de aserción. |
+| [`assert_response(type, message = nil)`](http://api.rubyonrails.org/v5.1.2/classes/ActionDispatch/Assertions/ResponseAssertions.html#method-i-assert_response) | Afirma que la respuesta viene con un código de estado específico. Puede especificar :success para indicar 200-299, :redirect para indicar 300-399, :missing para indicar 404, o :errorpara coincidir con el rango 500-599. También puede pasar un número de estado explícito o su equivalente simbólico. Para obtener más información, consulte la lista completa de los códigos de estado y cómo. |
+| [`assert_redirected_to(options = {}, message=nil)`](http://api.rubyonrails.org/v5.1.2/classes/ActionDispatch/Assertions/ResponseAssertions.html#method-i-assert_redirected_to) | Afirma que las opciones de redirección pasadas coinciden con las de la redirección que se llama en la acción más reciente. Este partido puede ser parcial, por ejemplo, que asert\_redirected\_to \(controller: "weblog"\) también coincide con la redirección de redirector\_to \(controlador: "weblog", acción: "show"\) y así sucesivamente. También puede pasar rutas nombradas como asassert\_redirected\_to root\_pathand Active Record objects such asassert\_redirected\_to @article. |
+
+
+
+
 
 
 
