@@ -29,10 +29,21 @@ class GuestsCleanupJob < ApplicationJob
   self.queue_adapter = :resque
   #....
 end
- 
+
 # Ahora su job utilizará `resque` ya que es el adaptador de cola de backend que sobre-escribe lo que
 # se ha configurado en `config.active_job.queue_adapter`.
 ```
+
+### 4.3 Inicio del backend
+
+Dado que los jobs se ejecutan en paralelo con la aplicación de Rails, la mayoría de las bibliotecas de colas requieren que se inicie un servicio de colas específico de la biblioteca \(además de iniciar la aplicación Rails\) para que el job funcione. Consulte la documentación de la biblioteca para obtener instrucciones sobre cómo iniciar el backend de la cola.
+
+Aquí hay una lista no exhaustiva de documentación:
+
+* [Sidekiq](https://github.com/mperham/sidekiq/wiki/Active-Job)
+* [Resque](https://github.com/resque/resque/wiki/ActiveJob)
+* [Sucker Punch](https://github.com/brandonhilkert/sucker_punch#active-job)
+* [Queue Classic](https://github.com/QueueClassic/queue_classic#active-job)
 
 
 
