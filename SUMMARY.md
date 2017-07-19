@@ -169,4 +169,10 @@
   * [3- Creación de un Job](xvi-conceptos-basicos-de-active-jobs/3-creacion-de-un-job.md)
   * [4- Ejecución del Job](xvi-conceptos-basicos-de-active-jobs/4-ejecucion-del-job.md)
   * [5- Colas](xvi-conceptos-basicos-de-active-jobs/5-colas.md)
+  * [6- Callbacks](xvi-conceptos-basicos-de-active-jobs/6-callbacks.md)
+  * [7- Action Mailer](xvi-conceptos-basicos-de-active-jobs/7-action-mailer.md)
+  * [8- Internacionalización](xvi-conceptos-basicos-de-active-jobs/8-internacionalizacion.md)
+  * [9- GlobalID](xvi-conceptos-basicos-de-active-jobs/9-globalid.md)
+  * [10- Excepciones](xvi-conceptos-basicos-de-active-jobs/10-excepciones.md)
+  * [11- Job Testing](xvi-conceptos-basicos-de-active-jobs/11-job-testing.md)
 
