@@ -181,4 +181,5 @@
   * [3- Base de datos del testing](xvii-testing-de-aplicaciones-rails/3-el-test-de-la-base-de-datos.md)
   * [4- Pruebas de modelos](xvii-testing-de-aplicaciones-rails/4-pruebas-de-modelos.md)
   * [5- Pruebas del sistema](xvii-testing-de-aplicaciones-rails/5-pruebas-del-sistema.md)
+  * [6- Pruebas de integración](xvii-testing-de-aplicaciones-rails/6-pruebas-de-integracion.md)
 
