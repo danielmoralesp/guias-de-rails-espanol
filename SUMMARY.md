@@ -191,4 +191,5 @@
   * [13- Recursos Adicionales de Pruebas](xvii-testing-de-aplicaciones-rails/13-recursos-adicionales-de-pruebas.md)
 * [XVIII - Seguridad de las aplicaciones de Rails](xviii-seguridad-de-las-aplicaciones-de-rails.md)
   * [1- Introducción](xviii-seguridad-de-las-aplicaciones-de-rails/1-introduccion.md)
+  * [2- Sesiones](xviii-seguridad-de-las-aplicaciones-de-rails/2-sesiones.md)
 
