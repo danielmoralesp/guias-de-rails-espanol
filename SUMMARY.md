@@ -184,4 +184,7 @@
   * [6- Pruebas de integración](xvii-testing-de-aplicaciones-rails/6-pruebas-de-integracion.md)
   * [7- Pruebas funcionales para sus controladores](xvii-testing-de-aplicaciones-rails/7-pruebas-funcionales-para-sus-controladores.md)
   * [8- Testeo de Rutas](xvii-testing-de-aplicaciones-rails/8-testeo-de-rutas.md)
+  * [9- Testeo de las Vistas](xvii-testing-de-aplicaciones-rails/9-testeo-de-las-vistas.md)
+  * [10- Testeo de los Helpers](xvii-testing-de-aplicaciones-rails/10-testeo-de-los-helpers.md)
+  * [11- Testeo de los Mailers](xvii-testing-de-aplicaciones-rails/11-testeo-de-los-mailers.md)
 
