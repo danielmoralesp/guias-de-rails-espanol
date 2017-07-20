@@ -32,18 +32,18 @@ Aquí hay una prueba de unidad para probar un mailer llamado `UserMailer` cuya i
 
 ```ruby
 require 'test_helper'
- 
+
 class UserMailerTest < ActionMailer::TestCase
   test "invite" do
     # Create the email and store it for further assertions
     email = UserMailer.create_invite('me@example.com',
                                      'friend@example.com', Time.now)
- 
+
     # Send the email, then test that it got queued
     assert_emails 1 do
       email.deliver_now
     end
- 
+
     # Test the body of the sent email contains what we expect it to
     assert_equal ['me@example.com'], email.from
     assert_equal ['friend@example.com'], email.to
@@ -61,13 +61,40 @@ Aquí está el contenido del fixture de invitación:
 
 ```ruby
 Hi friend@example.com,
- 
+
 You have been invited.
- 
+
 Cheers!
 ```
 
 Este es el momento adecuado para entender un poco más sobre la escritura de pruebas para sus mailers. La línea `ActionMailer::Base.delivery_method = :test` en `config/environments/test.rb` establece el método `delivery` en modo de prueba para que el correo electrónico no se entregue realmente \(útil para evitar el spam de sus usuarios durante la prueba\), sino que se anexará a una matriz \(`ActionMailer::Base.deliveries`\).
+
+> El array `ActionMailer::Base.deliveries` sólo se restablece automáticamente en las pruebas `ActionMailer::TestCase` y `ActionDispatch::IntegrationTest`. Si desea tener una pizarra limpia fuera de estos casos de prueba, puede restablecerla manualmente con: `ActionMailer::Base.deliveries.clear`
+
+### 11.3 Pruebas funcionales
+
+Las pruebas funcionales para mailers envuelve más que sólo comprobar que el cuerpo del correo electrónico, los destinatarios y así sucesivamente están correctas. En las pruebas de correo funcionales se llaman los métodos delivery de correo y se comprueba que los correos electrónicos apropiados se han agregado a la lista de entrega. Es bastante seguro suponer que los métodos de delivery hacen su trabajo. Usted está probablemente más interesado en si su propia lógica de negocio está enviando un email cuando usted espera que lo haga. Por ejemplo, puede comprobar que la operación invitar a un amigo está enviando un correo electrónico de la manera adecuada:
+
+```ruby
+require 'test_helper'
+ 
+class UserControllerTest < ActionDispatch::IntegrationTest
+  test "invite friend" do
+    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+      post invite_friend_url, params: { email: 'friend@example.com' }
+    end
+    invite_email = ActionMailer::Base.deliveries.last
+ 
+    assert_equal "You have been invited by me@example.com", invite_email.subject
+    assert_equal 'friend@example.com', invite_email.to[0]
+    assert_match(/Hi friend@example.com/, invite_email.body.to_s)
+  end
+end
+```
+
+
+
+
 
 
 

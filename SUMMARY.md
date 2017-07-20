@@ -187,4 +187,6 @@
   * [9- Testeo de las Vistas](xvii-testing-de-aplicaciones-rails/9-testeo-de-las-vistas.md)
   * [10- Testeo de los Helpers](xvii-testing-de-aplicaciones-rails/10-testeo-de-los-helpers.md)
   * [11- Testeo de los Mailers](xvii-testing-de-aplicaciones-rails/11-testeo-de-los-mailers.md)
+  * [12- Testeo de los Jobs](xvii-testing-de-aplicaciones-rails/12-testeo-de-los-jobs.md)
+  * [13- Recursos Adicionales de Pruebas](xvii-testing-de-aplicaciones-rails/13-recursos-adicionales-de-pruebas.md)
 
