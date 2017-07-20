@@ -193,4 +193,5 @@
   * [1- Introducción](xviii-seguridad-de-las-aplicaciones-de-rails/1-introduccion.md)
   * [2- Sesiones](xviii-seguridad-de-las-aplicaciones-de-rails/2-sesiones.md)
   * [3- Falsificación de solicitudes entre sitios \(CSRF\)](xviii-seguridad-de-las-aplicaciones-de-rails/3-falsificacion-de-solicitudes-entre-sitios-csrf.md)
+  * [4- Redirección y archivos](xviii-seguridad-de-las-aplicaciones-de-rails/4-redireccion-y-archivos.md)
 
