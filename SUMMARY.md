@@ -189,4 +189,6 @@
   * [11- Testeo de los Mailers](xvii-testing-de-aplicaciones-rails/11-testeo-de-los-mailers.md)
   * [12- Testeo de los Jobs](xvii-testing-de-aplicaciones-rails/12-testeo-de-los-jobs.md)
   * [13- Recursos Adicionales de Pruebas](xvii-testing-de-aplicaciones-rails/13-recursos-adicionales-de-pruebas.md)
+* [XVIII - Seguridad de las aplicaciones de Rails](xviii-seguridad-de-las-aplicaciones-de-rails.md)
+  * [1- Introducción](xviii-seguridad-de-las-aplicaciones-de-rails/1-introduccion.md)
 
