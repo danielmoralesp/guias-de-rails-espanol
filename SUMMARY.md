@@ -203,4 +203,5 @@
   * [11- Recursos adicionales](xviii-seguridad-de-las-aplicaciones-de-rails/11-recursos-adicionales.md)
 * [XIX- Debugging de aplicaciones Rails](xix-debugging-de-aplicaciones-rails.md)
   * [1- Helpers de las Vistas para depurar](xix-debugging-de-aplicaciones-rails/1-helpers-de-las-vistas-para-depurar.md)
+  * [2- El Logger](xix-debugging-de-aplicaciones-rails/2-el-logger.md)
 
