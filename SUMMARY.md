@@ -201,4 +201,6 @@
   * [9- Encabezados predeterminados](xviii-seguridad-de-las-aplicaciones-de-rails/9-encabezados-predeterminados.md)
   * [10- Entornos seguros](xviii-seguridad-de-las-aplicaciones-de-rails/10-ambientes-seguros.md)
   * [11- Recursos adicionales](xviii-seguridad-de-las-aplicaciones-de-rails/11-recursos-adicionales.md)
+* [XIX- Debugging de aplicaciones Rails](xix-debugging-de-aplicaciones-rails.md)
+  * [1- Helpers de las Vistas para depurar](xix-debugging-de-aplicaciones-rails/1-helpers-de-las-vistas-para-depurar.md)
 
