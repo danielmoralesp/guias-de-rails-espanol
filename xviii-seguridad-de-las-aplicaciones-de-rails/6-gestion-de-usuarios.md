@@ -123,5 +123,54 @@ http://hi.com
 */
 ```
 
+Esta URL pasa el filtro porque la expresión regular coincide - la segunda línea, el resto no importa. Ahora imagine que teníamos una vista que mostraba la URL como esta:
+
+```ruby
+link_to "Homepage", @user.homepage
+```
+
+El enlace parece inocente para los visitantes, pero cuando se hace clic en él, se ejecutará la función JavaScript "`exploit_code`" o cualquier otro JavaScript que el atacante proporciona.
+
+Para fijar la expresión regular, se debe usar \A y \z en vez de ^ y $, así:
+
+```ruby
+/\Ahttps?:\/\/[^\n]+\z/i
+```
+
+Como este es un error frecuente, el validador de formato \(`validates_format_of`\) ahora plantea una excepción si la expresión regular proporcionada comienza con ^ o termina con $. Si necesitas usar ^ y $ en lugar de \A y \z \(lo cual es raro\), puedes establecer la opción `:multiline` en `true`, así:
+
+```ruby
+# content should include a line "Meanwhile" anywhere in the string
+validates :content, format: { with: /^Meanwhile$/, multiline: true }
+```
+
+Tenga en cuenta que esto sólo lo protege contra el error más común al usar el validador de formato - siempre debe tener en cuenta que ^ y $ coinciden con el principio de la línea y el final de la línea en Ruby, y no el principio y el final de una cadena.
+
+### 6.7 Escalada de privilegios
+
+> Cambiar un solo parámetro puede dar al usuario acceso no autorizado. Recuerde que cada parámetro puede ser cambiado, no importa cuánto lo esconda u obstruya.
+
+El parámetro más común que un usuario puede manipular, es el parámetro id, como en `http://www.domain.com/project/1`, mientras que 1 es el `id`. Estará disponible en parámetros en el controlador. Allí, lo más probable es hacer algo como esto:
+
+```ruby
+@project = Project.find(params[:id])
+```
+
+Esto está bien para algunas aplicaciones web, pero ciertamente no si el usuario no está autorizado a ver todos los proyectos. Si el usuario cambia el `ID` a 42, y no se les permite ver esa información, tendrán acceso a ella de todos modos. En su lugar, consulte los derechos de acceso del usuario:
+
+```ruby
+@project = @current_user.projects.find(params[:id])
+```
+
+Dependiendo de su aplicación web, habrá muchos más parámetros que el usuario puede manipular. Como regla general, ningún dato de entrada del usuario es seguro, hasta que se demuestre lo contrario, y cada parámetro del usuario se manipula potencialmente.
+
+No se deje engañar por la seguridad por ofuscación y por la seguridad de JavaScript. Las herramientas para desarrolladores le permiten revisar y cambiar los campos ocultos de cada formulario. JavaScript se puede utilizar para validar datos de entrada del usuario, pero ciertamente no para evitar que los atacantes envíen peticiones maliciosas con valores inesperados. El complemento Firebug para Mozilla Firefox registra todas las solicitudes y puede repetirlas y cambiarlas. Es una manera fácil de evitar cualquier validación de JavaScript. Y hay incluso los proxies del lado del cliente que permiten que usted intercepte cualquier petición y respuesta de y al Internet.
+
+
+
+
+
+
+
 
 
