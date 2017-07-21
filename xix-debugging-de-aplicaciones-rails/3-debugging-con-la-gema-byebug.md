@@ -234,7 +234,7 @@ En este ejemplo se muestra cómo se pueden imprimir las variables de instancia d
    10:     respond_to do |format|
    11:       format.html # index.html.erb
    12:       format.json { render json: @articles }
- 
+
 (byebug) instance_variables
 [:@_action_has_layout, :@_routes, :@_request, :@_response, :@_lookup_context,
  :@_action_name, :@_response_body, :@marked_for_same_origin_verification,
@@ -245,7 +245,7 @@ Como se habrá dado cuenta, se muestran todas las variables a las que puede acce
 
 ```
 (byebug) next
- 
+
 [5, 14] in /PathTo/project/app/controllers/articles_controller.rb
    5     # GET /articles.json
    6     def index
@@ -278,12 +278,12 @@ El método `var` es la forma más conveniente de mostrar las variables y sus val
 
 ```
 (byebug) help var
- 
+
   [v]ar <subcommand>
- 
+
   Shows variables and its values
- 
- 
+
+
   var all      -- Shows local, global and instance variables of self.
   var args     -- Information about arguments of the current scope
   var const    -- Shows constants of an object.
@@ -335,7 +335,7 @@ Por ejemplo, considere la siguiente situación:
 ```
 Started GET "/" for 127.0.0.1 at 2014-04-11 13:39:23 +0200
 Processing by ArticlesController#index as HTML
- 
+
 [1, 6] in /PathToProject/app/models/article.rb
    1: class Article < ApplicationRecord
    2:   def self.find_recent(limit = 10)
@@ -343,11 +343,165 @@ Processing by ArticlesController#index as HTML
 => 4:     where('created_at > ?', 1.week.ago).limit(limit)
    5:   end
    6: end
+
+(byebug)
+```
+
+Si usamos `next`, no vamos a profundizar dentro de las llamadas de método. En su lugar, byebug irá a la siguiente línea dentro del mismo contexto. En este caso, es la última línea del método actual, por lo que byebug volverá a la línea siguiente del método llamador.
+
+```
+(byebug) next
+[4, 13] in /PathToProject/app/controllers/articles_controller.rb
+    4:   # GET /articles
+    5:   # GET /articles.json
+    6:   def index
+    7:     @articles = Article.find_recent
+    8:
+=>  9:     respond_to do |format|
+   10:       format.html # index.html.erb
+   11:       format.json { render json: @articles }
+   12:     end
+   13:   end
  
 (byebug)
 ```
 
+Si usamos `step` en la misma situación, byebug literalmente irá a la siguiente instrucción Ruby a ser ejecutada - en este caso, el método `week` de Active Support.
 
+```
+(byebug) step
+ 
+[49, 58] in /PathToGems/activesupport-5.1.0/lib/active_support/core_ext/numeric/time.rb
+   49:
+   50:   # Returns a Duration instance matching the number of weeks provided.
+   51:   #
+   52:   #   2.weeks # => 14 days
+   53:   def weeks
+=> 54:     ActiveSupport::Duration.weeks(self)
+   55:   end
+   56:   alias :week :weeks
+   57:
+   58:   # Returns a Duration instance matching the number of fortnights provided.
+(byebug)
+```
+
+Esta es una de las mejores maneras de encontrar errores en su código.
+
+También puede utilizar el `step n` o `next n` para avanzar `n` pasos a la vez.
+
+### 3.7 Puntos de interrupción
+
+Un punto de interrupción hace que su aplicación se detenga cada vez que se alcanza un determinado punto en el programa. El shell depurador se invoca en esa línea.
+
+Puede agregar puntos de interrupción de forma dinámica con el comando `break` \(o simplemente `b`\). Existen 3 formas posibles de agregar puntos de interrupción manualmente:
+
+* `break n`: establece el punto de interrupción en la línea número n en el archivo fuente actual.
+* `break file:n [if expression]`: establece el punto de interrupción en el número de línea n dentro del archivo named file. Si se da una expresión se debe evaluar a `true` para encender el depurador.
+* `break class(.|\#)method [if expression]`: define el punto de interrupción en el método \(.y \# para la clase y el método de instancia respectivamente\) definidos en la clase. La expresión funciona de la misma manera que con `file:n`.
+
+```
+[4, 13] in /PathToProject/app/controllers/articles_controller.rb
+    4:   # GET /articles
+    5:   # GET /articles.json
+    6:   def index
+    7:     @articles = Article.find_recent
+    8:
+=>  9:     respond_to do |format|
+   10:       format.html # index.html.erb
+   11:       format.json { render json: @articles }
+   12:     end
+   13:   end
+ 
+(byebug) break 11
+Successfully created breakpoint with id 1
+```
+
+Utilice `info breakpoints` para enumerar puntos de interrupción. Si suministra un número, enumera ese punto de interrupción. De lo contrario, muestra todos los puntos de interrupción.
+
+```
+(byebug) info breakpoints
+Num Enb What
+1   y   at /PathToProject/app/controllers/articles_controller.rb:11
+```
+
+Para eliminar puntos de interrupción: utilice el comando `delete n` para quitar el número de punto de interrupción n. Si no se especifica ningún número, elimina todos los puntos de interrupción que están actualmente activos.
+
+```
+(byebug) delete 1
+(byebug) info breakpoints
+No breakpoints.
+```
+
+También puede habilitar o deshabilitar puntos de interrupción:
+
+* `enable breakpoints [n [m [...]]]`: permite que una lista de punto de interrupción específica o todos los puntos de interrupción detengan su programa. Este es el estado predeterminado al crear un punto de interrupción.
+* `disable breakpoints [n [m [...]]]`: hacer que ciertos \(o todos\) los puntos de interrupción no tengan ningún efecto en su programa.
+
+### 3.8 Catching de las excepciones
+
+El comando `catch exception-name (or just cat exception-name)` se puede usar para interceptar una excepción del tipo _exception-name_ cuando de otro modo no habría ningún controlador para él.
+
+Para enumerar todos los catchpoints activos use `catch`.
+
+### 3.9 Reanudación de la ejecución
+
+Hay dos formas de reanudar la ejecución de una aplicación que se detiene en el depurador:
+
+* `continue [n]`: reanuda la ejecución del programa en la dirección donde se detuvo su guión; Se anulan los puntos de interrupción establecidos en esa dirección. El argumento opcional n le permite especificar un número de línea para establecer un punto de interrupción único que se elimina cuando se alcanza ese punto de interrupción.
+* `finish [n]`: ejecutar hasta que se devuelva el frame de stack seleccionado. Si no se proporciona ningún número de stack, la aplicación se ejecutará hasta que se devuelva el frame seleccionado actualmente. El frame seleccionado actualmente  comienza el stack más reciente o `0` si no se ha realizado ninguna posición de stack \(por ejemplo, arriba, abajo o stack\). Si se da un número de stack, se ejecutará hasta que se devuelva el frame especificado.
+
+### 3.10 Edición
+
+Dos comandos le permiten abrir código desde el depurador en un editor:
+
+`edit [file:n]`: editar el archivo con el nombre del archivo utilizando el editor especificado por la variable de entorno EDITOR. También se puede dar una línea específica n.
+
+### 3.11 Quitting
+
+Para salir del depurador, utilice el comando `quit` \(abreviado a `q`\). O, escriba `q!` Para evitar el "Really quit? \(y/n\)" y salir sin condiciones.
+
+Un simple abandono intenta terminar todos los threads en efecto. Por lo tanto su servidor será parado y usted tendrá que comenzarlo otra vez.
+
+### 3.12 Configuración
+
+Byebug tiene algunas opciones disponibles para ajustar su comportamiento:
+
+    (byebug) help set
+
+      set <setting> <value>
+
+      Modifies byebug settings
+
+      Boolean values take "on", "off", "true", "false", "1" or "0". If you
+      don't specify a value, the boolean setting will be enabled. Conversely,
+      you can use "set no<setting>" to disable them.
+
+      You can see these environment settings with the "show" command.
+
+      List of supported settings:
+
+      autosave       -- Automatically save command history record on exit
+      autolist       -- Invoke list command on every stop
+      width          -- Number of characters per line in byebug's output
+      autoirb        -- Invoke IRB on every stop
+      basename       -- <file>:<line> information after every stop uses short paths
+      linetrace      -- Enable line execution tracing
+      autopry        -- Invoke Pry on every stop
+      stack_on_error -- Display stack trace when `eval` raises an exception
+      fullpath       -- Display full file names in backtraces
+      histfile       -- File where cmd history is saved to. Default: ./.byebug_history
+      listsize       -- Set number of source lines to list by default
+      post_mortem    -- Enable/disable post-mortem mode
+      callstyle      -- Set how you want method call parameters to be displayed
+      histsize       -- Maximum number of commands that can be stored in byebug history
+      savefile       -- File where settings are saved to. Default: ~/.byebug_save
+
+> Puede guardar esta configuración en un archivo `.byebugrc` en su directorio personal. El depurador lee estas configuraciones globales cuando se inicia. Por ejemplo:
+
+```ruby
+set callstyle short
+set listsize 25
+```
 
 
 
