@@ -197,4 +197,8 @@
   * [5-  Intranet y seguridad del administrador](xviii-seguridad-de-las-aplicaciones-de-rails/5-intranet-y-seguridad-del-administrador.md)
   * [6- Gestión de usuarios](xviii-seguridad-de-las-aplicaciones-de-rails/6-gestion-de-usuarios.md)
   * [7- Injection](xviii-seguridad-de-las-aplicaciones-de-rails/7-injection.md)
+  * [8- Generación de consultas inseguras](xviii-seguridad-de-las-aplicaciones-de-rails/8-generacion-de-consultas-inseguras.md)
+  * [9- Encabezados predeterminados](xviii-seguridad-de-las-aplicaciones-de-rails/9-encabezados-predeterminados.md)
+  * [10- Entornos seguros](xviii-seguridad-de-las-aplicaciones-de-rails/10-ambientes-seguros.md)
+  * [11- Recursos adicionales](xviii-seguridad-de-las-aplicaciones-de-rails/11-recursos-adicionales.md)
 
