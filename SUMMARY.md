@@ -196,4 +196,5 @@
   * [4- Redirección y archivos](xviii-seguridad-de-las-aplicaciones-de-rails/4-redireccion-y-archivos.md)
   * [5-  Intranet y seguridad del administrador](xviii-seguridad-de-las-aplicaciones-de-rails/5-intranet-y-seguridad-del-administrador.md)
   * [6- Gestión de usuarios](xviii-seguridad-de-las-aplicaciones-de-rails/6-gestion-de-usuarios.md)
+  * [7- Injection](xviii-seguridad-de-las-aplicaciones-de-rails/7-injection.md)
 
