@@ -1,5 +1,7 @@
 # 7- Injection
 
+**PD: este capitulo no tiene todo el código completo, dado que tiene sentencias de inyección SQL, y Gitbook lo analiza como tal, y lo evita para no generar vulnerabilidades. Asi que debes leerlo con cuidado y dirigirte a la documentación oficial en inglés. **
+
 > Injection es una clase de ataques que introducen código malicioso o parámetros en una aplicación web para ejecutarlo dentro de su contexto de seguridad. Los ejemplos prominentes de la inyección son secuencias de comandos entre sitios \(XSS\) e inyección de SQL.
 
 La inyección es muy complicada, porque el mismo código o parámetro puede ser malicioso en un contexto, pero totalmente inofensivo en otro. Un contexto puede ser un lenguaje de programación, consulta o de programación, el shell o un método Ruby / Rails. Las secciones siguientes cubrirán todos los contextos importantes donde pueden ocurrir ataques de inyección. La primera sección, sin embargo, cubre una decisión arquitectónica en relación con la inyección.
@@ -306,4 +308,24 @@ Los encabezados HTTP se generan dinámicamente y bajo ciertas circunstancias se 
 Los encabezados de solicitud HTTP tienen un Referer, User-Agent \(software cliente\) y Cookie, entre otros. Por ejemplo, los encabezados de respuesta tienen un campo Código de estado, Cookie y Ubicación \(URL de destino de redirección\). Todos ellos son suministrados por el usuario y pueden ser manipulados con más o menos esfuerzo. Recuerde escapar de estos campos de cabecera, también. Por ejemplo, cuando muestra el agente de usuario en un área de administración.
 
 Además de eso, es importante saber lo que está haciendo al crear cabeceras de respuesta en parte basadas en la entrada del usuario. Por ejemplo, desea redirigir al usuario de nuevo a una página específica. Para ello, introdujo un campo "referer" en un formulario para redirigir a la dirección dada:
+
+Lo que ocurre es que Rails pone la cadena en el campo de encabezado Location y envía un estado 302 \(redirect\) al navegador. Lo primero que haría un usuario malintencionado es:
+
+Y debido a un error en \(Ruby y\) Rails hasta la versión 2.1.2 \(excluyendola\), un hacker puede inyectar campos de cabecera arbitrarios; Por ejemplo:
+
+Tenga en cuenta que "%0d%0a" está codificado en URL para " r n", que es un retorno de carro y un avance de línea \(CRLF\) en Ruby. Por lo tanto, el encabezado HTTP resultante del segundo ejemplo será el siguiente, porque el segundo campo de encabezado Location sobrescribe el primero.
+
+Por lo tanto, los vectores de ataque para Header Injection se basan en la inyección de caracteres CRLF en un campo de encabezado. ¿Y qué podría hacer un atacante con una redirección falsa? Pueden redirigir a un sitio de phishing que se ve igual que el tuyo, pero pide volver a iniciar sesión \(y envía las credenciales de inicio de sesión al atacante\). O podrían instalar software malicioso a través de los agujeros de seguridad del navegador en ese sitio. Rails 2.1.2 escapa de estos caracteres para el campo Location en el método `redirect_to`. Asegúrese de hacerlo usted mismo cuando cree otros campos de encabezado con la entrada del usuario.
+
+#### 7.8.1 División de la respuesta
+
+Si la inyección de encabezado era posible, la división de respuesta podría serlo también. En HTTP, el bloque de encabezado es seguido por dos CRLF y los datos reales \(normalmente HTML\). La idea de dividir la respuesta es inyectar dos CRLF en un campo de encabezado, seguido de otra respuesta con HTML malicioso. La respuesta será:
+
+```
+
+```
+
+En ciertas circunstancias esto presentaría el HTML malicioso a la víctima. Sin embargo, esto sólo parece funcionar con conexiones Keep-Alive \(y muchos navegadores están utilizando conexiones de una sola vez\). Pero no puedes confiar en esto. En cualquier caso, se trata de un error grave y debe actualizar su Rails a la versión 2.0.5 o 2.1.2 para eliminar los riesgos de inyección de cabecera \(y, por tanto, de división de la respuesta\).
+
+
 
