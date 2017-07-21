@@ -41,7 +41,7 @@ Tan pronto como su aplicación llame al método byebug, el debugger se iniciará
    10:     respond_to do |format|
    11:       format.html # index.html.erb
    12:       format.json { render json: @articles }
- 
+
 (byebug)
 ```
 
@@ -62,7 +62,7 @@ Use Ctrl-C to stop
 Started GET "/" for 127.0.0.1 at 2014-04-11 13:11:48 +0200
   ActiveRecord::SchemaMigration Load (0.2ms)  SELECT "schema_migrations".* FROM "schema_migrations"
 Processing by ArticlesController#index as HTML
- 
+
 [3, 12] in /PathTo/project/app/controllers/articles_controller.rb
     3:
     4:   # GET /articles
@@ -81,7 +81,7 @@ Ahora es el momento de explorar su aplicación. Un buen lugar para comenzar es p
 
 ```
 (byebug) help
- 
+
   break      -- Sets breakpoints in the source code
   catch      -- Handles exception catchpoints
   condition  -- Sets conditions on breakpoints
@@ -119,7 +119,7 @@ Ahora es el momento de explorar su aplicación. Un buen lugar para comenzar es p
   up         -- Moves to a higher frame in the stack trace
   var        -- Shows variables and its values
   where      -- Displays the backtrace
- 
+
 (byebug)
 ```
 
@@ -127,7 +127,7 @@ Para ver las diez líneas anteriores debe escribir `list- (or l-).`
 
 ```
 (byebug) l-
- 
+
 [1, 10] in /PathTo/project/app/controllers/articles_controller.rb
    1  class ArticlesController < ApplicationController
    2    before_action :set_article, only: [:show, :edit, :update, :destroy]
@@ -145,7 +145,7 @@ De esta manera puede moverse dentro del archivo y ver el código por encima de l
 
 ```
 (byebug) list=
- 
+
 [3, 12] in /PathTo/project/app/controllers/articles_controller.rb
     3:
     4:   # GET /articles
@@ -179,14 +179,13 @@ En cualquier momento puede llamar al comando `backtrace` \(o su alias `where`\) 
     #3  ActionController::Rendering.process_action(action, *args)
       at /PathToGems/actionpack-5.1.0/lib/action_controller/metal/rendering.rb:30
 ...
-
 ```
 
 El frame actual está marcado con `-->`. Puede moverse a cualquier lugar que desee en este trace \(cambiando así el contexto\) utilizando el comando `frame n`, donde `n` es el número del frame especificado. Si lo hace, `byebug` mostrará su nuevo contexto.
 
 ```
 (byebug) frame 2
- 
+
 [176, 185] in /PathToGems/actionpack-5.1.0/lib/abstract_controller/base.rb
    176:       # is the intended way to override action dispatching.
    177:       #
@@ -200,6 +199,167 @@ El frame actual está marcado con `-->`. Puede moverse a cualquier lugar que des
    185:       # this method if you wish to change how action methods are called,
 (byebug)
 ```
+
+Las variables disponibles son las mismas que si estuviera ejecutando el código línea por línea. Después de todo, eso es lo que es la depuración.
+
+También puede utilizar los comandos `[n]` y `down [n]`  para cambiar el contexto n cuadros hacia arriba o hacia abajo del stack, respectivamente. N por defecto es uno. Up en este caso es hacia cuadros de stack de numeración superior, y hacia abajo es hacia el stack de número inferior.
+
+### 3.4 Threads \(Hilos\)
+
+El depurador puede enumerar, detener, reanudar y cambiar entre los subprocesos en ejecución mediante el comando `thread` \(o el abreviado `th`\). Este comando tiene un puñado de opciones:
+
+* `thread`: muestra el hilo actual.
+* `thread list`: se utiliza para enumerar todos los hilos y sus estados. El hilo actual está marcado con un signo más \(+\).
+* `thread stop n`: detener el hilo n.
+* `thread resume n`: reanudar el subproceso n.
+* `thread switch n`: cambia el contexto de hilo actual a n.
+
+Este comando es muy útil cuando está depurando subprocesos simultáneos y necesita verificar que no hay condiciones de competencia en su código.
+
+### 3.5 Inspección de variables
+
+Cualquier expresión puede ser evaluada en el contexto actual. Para evaluar una expresión, simplemente escríbala!
+
+En este ejemplo se muestra cómo se pueden imprimir las variables de instancia definidas en el contexto actual:
+
+```
+[3, 12] in /PathTo/project/app/controllers/articles_controller.rb
+    3:
+    4:   # GET /articles
+    5:   # GET /articles.json
+    6:   def index
+    7:     byebug
+=>  8:     @articles = Article.find_recent
+    9:
+   10:     respond_to do |format|
+   11:       format.html # index.html.erb
+   12:       format.json { render json: @articles }
+ 
+(byebug) instance_variables
+[:@_action_has_layout, :@_routes, :@_request, :@_response, :@_lookup_context,
+ :@_action_name, :@_response_body, :@marked_for_same_origin_verification,
+ :@_config]
+```
+
+Como se habrá dado cuenta, se muestran todas las variables a las que puede acceder desde un controlador. Esta lista se actualiza dinámicamente a medida que ejecuta el código. Por ejemplo, ejecute la siguiente línea usando `next` \(aprenderá más sobre este comando más adelante en esta guía\).
+
+```
+(byebug) next
+ 
+[5, 14] in /PathTo/project/app/controllers/articles_controller.rb
+   5     # GET /articles.json
+   6     def index
+   7       byebug
+   8       @articles = Article.find_recent
+   9
+=> 10       respond_to do |format|
+   11         format.html # index.html.erb
+   12        format.json { render json: @articles }
+   13      end
+   14    end
+   15
+(byebug)
+```
+
+Y luego vuelve a preguntar por las `instance_variables`:
+
+```
+(byebug) instance_variables
+[:@_action_has_layout, :@_routes, :@_request, :@_response, :@_lookup_context,
+ :@_action_name, :@_response_body, :@marked_for_same_origin_verification,
+ :@_config, :@articles]
+```
+
+Ahora `@articles` se incluye en las variables de instancia, porque la línea que lo define se ejecutó.
+
+> También puede entrar en el modo `irb` con el comando `irb` \(por supuesto!\). Esto iniciará una sesión `irb` dentro del contexto en el que la invocó.
+
+El método `var` es la forma más conveniente de mostrar las variables y sus valores. Hagamos que byebug nos ayude con ella.
+
+```
+(byebug) help var
+ 
+  [v]ar <subcommand>
+ 
+  Shows variables and its values
+ 
+ 
+  var all      -- Shows local, global and instance variables of self.
+  var args     -- Information about arguments of the current scope
+  var const    -- Shows constants of an object.
+  var global   -- Shows global variables.
+  var instance -- Shows instance variables of self or a specific object.
+  var local    -- Shows local variables in current scope.
+```
+
+Esta es una excelente forma de inspeccionar los valores de las variables de contexto actuales. Por ejemplo, para comprobar que no tenemos variables locales definidas actualmente:
+
+```
+(byebug) var local
+(byebug)
+```
+
+También puede inspeccionar un método de objeto de esta manera:
+
+```
+(byebug) var instance Article.new
+@_start_transaction_state = {}
+@aggregation_cache = {}
+@association_cache = {}
+@attributes = #<ActiveRecord::AttributeSet:0x007fd0682a9b18 @attributes={"id"=>#<ActiveRecord::Attribute::FromDatabase:0x007fd0682a9a00 @name="id", @value_be...
+@destroyed = false
+@destroyed_by_association = nil
+@marked_for_destruction = false
+@new_record = true
+@readonly = false
+@transaction_state = nil
+```
+
+También puede utilizar la pantalla para comenzar a ver las variables. Esta es una buena forma de rastrear los valores de una variable mientras la ejecución continúa.
+
+```
+(byebug) display @articles
+1: @articles = nil
+```
+
+Las variables dentro de la lista mostrada se imprimirán con sus valores después de moverlo en el stack. Para detener la visualización de una variable use `undisplay n` donde n es el número de variable \(1 en el último ejemplo\).
+
+### 3.6 Paso a paso
+
+Ahora debe saber dónde se encuentra en el rastreo de la ejecución y ser capaz de imprimir las variables disponibles. Pero vamos a continuar y a seguir adelante con la ejecución de la aplicación.
+
+Utilice `step` \(abreviado `s`\) para continuar ejecutando su programa hasta el siguiente punto de parada lógico y devolver el control al depurador. `next` es similar `step`, pero mientras `step` se detiene en la siguiente línea de código ejecutada, haciendo sólo un solo paso, `next` se mueve a la siguiente línea sin descender dentro de los métodos.
+
+Por ejemplo, considere la siguiente situación:
+
+```
+Started GET "/" for 127.0.0.1 at 2014-04-11 13:39:23 +0200
+Processing by ArticlesController#index as HTML
+ 
+[1, 6] in /PathToProject/app/models/article.rb
+   1: class Article < ApplicationRecord
+   2:   def self.find_recent(limit = 10)
+   3:     byebug
+=> 4:     where('created_at > ?', 1.week.ago).limit(limit)
+   5:   end
+   6: end
+ 
+(byebug)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
