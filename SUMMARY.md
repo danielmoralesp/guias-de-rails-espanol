@@ -210,4 +210,5 @@
 * [XXI- La línea de comandos de Rails](xxi-la-linea-de-comandos-de-rails.md)
   * [1- Conceptos básicos de la línea de comandos](xxi-la-linea-de-comandos-de-rails/1-conceptos-basicos-de-la-linea-de-comandos.md)
   * [2- bin/rails](xxi-la-linea-de-comandos-de-rails/2-binrails.md)
+  * [3- La Línea de Comando Avanzada de Rails](xxi-la-linea-de-comandos-de-rails/3-la-linea-de-comando-avanzada-de-rails.md)
 
