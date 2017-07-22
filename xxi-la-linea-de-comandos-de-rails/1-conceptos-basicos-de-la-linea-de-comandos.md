@@ -9,7 +9,7 @@ Hay algunos comandos que son absolutamente críticos para su uso diario de Rails
 * `rails dbconsole`
 * `rails new app_name`
 
-Todos los comandos pueden ejecutarse con `-h` o `--help `para obtener más información.
+Todos los comandos pueden ejecutarse con `-h` o `--help`para obtener más información.
 
 Vamos a crear una aplicación Rails simple para pasar a través de cada uno de estos comandos en el contexto.
 
@@ -64,7 +64,7 @@ El servidor se puede ejecutar en un puerto diferente mediante la opción `-p`. E
 $ bin/rails server -e production -p 4000
 ```
 
-La opción` -b` enlaza Rails a la dirección IP especificada, por defecto es localhost. Puede ejecutar un servidor como un daemon pasando una opción `-d`.
+La opción`-b` enlaza Rails a la dirección IP especificada, por defecto es localhost. Puede ejecutar un servidor como un daemon pasando una opción `-d`.
 
 ### 1.3 rails generate
 
@@ -75,12 +75,12 @@ El comando `rails generate` usa plantillas para crear un montón de cosas. Corre
 ```
 $ bin/rails generate
 Usage: rails generate GENERATOR [args] [options]
- 
+
 ...
 ...
- 
+
 Please choose a generator below.
- 
+
 Rails:
   assets
   controller
@@ -166,7 +166,7 @@ $ bin/rails server
 
 La URL será `http://localhost:3000/greetings/hello.`
 
-> Con una aplicación Rails normal, las URL seguirán generalmente el patrón `http://(host)/(controller)/(action)`, y una URL como http://\(host\)/\(controller\)  mostrará la acción index de ese controlador
+> Con una aplicación Rails normal, las URL seguirán generalmente el patrón `http://(host)/(controller)/(action)`, y una URL como [http://\(host\)/\(controller\](http://%28host%29/%28controller\)\)  mostrará la acción index de ese controlador
 
 Rails viene con un generador para los modelos de datos también.
 
@@ -174,15 +174,15 @@ Rails viene con un generador para los modelos de datos también.
 $ bin/rails generate model
 Usage:
   rails generate model NAME [field[:type][:index] field[:type][:index]] [options]
- 
+
 ...
- 
+
 Active Record options:
       [--migration]            # Indicates when to generate migration
                                # Default: true
- 
+
 ...
- 
+
 Description:
     Create rails files for model generator.
 ```
@@ -280,7 +280,7 @@ Con el método `app` puede acceder a url y los ayudantes de ruta, así como hace
 ```
 >> app.root_path
 => "/"
- 
+
 >> app.get _
 Started GET "/" for 127.0.0.1 at 2014-06-19 10:41:57 -0300
 ...
@@ -291,7 +291,7 @@ Con el método auxiliar es posible acceder a Rails y a los ayudantes de su aplic
 ```
 >> helper.time_ago_in_words 30.days.ago
 => "about 1 month"
- 
+
 >> helper.my_custom_helper
 => "my custom helper"
 ```
@@ -300,7 +300,59 @@ Con el método auxiliar es posible acceder a Rails y a los ayudantes de su aplic
 
 `rails dbconsole` calcula la base de datos que utilizas y te deja en cualquier interfaz de línea de comandos que uses con ella \(y calcula los parámetros de la línea de comandos para darle también!\). Soporta MySQL \(incluyendo MariaDB\), PostgreSQL y SQLite3.
 
-También puede utilizar el alias "`db`" para invocar la dbconsole: `rails db`.
+> También puede utilizar el alias "`db`" para invocar la dbconsole: `rails db`.
+
+### 1.6 rails runner
+
+Runner ejecuta código Ruby en el contexto de Rails de forma no interactiva. Por ejemplo:
+
+```
+$ bin/rails runner "Model.long_running_method"
+```
+
+> También puede utilizar el alias "`r`" para invocar al corredor: `rails r`.
+
+Puede especificar el entorno en el que debe funcionar el comando runner mediante el modificador `-e`.
+
+```
+$ bin/rails runner -e staging "Model.long_running_method"
+```
+
+Incluso puede ejecutar código ruby escrito en un archivo con runner.
+
+```
+$ bin/rails runner lib/code_to_be_run.rb
+```
+
+### 1.7 rails destroy
+
+Piensa en destruir como lo contrario de generar. Va a averiguar qué generó hacer, y deshacer.
+
+También puede usar el alias "`d`" para invocar el comando destroy:` rails d`.
+
+```
+$ bin/rails generate model Oops
+      invoke  active_record
+      create    db/migrate/20120528062523_create_oops.rb
+      create    app/models/oops.rb
+      invoke    test_unit
+      create      test/models/oops_test.rb
+      create      test/fixtures/oops.yml
+```
+
+```
+$ bin/rails destroy model Oops
+      invoke  active_record
+      remove    db/migrate/20120528062523_create_oops.rb
+      remove    app/models/oops.rb
+      invoke    test_unit
+      remove      test/models/oops_test.rb
+      remove      test/fixtures/oops.yml
+```
+
+
+
+
 
 
 

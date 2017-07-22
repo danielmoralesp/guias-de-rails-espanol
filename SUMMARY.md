@@ -209,4 +209,5 @@
 * [XX- Configuración de aplicaciones de Rails](xx-configuracion-de-aplicaciones-de-rails.md)
 * [XXI- La línea de comandos de Rails](xxi-la-linea-de-comandos-de-rails.md)
   * [1- Conceptos básicos de la línea de comandos](xxi-la-linea-de-comandos-de-rails/1-conceptos-basicos-de-la-linea-de-comandos.md)
+  * [2- bin/rails](xxi-la-linea-de-comandos-de-rails/2-binrails.md)
 
