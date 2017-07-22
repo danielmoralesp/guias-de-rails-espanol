@@ -205,4 +205,5 @@
   * [3-  Debugging con la gema byebug](xix-debugging-de-aplicaciones-rails/3-debugging-con-la-gema-byebug.md)
   * [4- Depuración con la gema web-console](xix-debugging-de-aplicaciones-rails/4-depuracion-con-la-gema-web-console.md)
   * [5- Depuración de fugas de memoria](xix-debugging-de-aplicaciones-rails/5-depuracion-de-fugas-de-memoria.md)
+  * [6- Plugins para Depurar](xix-debugging-de-aplicaciones-rails/6-plugins-para-depurar.md)
 
