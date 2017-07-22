@@ -206,4 +206,7 @@
   * [4- Depuración con la gema web-console](xix-debugging-de-aplicaciones-rails/4-depuracion-con-la-gema-web-console.md)
   * [5- Depuración de fugas de memoria](xix-debugging-de-aplicaciones-rails/5-depuracion-de-fugas-de-memoria.md)
   * [6- Plugins para Depurar](xix-debugging-de-aplicaciones-rails/6-plugins-para-depurar.md)
+* [XX- Configuración de aplicaciones de Rails](xx-configuracion-de-aplicaciones-de-rails.md)
+* [XXI- La línea de comandos de Rails](xxi-la-linea-de-comandos-de-rails.md)
+  * [1- Conceptos básicos de la línea de comandos](xxi-la-linea-de-comandos-de-rails/1-conceptos-basicos-de-la-linea-de-comandos.md)
 
