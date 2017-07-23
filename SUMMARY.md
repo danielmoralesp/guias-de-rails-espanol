@@ -211,5 +211,7 @@
   * [1- Conceptos básicos de la línea de comandos](xxi-la-linea-de-comandos-de-rails/1-conceptos-basicos-de-la-linea-de-comandos.md)
   * [2- bin/rails](xxi-la-linea-de-comandos-de-rails/2-binrails.md)
   * [3- La Línea de Comando Avanzada de Rails](xxi-la-linea-de-comandos-de-rails/3-la-linea-de-comando-avanzada-de-rails.md)
-* [XXII- La canalizacion de los assets](xxii-el-asset-pipeline.md)
+* [XXII- La Canalización de Recursos](xxii-el-asset-pipeline.md)
+  * [1- ¿Qué es la Canalización de Recursos?](xxii-el-asset-pipeline/1-que-es-el-assets-pipeline.md)
+  * [2- Cómo utilizar el canalizador de recursos](xxii-el-asset-pipeline/2-como-utilizar-el-canalizador-de-recursos.md)
 

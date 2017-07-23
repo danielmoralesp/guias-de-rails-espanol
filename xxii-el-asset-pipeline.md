@@ -1,6 +1,6 @@
-# XXII- La canalización de los assets
+# XXII- La Canalización de Recursos
 
-Esta guía cubre la canalizacion de los assets.
+Esta guía cubre la Canalización de Recursos.
 
 Después de leer esta guía, sabrá:
 
