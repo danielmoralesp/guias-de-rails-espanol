@@ -27,7 +27,7 @@ o
 Al hacer esto, asegúrese de que no está utilizando la directiva `require_tree`, ya que resultará en que sus recursos se incluyan más de una vez.
 
 > Al utilizar la precompilación de activos, deberá asegurarse de que los activos del controlador se precompilan al cargarlos por página. De forma predeterminada, los archivos `.coffee` y .`scss` no se precompilarán por sí solos. Consulte Precompilación de activos para obtener más información sobre cómo funciona la precompilación.
-
+>
 > Debe tener un tiempo de ejecución soportado por ExecJS para poder utilizar CoffeeScript. Si está utilizando macOS o Windows, tiene un tiempo de ejecución de JavaScript instalado en su sistema operativo. Consulte la documentación de ExecJS para conocer todos los tiempos de ejecución de JavaScript admitidos.
 
 También puede desactivar la generación de archivos de recursos específicos del controlador agregando lo siguiente a su configuración `config/application.rb`:
@@ -110,17 +110,61 @@ La biblioteca como un todo se puede acceder en el manifiesto de la aplicación d
 
 Esto simplifica el mantenimiento y mantiene las cosas limpias permitiendo que el código relacionado se agrupe antes de su inclusión en otro lugar.
 
-### 2.3 Enlaces de codificación a los recursos
+### 2.3 Enlaces a los recursos
 
+Sprockets no agrega ningún método nuevo para acceder a tus recursos: aún debes usar el conocido `javascript_include_tag` y `stylesheet_link_tag`:
 
+```ruby
+<%= stylesheet_link_tag "application", media: "all" %>
+<%= javascript_include_tag "application" %>
+```
 
+Si utiliza la gem `turbolinks` , que se incluye de forma predeterminada en Rails, incluya la opción '`data-turbolinks-track`' que hace que los turbolinks comprueben si un recurso se ha actualizado y si lo carga en la página:
 
+```ruby
+<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => "reload" %>
+<%= javascript_include_tag "application", "data-turbolinks-track" => "reload" %>
+```
 
+En vistas regulares, puede acceder a las imágenes del directorio` app/assets/images` de la siguiente manera:
 
+```ruby
+<%= image_tag "rails.png" %>
+```
 
+Siempre que el canal esté habilitado dentro de su aplicación \(y no deshabilitado en el contexto actual del entorno\), este archivo es servido por Sprockets. Si existe un archivo en `public/assets/rails.png` es servido por el servidor web.
 
+Alternativamente, una solicitud de un archivo con un hash SHA256 como `public/assets/railsf90d8a84c707a8dc923fca1ca1895ae8ed0a09237f6992015fef1e11be77c023.png` se trata de la misma vía. La forma en que se generan estos hashes se trata en la sección in Development más adelante en esta guía.
 
+Los Sprockets también mirarán a través de las rutas especificadas en `config.assets.paths`, que incluye las rutas standard de la aplicación y cualquier ruta añadida por los motores de Rails.
 
+Las imágenes también se pueden organizar en subdirectorios si es necesario y, a continuación, se puede acceder especificando el nombre del directorio en la etiqueta:
+
+```ruby
+<%= image_tag "icons/rails.png" %>
+```
+
+> Si está precompilando sus recursos \(vea in Production más adelante\), enlazar a un recurso que no existe generará una excepción en la página de llamada. Esto incluye enlazar a una cadena en blanco. Como tal, tenga cuidado con `image_tag` y los otros helpers con los datos suministrados por el usuario.
+
+#### 2.3.1 CSS y ERB
+
+E canalizador de recursos evalúa automáticamente el `ERB`. Esto significa que si agrega una extensión `erb` a un recurso CSS \(por ejemplo, `application.css.erb`\), los helpers como `asset_path` estarán disponibles en sus reglas `CSS`:
+
+```css
+.class { background-image: url(<%= asset_path 'image.png' %>) }
+```
+
+Esto escribe la ruta del recurso particular al que se está haciendo referencia. En este ejemplo, tendría sentido tener una imagen en una de las rutas de carga de activos, como `app/assets/images/image.png`, que se referenciaría aquí. Si esta imagen ya está disponible en `public/assets` como un archivo de huellas dactilares, se hace referencia a esa ruta.
+
+Si desea utilizar una [URI de datos](https://en.wikipedia.org/wiki/Data_URI_scheme), un método para incrustar los datos de imagen directamente en el archivo CSS, puede utilizar el asistente `asset_data_uri`.
+
+```css
+#logo { background: url(<%= asset_data_uri 'logo.png' %>) }
+```
+
+Esto inserta una URI de datos correctamente formateados en el CSS fuente .
+
+Tenga en cuenta que la etiqueta de cierre no puede ser del estilo `-%>`.
 
 
 
