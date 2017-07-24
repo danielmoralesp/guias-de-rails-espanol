@@ -126,7 +126,7 @@ Si utiliza la gem `turbolinks` , que se incluye de forma predeterminada en Rails
 <%= javascript_include_tag "application", "data-turbolinks-track" => "reload" %>
 ```
 
-En vistas regulares, puede acceder a las imágenes del directorio` app/assets/images` de la siguiente manera:
+En vistas regulares, puede acceder a las imágenes del directorio`app/assets/images` de la siguiente manera:
 
 ```ruby
 <%= image_tag "rails.png" %>
@@ -165,6 +165,106 @@ Si desea utilizar una [URI de datos](https://en.wikipedia.org/wiki/Data_URI_sche
 Esto inserta una URI de datos correctamente formateados en el CSS fuente .
 
 Tenga en cuenta que la etiqueta de cierre no puede ser del estilo `-%>`.
+
+#### 2.3.2 CSS y Sass
+
+Cuando se utiliza la canalización de recursos, las rutas de acceso a los recursos deben ser reescritas y `sass-rails` proporciona los helpers `-url` y `-path` \(hifenizadas en Sass, subrayadas en Ruby\) para las siguientes clases de recursos: image, font, video, audio, JavaScript y stylesheet
+
+* `image-url("rails.png")` retorna `url(/assets/rails.png)`
+
+* `image-path("rails.png")` retorna `"/assets/rails.png"`
+
+También se puede utilizar la forma más genérica:
+
+* `asset-url("rails.png")` retorna `url(/assets/rails.png)`
+
+* `asset-path("rails.png")` retorna `"/assets/rails.png"`
+
+#### 2.3.3 JavaScript/CoffeeScript y ERB
+
+Si agrega una extensión `erb` a un elemento JavaScript, haciéndo algo como `application.js.erb`, puede utilizar el helper `asset_path` en su código JavaScript:
+
+```js
+$('#logo').attr({ src: "<%= asset_path('logo.png') %>" });
+```
+
+Esto escribe la ruta del recurso particular al que se está haciendo referencia.
+
+Del mismo modo, puede utilizar el helper `asset_path` en archivos CoffeeScript con extensión `erb` \(por ejemplo, `application.coffee.erb`\):
+
+```js
+$('#logo').attr src: "<%= asset_path('logo.png') %>"
+```
+
+### 2.4 Archivos de Manifiesto y directivas
+
+Sprockets utiliza archivos de manifiesto para determinar qué recursos incluir y servir. Estos archivos de manifiesto contienen directivas, instrucciones que le dicen a Sprockets qué archivos debe requerir para crear un único archivo CSS o JavaScript. Con estas directivas, Sprockets carga los archivos especificados, los procesa si es necesario, los concatena en un solo archivo y luego los comprime \(basado en el valor de `Rails.application.config.assets.js_compressor`\). Al servir un solo archivo en lugar de muchos, el tiempo de carga de las páginas se puede reducir considerablemente porque el navegador realiza menos solicitudes. La compresión también reduce el tamaño del archivo, lo que permite al navegador descargarlos más rápido.
+
+Por ejemplo, una nueva aplicación de Rails incluye un archivo predeterminado `app/assets/javascripts/application.js` que contiene las siguientes líneas:
+
+```js
+// ...
+//= require jquery
+//= require jquery_ujs
+//= require_tree .
+```
+
+En los archivos JavaScript, las directivas Sprockets comienzan con `//=`. En el caso anterior, el archivo utiliza las directivas `require` y `require_tree`. La directiva `require` se utiliza para decirle a Sprockets los archivos que desea requerir. Aquí, se requieren los archivos `jquery.js` y `jquery_ujs.js` que están disponibles en algún lugar de la ruta de búsqueda de Sprockets. No es necesario proporcionar las extensiones explícitamente. Sprockets asume que está requiriendo un archivo `.js` cuando se hace desde dentro de un archivo `.js`.
+
+La directiva `require_tree` le indica a Sprockets que incluya recursivamente todos los archivos JavaScript en el directorio especificado de salida. Estas rutas deben especificarse en relación con el archivo de manifiesto. También puede utilizar la directiva `require_directory` que incluye todos los archivos JavaScript sólo en el directorio especificado, sin recursión.
+
+Las directivas se procesan de arriba a abajo, pero no se especifica el orden en que los archivos están incluidos en `require_tree`. Usted no debería confiar en cualquier orden particular entre ellos. Si necesita asegurarse de que algún JavaScript en particular se encuentre encima de otro en el archivo concatenado, necesitará requerir primero el archivo previo en el manifiesto. Tenga en cuenta que la familia de directivas `require` impide que los archivos se incluyan dos veces en la salida.
+
+Rails también crea un archivo predeterminado `app/assets/stylesheets/application.css` que contiene estas líneas:
+
+```css
+/* ...
+*= require_self
+*= require_tree .
+*/
+```
+
+Rails ambos `app/assets/javascripts/application.js` y `app/assets/stylesheets/application.css` independientemente de si la opción -`-skip-sprockets` se usa al crear una nueva aplicación de Rails. Esto es así ya que usted puede agregar fácilmente el pipelining del recurso más adelante si usted lo desea.
+
+Las directivas que funcionan en archivos JavaScript también funcionan en las hojas de estilo \(aunque obviamente incluyen hojas de estilo en lugar de archivos JavaScript\). La directiva `require_tree` en un manifiesto CSS que funciona de la misma forma que con JavaScript, requiriendo todas las hojas de estilo del directorio actual.
+
+En este ejemplo, `require_self` se utiliza. Esto coloca el CSS contenido en el archivo \(si lo hay\) en la ubicación exacta de la llamada `require_self`.
+
+> Si desea utilizar varios archivos Sass, debe utilizar la regla Sass `@import` en lugar de estas directivas Sprockets. Cuando se utilizan directivas Sprockets, los archivos Sass existen dentro de su propio ámbito, haciendo que las variables o mixins sólo estén disponibles dentro del documento en el que se definieron.
+
+Usted puede hacer el archivo globbing  usando también `@import "*"`, e `@import "** / *"` para agregar el árbol entero que es equivalente a cómo trabaja `require_tree` . Revise la documentación de `sass-rails` para obtener más información y advertencias importantes.
+
+Puede tener tantos archivos de manifiesto como necesite. Por ejemplo, el manifiesto `admin.css` y `admin.js` podría contener los archivos JS y CSS que se utilizan para la sección admin de una aplicación.
+
+Se aplican las mismas observaciones sobre las ordenes realizadas anteriormente. En particular, puede especificar archivos individuales y se compilan en el orden especificado. Por ejemplo, puede concatenar tres archivos CSS de esta manera:
+
+```css
+/* ...
+*= require reset
+*= require layout
+*= require chrome
+*/
+```
+
+### 2.5 Preprocesamiento
+
+Las extensiones de archivo utilizadas en un recurso determinan qué preprocesamiento se aplica. Cuando se genera un controlador o un scaffold con el gemset de Rails predeterminado, se genera un archivo CoffeeScript y un archivo SCSS en lugar de un archivo normal JavaScript y CSS. El ejemplo utilizado anteriormente era un controlador denominado "projects", que generaba una aplicación / assets / javascripts / projects.coffee y un archivo app / assets / stylesheets / projects.scss.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
