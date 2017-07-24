@@ -248,9 +248,13 @@ Se aplican las mismas observaciones sobre las ordenes realizadas anteriormente. 
 
 ### 2.5 Preprocesamiento
 
-Las extensiones de archivo utilizadas en un recurso determinan qué preprocesamiento se aplica. Cuando se genera un controlador o un scaffold con el gemset de Rails predeterminado, se genera un archivo CoffeeScript y un archivo SCSS en lugar de un archivo normal JavaScript y CSS. El ejemplo utilizado anteriormente era un controlador denominado "projects", que generaba una aplicación / assets / javascripts / projects.coffee y un archivo app / assets / stylesheets / projects.scss.
+Las extensiones de archivo utilizadas en un recurso determinan qué pre-procesamiento se aplica. Cuando se genera un controlador o un scaffold con el gemset de Rails predeterminado, se genera un archivo CoffeeScript y un archivo SCSS en lugar de un archivo normal de JavaScript y de CSS. El ejemplo utilizado anteriormente era un controlador denominado "`projects`", que generaba un `app/assets/javascripts/projects.coffee` y un archivo `app/assets/stylesheets/projects.scss`.
 
+En el modo de desarrollo, o si la canalización de recursos está deshabilitada, cuando se solicitan estos archivos, los procesadores proporcionados por las gemas `coffee-script` y  `sass` los procesan y luego se envían al navegador como JavaScript y CSS, respectivamente. Cuando se habilita el canalizador de recursos, estos archivos se procesan previamente y se colocan en el directorio `public/assets` para que se puedan servir mediante la aplicación de Rails o por el servidor web.
 
+Se pueden solicitar capas adicionales de preprocesamiento añadiendo otras extensiones, donde cada extensión se procesa de derecha a izquierda. Estos deben usarse en el orden en que se debe aplicar el tratamiento. Por ejemplo, una hoja de estilo denominada `app/assets/stylesheets/projects.scss.erb` se procesa primero como `ERB`, `SCSS` y finalmente se utiliza como `CSS`. Lo mismo se aplica a un archivo JavaScript: `app/assets/javascripts/projects.coffee.erb` se procesa como `ERB`, luego `CoffeeScript` y se utiliza como `JavaScript`.
+
+Tenga en cuenta que el orden de estos preprocesadores es importante. Por ejemplo, si llamó a su archivo JavaScript `app/assets/javascripts/projects.erb.coffee `entonces se procesaría con el intérprete de CoffeeScript primero, y no entendería ERB y por lo tanto tendría problemas.
 
 
 
