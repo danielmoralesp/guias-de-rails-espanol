@@ -215,4 +215,5 @@
   * [1- ¿Qué es la Canalización de Recursos?](xxii-el-asset-pipeline/1-que-es-el-assets-pipeline.md)
   * [2- Cómo utilizar el canalizador de recursos](xxii-el-asset-pipeline/2-como-utilizar-el-canalizador-de-recursos.md)
   * [3- In Development](xxii-el-asset-pipeline/3-in-development.md)
+  * [4- In Production](xxii-el-asset-pipeline/4-in-production.md)
 
