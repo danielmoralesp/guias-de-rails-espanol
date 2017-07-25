@@ -217,4 +217,8 @@
   * [3- In Development](xxii-el-asset-pipeline/3-in-development.md)
   * [4- In Production](xxii-el-asset-pipeline/4-in-production.md)
   * [5- Personalización del Canalizador](xxii-el-asset-pipeline/5-personalizacion-del-canalizador.md)
+  * [6- Almacén de caché de recursos](xxii-el-asset-pipeline/6-almacen-de-cache-de-recursos.md)
+  * [7- Agregar recursos a sus gemas](xxii-el-asset-pipeline/7-agregar-recursos-a-sus-gemas.md)
+  * [8- Hacer de su libreria o gema un preprocesador](xxii-el-asset-pipeline/8-hacer-de-su-libreria-o-gema-un-preprocesador.md)
+  * [9- Actualización de versiones antiguas de Rails](xxii-el-asset-pipeline/9-actualizacion-de-versiones-antiguas-de-rails.md)
 
