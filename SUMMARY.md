@@ -225,4 +225,5 @@
   * [1- Una introducción a Ajax](xxiii-trabajar-con-javascript-en-rails/1-una-introduccion-a-ajax.md)
   * [2- JavaScript no intrusivo.](xxiii-trabajar-con-javascript-en-rails/2-javascript-no-obstructivo.md)
   * [3- Helpers integrados](xxiii-trabajar-con-javascript-en-rails/3-helpers-integrados.md)
+  * [4- Tratamiento de eventos Ajax](xxiii-trabajar-con-javascript-en-rails/4-tratamiento-de-eventos-ajax.md)
 
