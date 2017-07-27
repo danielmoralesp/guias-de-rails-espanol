@@ -221,4 +221,6 @@
   * [7- Agregar recursos a sus gemas](xxii-el-asset-pipeline/7-agregar-recursos-a-sus-gemas.md)
   * [8- Hacer de su libreria o gema un preprocesador](xxii-el-asset-pipeline/8-hacer-de-su-libreria-o-gema-un-preprocesador.md)
   * [9- Actualización de versiones antiguas de Rails](xxii-el-asset-pipeline/9-actualizacion-de-versiones-antiguas-de-rails.md)
+* [XXIII - Trabajar con JavaScript en Rails](xxiii-trabajar-con-javascript-en-rails.md)
+  * [1- Una introducción a Ajax](xxiii-trabajar-con-javascript-en-rails/1-una-introduccion-a-ajax.md)
 
