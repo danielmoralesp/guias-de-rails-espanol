@@ -226,4 +226,5 @@
   * [2- JavaScript no intrusivo.](xxiii-trabajar-con-javascript-en-rails/2-javascript-no-obstructivo.md)
   * [3- Helpers integrados](xxiii-trabajar-con-javascript-en-rails/3-helpers-integrados.md)
   * [4- Tratamiento de eventos Ajax](xxiii-trabajar-con-javascript-en-rails/4-tratamiento-de-eventos-ajax.md)
+  * [5- Problemas con el servidor](xxiii-trabajar-con-javascript-en-rails/5-problemas-con-el-servidor.md)
 
