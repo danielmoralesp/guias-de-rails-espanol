@@ -224,4 +224,5 @@
 * [XXIII - Trabajar con JavaScript en Rails](xxiii-trabajar-con-javascript-en-rails.md)
   * [1- Una introducción a Ajax](xxiii-trabajar-con-javascript-en-rails/1-una-introduccion-a-ajax.md)
   * [2- JavaScript no intrusivo.](xxiii-trabajar-con-javascript-en-rails/2-javascript-no-obstructivo.md)
+  * [3- Helpers integrados](xxiii-trabajar-con-javascript-en-rails/3-helpers-integrados.md)
 
