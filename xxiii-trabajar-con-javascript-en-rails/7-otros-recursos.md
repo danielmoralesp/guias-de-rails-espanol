@@ -8,5 +8,7 @@ Aquí hay algunos enlaces útiles para ayudarle a aprender aún más:
 * [Railscasts: Unobtrusive JavaScrip](http://railscasts.com/episodes/205-unobtrusive-javascript)
 * [Railscasts: Turbolinks](http://railscasts.com/episodes/390-turbolinks)
 
+aqui vamos el sabado 29 de julio
+
 
 
