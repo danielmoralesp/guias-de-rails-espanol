@@ -234,4 +234,6 @@
 * [XXVI- Almacenamiento en caché con Rails: una visión general](xxvi-almacenamiento-en-cache-con-rails-una-vision-general.md)
 * [XXVII- Instrumentación de Active Support](xxvii-instrumentacion-de-active-support.md)
 * [XXVIII- Una guía para perfilar aplicaciones Rails](xxviii-una-guia-para-perfilar-aplicaciones-rails.md)
+* [XXIX- Uso de Rails para aplicaciones API-only](xxix-uso-de-rails-para-aplicaciones-api-only.md)
+  * [1 ¿Qué es una aplicación API?](xxix-uso-de-rails-para-aplicaciones-api-only/1-que-es-una-aplicacion-api.md)
 
