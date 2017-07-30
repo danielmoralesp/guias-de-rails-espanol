@@ -229,4 +229,9 @@
   * [5- Problemas con el servidor](xxiii-trabajar-con-javascript-en-rails/5-problemas-con-el-servidor.md)
   * [6- Turbolinks](xxiii-trabajar-con-javascript-en-rails/6-turbolinks.md)
   * [7- Otros Recursos](xxiii-trabajar-con-javascript-en-rails/7-otros-recursos.md)
+* [XXIV- El proceso de inicialización de Rails](xxiv-el-proceso-de-inicializacion-de-rails.md)
+* [XXV- Carga Automatica y recarga de Constantes](xxv-carga-automatica-y-recarga-de-constantes.md)
+* [XXVI- Almacenamiento en caché con Rails: una visión general](xxvi-almacenamiento-en-cache-con-rails-una-vision-general.md)
+* [XXVII- Instrumentación de Active Support](xxvii-instrumentacion-de-active-support.md)
+* [XXVIII- Una guía para perfilar aplicaciones Rails](xxviii-una-guia-para-perfilar-aplicaciones-rails.md)
 
