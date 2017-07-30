@@ -236,4 +236,5 @@
 * [XXVIII- Una guía para perfilar aplicaciones Rails](xxviii-una-guia-para-perfilar-aplicaciones-rails.md)
 * [XXIX- Uso de Rails para aplicaciones API-only](xxix-uso-de-rails-para-aplicaciones-api-only.md)
   * [1 ¿Qué es una aplicación API?](xxix-uso-de-rails-para-aplicaciones-api-only/1-que-es-una-aplicacion-api.md)
+  * [2 ¿Por qué utilizar Rails para las API de JSON?](xxix-uso-de-rails-para-aplicaciones-api-only/2-por-que-utilizar-rails-para-las-api-de-json.md)
 
