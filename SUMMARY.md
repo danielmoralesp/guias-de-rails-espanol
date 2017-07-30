@@ -240,4 +240,5 @@
   * [3- La configuración básica](xxix-uso-de-rails-para-aplicaciones-api-only/3-la-configuracion-basica.md)
   * [4- Elección de middleware](xxix-uso-de-rails-para-aplicaciones-api-only/4-eleccion-de-middleware.md)
   * [5- Selección de los módulos del controlador](xxix-uso-de-rails-para-aplicaciones-api-only/5-seleccion-de-los-modulos-del-controlador.md)
+* [XXX- Descripción de Action Cable](xxx-descripcion-de-action-cable.md)
 
