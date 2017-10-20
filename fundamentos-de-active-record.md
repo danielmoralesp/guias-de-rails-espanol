@@ -6,11 +6,11 @@ Esta guía es una introducción a Active Record, \(Registro Activo\). Después d
 
 * Cómo entra Active Record en el paradigma Modelo-Vista-Controlador.
 
-* Cómo se utilizan los modelos Active Record para manipular datos buardados en una base de datos relacional.
+* Cómo se utilizan los modelos Active Record para manipular datos en una base de datos relacional.
 
 * Las convenciones sobre el esquema de nombres en Active Record.
 
-* Los conceptos de migraciones de bases de datos, validaciones y retrollamadas.
+* Los conceptos de migraciones de bases de datos, validaciones y callbacks.
 
 
 
